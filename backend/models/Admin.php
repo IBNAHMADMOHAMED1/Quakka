@@ -6,7 +6,7 @@ class Admin extends Model
 
     public function __construct()
     {
-        $this->table = 'rendezvous';
+        $this->table = 'admins';
 
         $this->getConnection();
     }

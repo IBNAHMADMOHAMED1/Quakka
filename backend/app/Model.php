@@ -55,7 +55,8 @@ abstract class Model
      */
     public function getAll()
     {
-        $sql = "SELECT * FROM " . $this->table . " ORDER BY DateConsult DESC";
+      
+        $sql = "SELECT * FROM " . $this->table . " WHERE 1";
         $query = $this->_connexion->prepare($sql);
         $query->execute();
         return $query->fetchAll(PDO::FETCH_ASSOC);
