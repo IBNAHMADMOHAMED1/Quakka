@@ -9,13 +9,9 @@
         <Navbar />
 
         <div class="p-6 bg-gray-100 mb-20">
-          
-            <div class="container rounded bg-white mt-5 mb-5">
             <slot>
-                
             </slot>
-            </div>  
-          <router-view />
+            <router-view />
         </div>  
       </div>
      

@@ -1,7 +1,10 @@
 <template>
  <div>
-   hello world
-   <Dashboard />
+  
+   <Dashboard>
+     hello world
+   </Dashboard>
+   
  </div>
 </template>
 <script>

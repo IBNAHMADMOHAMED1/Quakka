@@ -12,6 +12,7 @@ export default new Vuex.Store({
             password: '',
             avatar: '',
         },  
+        products: [],
     },
     getters: {
         sideBarOpen: state => {
@@ -19,6 +20,9 @@ export default new Vuex.Store({
         },
         user: state => {
             return state.user
+        },
+        products: state => {
+            return state.products
         }
     },
     mutations: {
@@ -27,6 +31,9 @@ export default new Vuex.Store({
         },
         setUser(state, user) {
             state.user = user
+        },
+        setProducts(state, products) {
+            state.products = products
         }
     },
     actions: {
@@ -52,7 +59,35 @@ export default new Vuex.Store({
             context.commit('setUser', null)
             console.log('logout')
             router.push('/login')
-        }
+        },
+        getProducts(context) {
+            return new Promise((resolve, reject) => {
+                let products = localStorage.getItem('products')
+                products = JSON.parse(products)
+                if (products) {
+                    resolve(products)
+                    context.commit('setProducts', products)
+                }
+                else {
+                    reject()
+                }
+            })
+        },
+        addProduct(context, product) {
+            let products = localStorage.getItem('products')
+            products = JSON.parse(products)
+            if (products) {
+                products.push(product)
+            }
+            else {
+                products = []
+                products.push(product)
+            }
+            localStorage.setItem('products', JSON.stringify(products))
+            context.commit('setProducts', products)
+        },
+        
+
 
     }
 })
