@@ -135,7 +135,7 @@ export default {
       
         const formData = new FormData();
         for (let i = 0; i <this.images.length; i++) {
-          formData.append("images[]"
+          formData.append("images"+i
           , this.$refs.file[i].files[0]);
          
         }
