@@ -92,16 +92,15 @@
           </div>
         </div>
         <div class="flex p-2 space-x-4 justify-end">
-          <button class="px-4 py-2 text-white bg-red-'00 rounded shadow-xl">
-            Cancel
-          </button>
+         
           <button
             type="submit"
             @click="uploadImages"
-            class="px-4 py-2 text-white bg-purple-500 rounded shadow-xl"
+            class="px-4 py-2 text-white  bg-purple-500 rounded "
           >
             Create
           </button>
+        {{product}}
         </div>
       </form>
     </div>
@@ -109,53 +108,47 @@
 </template>
 
 <script>
-import axios from 'axios';
+import store from '@/store';
 export default {
   name: "UploadImageProduct",
   data() {
     return {
       images: [1, 2],
+      is_done: false,
+      product: null
+    
     };
   },
-  props: {
-    product_id: {
-      type: Number,
-      required: true,
-    },
-  },
+  
+  
     
   methods: {
     uploadImages(e) {
       e.preventDefault();
-        
-     
-        // access the input file
         const file = this.$refs.file[0].files[0];
-        
-      
         const formData = new FormData();
         for (let i = 0; i <this.images.length; i++) {
           formData.append("images"+i
           , this.$refs.file[i].files[0]);
          
         }
-       
-
+          this.openProductDone();
         let requestOptions = {
           method: "POST",
             body: formData,
         };
-        // send form data to the server use axios
-       fetch("http://localhost/QuakkaProject/products/upload_images/2", requestOptions)
-          .then((response) => {
-            console.log(response);
-            
+       fetch(
+         'http://localhost/QuakkaProject/products/uploa_images/'+this.product.product_id,
+           requestOptions)
+          .then((response) => {   
+             response.json().then((data) => {
+              console.log(data);
+              this.is_done = true;   
+            });
           })
           .catch((error) => {
             console.log(error);
           });
-
-        
     },
     addInputImage() {
       this.images.push(this.images.length + 1);
@@ -163,6 +156,20 @@ export default {
     removeInputImage(index) {
       this.images.splice(index, 1);
     },
+    openProductDone() {
+     
+      this.$emit("openProductDone", this.is_done);
+    },
+    
   },
+  created() {
+
+    // acssesing the product from the store
+    this.product = store.getters.product.
+    console.log(this.product);
+
+    
+  },
+  
 };
 </script>

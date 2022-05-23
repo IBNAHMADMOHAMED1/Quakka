@@ -22,6 +22,7 @@
     <div class="mb-4 px-4">
       <p class="pl-4 text-sm font-semibold mb-1">MAIN</p>
       <div
+      @click="$router.push('/dashboard')"
         class="
           w-full
           flex
@@ -180,6 +181,7 @@
         <span class="text-gray-700">Add Product</span>
       </div>
       <div
+      @click="$router.push('/products')"
         class="
           w-full
           flex

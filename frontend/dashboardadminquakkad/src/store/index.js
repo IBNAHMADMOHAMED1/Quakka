@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 import router from '@/router'
 
 
+
+
 export default new Vuex.Store({
     state: {
         sideBarOpen: false,
@@ -12,7 +14,11 @@ export default new Vuex.Store({
             password: '',
             avatar: '',
         },  
-        products: [],
+        productCreated: false,
+        getProductCreated: {
+          
+        },
+        product: [],
     },
     getters: {
         sideBarOpen: state => {
@@ -23,6 +29,16 @@ export default new Vuex.Store({
         },
         products: state => {
             return state.products
+        },
+        productCreated: state => {
+            console.log(state.productCreated)
+            return state.productCreated
+        },
+        getProductCreated: state => {
+            return state.getProductCreated
+        },
+        product: state => {
+            return state.product
         }
     },
     mutations: {
@@ -34,6 +50,15 @@ export default new Vuex.Store({
         },
         setProducts(state, products) {
             state.products = products
+        },
+        setProductCreated(state, productCreated) {
+            state.productCreated = productCreated
+        },
+        setGetProductCreated(state, getProductCreated) {
+            state.getProductCreated = getProductCreated
+        },
+        setProduct(state, product) {
+            state.product = product
         }
     },
     actions: {
@@ -73,23 +98,40 @@ export default new Vuex.Store({
                 }
             })
         },
-        addProduct(context, product) {
-            let products = localStorage.getItem('products')
-            products = JSON.parse(products)
-            if (products) {
-                products.push(product)
+        createProduct(context, product) {
+           
+            const product_data = {
+                name: product.Product_Name,
+                description: product.Product_Description,
+                price: product.Product_Price,
+                quantity: product.Product_Quantity,
+                category_id: product.Product_Category,
             }
-            else {
-                products = []
-                products.push(product)
-            }
-            localStorage.setItem('products', JSON.stringify(products))
-            context.commit('setProducts', products)
+            fetch('http://localhost/QuakkaProject/products/create/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(product_data)
+            })
+                .then(response => response.json())
+                .then(data => {
+                  if(data.success === true){
+                     context.commit('setProductCreated', true)
+                    // object to array
+                      let products = []
+                        products.push(data.product)
+                      context.commit('setProduct', products)
+                       
+                  }
+                  else {
+                      context.commit('setProductCreated', false)
+                      alert('you have an error')
+                  }
+                })
         },
-        
-
-
     }
 })
+
 
  
