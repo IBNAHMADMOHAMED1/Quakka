@@ -12,7 +12,7 @@ class Products extends Controller
     public function index()
     {
         $this->loadModel('Product');
-        $products = $this->Product->all();
+        $products = $this->Product->getall();
         if ($products) {
             echo json_encode([http_response_code(200), $products]);
         } else {
@@ -20,12 +20,27 @@ class Products extends Controller
         }
 
     }
+
+    public function getproducts()
+    {
+        $this->loadModel('Product');
+        $products = $this->Product->get_products_with_images();
+        if ($products) {
+            echo json_encode([http_response_code(200), $products]);
+        } else {
+            echo json_encode(['success' => 'Products not found']);
+        }
+
+    }
+
     public function create()
     {
         $this->loadModel('Product');
         $data = json_decode(file_get_contents('php://input'), true);
-        if ($this->Product->create($data)) {
-            echo json_encode(['message' => 'Product created']);
+        $product = $this->Product->create($data);
+       
+        if ($product) {
+            echo json_encode(['success' => true, 'product' => $product]);
         } else {
             echo json_encode(['message' => 'Product not created']);
         }
@@ -34,6 +49,7 @@ class Products extends Controller
     {
         $this->loadModel('Product');
         $data = json_decode(file_get_contents('php://input'), true);
+        
         if ($this->Product->update($id, $data)) {
             echo json_encode(['message' => 'Product updated']);
         } else {
@@ -87,8 +103,9 @@ class Products extends Controller
     {
         $this->loadModel('Image');
         $data = $_FILES;
+        // access to
         $images = $this->validate_images($data);
-            
+        
         if ($this->Image->upload_images($id, $images)) {
             echo json_encode(['success' => true, 'message' => 'Images uploaded']);
         } else {
@@ -100,7 +117,9 @@ class Products extends Controller
     }
     public function validate_images($imgas)
     {
-        $images = [];
+        $images = $_FILES;
+        $image_names = [];
+      
         foreach ($imgas as $key => $image) {
             $fileName = $image['name'];
             $fileTmpName = $image['tmp_name'];
@@ -114,9 +133,9 @@ class Products extends Controller
                 if ($fileError === 0) {
                     if ($fileSize < 1000000) {
                         $fileNameNew = uniqid('', true) . "." . $fileActualExt;
-                        $fileDestination = './imags/' . $fileNameNew;
+                        $fileDestination = 'C:\Users\youcode\Desktop\dashboardadminquakkad\src\assets\img\product/' . $fileNameNew;
                         move_uploaded_file($fileTmpName, $fileDestination);
-                        $images[] = $fileNameNew;
+                        $image_names[] = $fileNameNew;
                     } else {
                         echo json_encode(['error' => 'File size is too big']);
                     }
@@ -127,7 +146,7 @@ class Products extends Controller
                 echo json_encode(['error' => 'You cannot upload files of this type']);
             }
         }
-        return $images;
+        return $image_names;
       
     }
 

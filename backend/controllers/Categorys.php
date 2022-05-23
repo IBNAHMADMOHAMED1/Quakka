@@ -11,11 +11,11 @@ class categorys  extends Controller
     public function index()
     {
         $this->loadModel('Category');
-        $categories = $this->Category->all();
+        $categories = $this->Category->getall();
         if ($categories) {
-            echo json_encode([http_response_code(200), $categories]);
+            echo json_encode($categories);
         } else {
-            echo json_encode(['success' => 'Categories not found']);
+            echo json_encode('No categories found');
         }
 
     }
