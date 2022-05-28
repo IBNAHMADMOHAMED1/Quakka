@@ -4,7 +4,7 @@
     width="16"
     height="16"
     fill="currentColor"
-    class="bi bi-pencil-square fill-current w-4 h-4 mr-2"
+    :class="className"
     viewBox="0 0 16 16"
   >
     <path
@@ -20,5 +20,12 @@
 <script>
 export default {
   name: "EditIcon",
+  props: {
+    className: {
+      type: String,
+      default: "bi bi-pencil-square fill-current w-4 h-4 mr-2",
+    },
+    
+  },
 };
 </script>

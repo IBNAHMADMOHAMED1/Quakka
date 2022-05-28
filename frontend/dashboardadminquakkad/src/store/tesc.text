@@ -1,51 +1,174 @@
 - Presentation:
-	je m'appelle Mohamed ibnahmad , j'ai 21 ans, j'habite actuellement à Safi, j'ai obtenu mon bac en 2018 en sciences maths,
-    je suis devenu plus intéressé par les maths, j'ai donc fréquenté la FPO pour étudier les maths et l'informatique
-     et j'ai obtenu ma licence  en 2021,
-     durant ces 3 années j'ai été exposé à la programmation qui est devenue ma passion, cette passion mène à YouCode
+	je m'appelle Mohamed ibnahmad , j'ai 21 ans, j'habite actuellement à Safi,
+    je suis actuellement apprenent en 1 ere annee en developmant web et mobile a YouCode safi, 
+    j'ai eu ma licence en 2021 en Maths informatique a FP Ouarzazte,
+    durant ces 3 années j'ai été exposé à la programmation qui est devenue ma passion, cette passion mène à YouCode
+    parmes compettances techniques sont: laravel, php, vuejs et other techniques et frameworks, 
+    _____________________________________________________________________________________________________
 
 
 - presentation de l’entreprise:
-	NBS Consulting est un cabinet qui accompangne les entreprises en leur transfaormation digitale
 
-    CONSULTING,CRM & STRATÉGIE...
+        Cabinet de conseil et de développement spécialisé en SI, Partenaire historique du CRM Salesforce dans la région MENA,
+        NBS Consulting accompagne les entreprises de différents secteurs d'activités dans leur processus de transformation digitale.
 
+        Engagé dans une démarche de transformation digitale, NBS Consulting s'appuie sur une équipe de collaborateurs ambitieux, 
+        des consultants expérimentés et forts de leur maîtrise des technologies et des usages du numérique.
+
+        Basé à Casablanca au Maroc NBS Consulting consolide sa position de leader de consulting CRM
+        et d'implémentation des solutions Salesforce dans toute la région du Maroc et d'Afrique Francophone.
+
+        Capitalisant sur une expérience solide, NBS Consulting compte déjà à son actif des références mondiales d'implémentation d'outils de 
+        gestion de la relation client sur la plateforme Salesforce. Allant du marketing automation, au service client et passant par la gestion commerciale.
+
+        |___________________________________________________________________________________________________________________________________________________|
 
 - Presentation de YouCode:
-	Youcode est une ecole de web et mobile development, où les apprenents sont engagés dans un programme très riche, 
-    utilisant la pédagogie active et peer-learning comme approche d'apprentissage
-
+        Youcode est une école de programmation basée à Safi et Youssoufia, 
+        c’est un partenariat entre Ocp et Simplon France, 
+        il adopte la pédagogie active c’est à dire l'apprentissage par pratique donc 
+        On apprend mieux quand on est impliqué dans un projet particulier et quand on rencontre un problème.
+____________________________________________________________________________________________________________
 
 - Pourqoui avez-vous choisi d’integre YouCode?
-	 durant le confinement
-     je me suis davantage intéressé à la programmation,
-     j'ai donc senti que je devais améliorer mes connaissances en suivant un apprentissage
-      professionnel tout en ne suivant pas les approches d'apprentissage traditionnelles, et YouCode était le meilleur choix pour cela
-
+        durant le confinement
+        je me suis davantage intéressé à la programmation,
+        j'ai donc senti que je devais améliorer mes connaissances en suivant un apprentissage
+        professionnel, et YouCode était le meilleur choix pour cela
+_____________________________________________________________________________________________________
 
 - Pourqoui avoire choisi la specialite Java SalesForce ?
 	Java a toujours été intéressant pour moi en raison de sa stabilité et de sa cohérence sur plusieurs années,
 
+_____________________________________________________________________________________________________
+
+- La journait a YouCode?
+        Chaque jour on commence par un sujet de veille qui est une présentation sur les différentes technologies et nouveautés du domaine de l’IT,
+        on termine cette présentation par un quiz pour qu’on s’assure des informations qu’on a acquis.
+        Le reste de la journée passe en travaillant sur nos briefs et échanger nos compétences, lorsqu’on débute une nouvelle technologie,
+        Ainsi qu’on peut s’amuser durant nos pauses en jouant le babyfoot, Xbox ou PS4 ...
+_____________________________________________________________________________________________________
+- Projet professionnel
+        Atteindre mon objectif de devenir développeur senior. Collecte des expériences et compétences pour avoir une bonne carrière
+
+_____________________________________________________________________________________________________
 
 - Que savez-vous sur les CRM: 
-	les CRM est un solution informatique  qui aide les entreprises à améliorer l'expérience client et la gestion des ventes, 
-    ce qui est possible en collectant et en analysant les données clients à l'aide de l'intelligence artificielle,
-     ce qui affecte positivement la croissance des revenus et la croissance des entreprises
+        les CRM est un solution informatique  qui aide les entreprises à améliorer l'expérience client et la gestion des ventes, 
+        ce qui est possible en collectant et en analysant les données clients à l'aide de l'intelligence artificielle,
+        ce qui affecte positivement la croissance des revenus et la croissance des entreprises
 
+_____________________________________________________________________________________________________
 
 - Que savez-vous sur OOP ?
 	La POO est une approche de programmation basée sur la représentation des entités système en tant qu'objets, 
     ce qui conduit à une implémentation plus réaliste, ainsi qu'à de nombreuses fonctionnalités de sécurité et d'implémentation.
 
-
+_____________________________________________________________________________________________________
 - Quels sont les les concepts de la programmation oriente objet?
-	Parmi les principaux concepts on trouve :  
-Class: c'est le modèle pour construire des objets, il contient des attributs de différents niveaux de visibilité, ainsi que des méthodes qui représentent les capacités de l'objet
-Objet:  l'objet est une instance d'une classe, contient des attributs et des capacités définis par la classe
-Héritage:  quand une classe possède tous les attributs et méthodes d'une autre classe
+        Parmi les principaux concepts on trouve :  
+    Class:c'est le modèle pour construire des objets, il contient des attributs de différents niveaux de visibilité, ainsi que des méthodes qui représentent les capacités de l'objet
+    Objet:l'objet est une instance d'une classe, contient des attributs et des capacités définis par la classe
+    Héritage:quand une classe possède tous les attributs et méthodes d'une autre classe
 
-
+_____________________________________________________________________________________________________
 - Quelles technologies vous avez travaille avec pendant l’annee?
-	nous avons eu de l'expérience avec javascript natif ainsi qu'un framework frontend qui est vuejs, en backend nous avons fait des 
-    projets avec php et aussi laravel, et d'autres choses comme wordpress, docker, mvc, git…
+        nous avons eu de l'expérience avec javascript natif ainsi qu'un framework frontend qui est vuejs, en backend nous avons fait des 
+        projets avec php et aussi laravel, et d'autres choses comme wordpress, docker, mvc, git…
 
+
+j
+
+
+
+
+
+
+
+
+
+  <div
+                 
+                  class="slide-ana flex flex-shrink-0">
+                    
+                    <div
+                      class="flex flex-shrink-0"
+                      style="transform: translateX(-100%) translateY(0%)"
+                    >
+                      <img
+                     
+                      
+                        class="
+                          lg:block
+                          hidden
+                          w-full
+                          h-full
+                          object-center object-cover
+                        "
+                        src="https://i.ibb.co/wBknrzK/pexels-monstera-6311641-1-2.png"
+                        alt="A girl posing front"
+                      />
+                      <img
+                        class="
+                          hidden
+                          md:block
+                          lg:hidden
+                          w-full
+                          h-full
+                          object-center object-cover
+                        "
+                        src="https://i.ibb.co/JqhZhhp/pexels-monstera-6311641-1-3.png"
+                        alt="A girl posing front"
+                      />
+                      <img
+                        class="
+                          block
+                          md:hidden
+                          w-full
+                          h-full
+                          object-center object-cover
+                        "
+                        src="https://i.ibb.co/FXb2RfJ/pexels-dominika-roseclay-5462562-1.png"
+                        alt="A girl posing front"
+                      />
+                    </div>
+                    <div
+                      class="flex flex-shrink-0"
+                      style="transform: translateX(0%)"
+                    >
+                      <img
+                        class="
+                          lg:block
+                          hidden
+                          w-full
+                          h-full
+                          object-center object-cover
+                        "
+                        :src="pathImg +'628cedcd5e5429.41551867.jpg'"
+                        alt="A girl posing Back"
+                      />
+                      <img
+                        class="
+                          hidden
+                          md:block
+                          lg:hidden
+                          w-full
+                          h-full
+                          object-center object-cover
+                        "
+                        src="https://i.ibb.co/k0bJRQk/pexels-monstera-6311575-3-1.png"
+                        alt="A girl posing Back"
+                      />
+                      <img
+                        class="
+                          block
+                          md:hidden
+                          w-full
+                          h-full
+                          object-center object-cover
+                        "
+                        src="https://i.ibb.co/0f1gRTt/pexels-monstera-6311575-4.png"
+                        alt="A girl posing Back"
+                      />
+                    </div>
+                  </div>

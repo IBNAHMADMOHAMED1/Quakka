@@ -1,4 +1,5 @@
 <template>
+
   <transition
     v-if="showModal"
     @click="show"
@@ -13,7 +14,7 @@
       items-center
       justify-center
       overflow-y-auto overflow-x-hidden
-      bg-black/25
+       inset-0 bg-gray-500 bg-opacity-75 transition-opacity md:block
     "
   >
     <div

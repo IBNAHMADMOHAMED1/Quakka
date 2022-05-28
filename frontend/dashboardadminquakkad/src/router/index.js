@@ -44,6 +44,18 @@ const routes = [
     name: 'products',
     component: () => import('../views/Products/Products.vue')
   },
+  {
+    path: '/view-product/:productId',
+    name: 'viewProduct',
+    component: () => import('../components/Products/ViewProduct.vue')
+  },
+  {
+    // send obejct data
+    path: '/edit-product/:productId',
+    name: 'editProduct',
+    component: () => import('../components/Products/EditProduct.vue')
+  }
+ 
 ]
 
 const router = createRouter({
