@@ -150,7 +150,7 @@
                       >
                         <EditIcon className="w-5 h-5 text-blue-400" />
                       </td>
-                      <td :class="`cursor-pointer ${default_ClassName}`">
+                      <td :class="`cursor-pointer ${default_ClassName}`" @click="delete_product(product.product_id)">
                         <TrashIcon className="w-5 h-5 text-red-400" />
                       </td>
                     </tr>
@@ -174,6 +174,7 @@ import LinkIcon from "@/components/icons/LinkIcon.vue";
 import Loading from "@/components/base/Loading.vue";
 import ViewProduct from "@/components/Products/ViewProduct.vue";
 // import EditProduct from "@/components/Products/EditProduct.vue";
+import Swal from 'sweetalert2'
 
 export default {
   name: "createProduct",
@@ -236,6 +237,38 @@ export default {
         },
       });
     },
+    delete_product(product_id) {
+      console.log(product_id);
+      // show a popup with a confirmation tow buttons
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.value) {
+          // delete the product
+          let isDelete = false
+          this.$store
+            .dispatch("deleteProduct", product_id )  
+              // get products after delete in 1300ms
+            .then(() => {
+              this.products = this.$store.getters.getProducts;
+              isDelete = true
+            })
+        }
+        else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire("Cancelled", "Your product is safe :)", "error");
+        }
+    });
+    },
+    get_products(){
+       this.products = this.$store.state.products.products;
+    }
+   
   },
 
   beforeCreate() {
@@ -245,5 +278,6 @@ export default {
       this.loading = false;
     }, 1300);
   },
+ 
 };
 </script>

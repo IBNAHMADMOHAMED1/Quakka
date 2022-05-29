@@ -6,6 +6,7 @@
           id="menu"
           class="md:px-6 px-4 py-12 w-full h-full flex justify-center"
         >
+        {{product.images}}
           <div
             class="
               2xl:container 2xl:mx-auto
@@ -363,7 +364,7 @@
           </div>
         </div>
       </div>
-      {{images}}
+      
       
       
     </div>
@@ -393,8 +394,7 @@ export default {
   methods: {
      getImgUrl(pet){
       let url = require.context("../../assets/img/product", false, /\.(png|jpe?g|svg)$/);
-      let img = url(`./${pet}`);
-      return img;
+      return url(`./${pet}`);
      },
   },
 
@@ -404,17 +404,12 @@ export default {
       this.$store.dispatch("getProduct", productId);
       this.product = JSON.parse(JSON.stringify(this.$store.state.product));
       this.images = this.product.images;
+      alert("productId: " + productId);
       this.loading = false;
     }, 1300);
   },
-  watch: {
-    product: {
-      handler(newVal, oldVal) {
-        this.images = newVal.images;
-      },
-      deep: true,
-    },
-  },
+ 
+  
 };
 </script>
 

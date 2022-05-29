@@ -47,6 +47,8 @@ class Products extends Controller
     }
     public function update($id)
     {
+        var_dump($id);
+        die();
         $this->loadModel('Product');
         $data = json_decode(file_get_contents('php://input'), true);
         

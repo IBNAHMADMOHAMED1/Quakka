@@ -21,7 +21,13 @@
             cursor-pointer
           "
         >
-          add other image
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path>
+  <line x1="16" y1="5" x2="22" y2="5"></line>
+  <line x1="19" y1="2" x2="19" y2="8"></line>
+  <circle cx="9" cy="9" r="2"></circle>
+  <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+</svg>
         </span>
 
         <div class="m-4 grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
@@ -34,10 +40,13 @@
           >
             <div 
             class="indicator  top-0 right-0 m-2 text-gray-500 cursor-pointer"
+            v-if="imageUploaded "
             @click="removeInputImage(index)"
             >
               <span class="indicator-item badge badge-secondary">
-              <TrashIcon />
+               <TrashIcon
+               
+               className="w-5 h-5 text-red-400" />
               </span>
             </div>
             <label
@@ -76,7 +85,9 @@
                   Select a photo
                 </p>
               </div>
-              <input type="file" class="opacity-0" ref="file" />
+              <input 
+              @change="onFileChange"
+              type="file" class="opacity-0" ref="file" />
             </label>
           </div>
         </div>
@@ -100,11 +111,13 @@ import store from '@/store';
 import TrashIcon from '../icons/TrashIcon.vue';
 export default {
   name: "UploadImageProduct",
+  components: {TrashIcon},
   data() {
     return {
       images: [1, 2],
       is_done: false,
-      product: null
+      product: null,
+      imageUploaded: false,
     
     };
   },
@@ -149,6 +162,9 @@ export default {
     openProductDone() {
      
       this.$emit("openProductDone", this.is_done);
+    },
+    onFileChange(e) {
+      this.imageUploaded = true;
     },
     
   },

@@ -16,12 +16,14 @@
     "mime": "^3.0.0",
     "moment": "^2.29.3",
     "node-polyfill-webpack-plugin": "^1.1.4",
+    "sweetalert2": "^11.4.17",
     "swiper": "^8.1.6",
     "tailwindcss": "^3.0.24",
     "v-switch-case": "^1.0.3",
     "vue": "^3.2.13",
     "vue-content-loader": "^2.0.1",
     "vue-router": "^4.0.3",
+    "vue-sweetalert2": "^5.0.5",
     "vuex": "^4.0.0"
   },
   "devDependencies": {

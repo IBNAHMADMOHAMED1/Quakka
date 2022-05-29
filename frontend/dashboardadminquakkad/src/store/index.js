@@ -110,6 +110,7 @@ export default new Vuex.Store({
         });
     },
     getProducts(context) {
+      console.log("from getProducts");
       fetch("http://localhost/QuakkaProject/products/getproducts")
         .then((response) => response.json())
         .then((data) => {
@@ -148,6 +149,23 @@ export default new Vuex.Store({
             context.commit("setProductCreated", false);
             alert("you have an error");
           }
+        });
+    },
+    deleteProduct(context, product_id) {
+      fetch(`http://localhost/QuakkaProject/products/delete/${product_id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success === true) {
+            //getProducts
+            alert("Product Deleted");
+            
+            context.dispatch("getProducts");
+          } 
         });
     }
   },
