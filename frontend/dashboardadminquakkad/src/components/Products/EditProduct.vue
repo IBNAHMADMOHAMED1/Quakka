@@ -148,6 +148,7 @@
                   "
                 />
               </div>
+              <input type="hidden" v-model="product.product_id" />
               <div>
                 <label
                   class="text-gray-700 :text-gray-200"
@@ -249,6 +250,7 @@
               >
                 Cancel
               </button>
+              {{product.name}}
               <button
                 @click="handleUpdateProduct"
                 class="
@@ -309,11 +311,12 @@ export default {
       categorys: [],
       openUploadImage: "default",
       product: {
-        Product_Name: "",
-        Product_Description: "",
-        Product_Price: "",
-        Product_Quantity: "",
-        Product_Category: "",
+        name: "",
+        price: "",
+        quantity: "",
+        description: "",
+        category: "",
+        product_id: "",
       },
       isLoading: true,
     };
@@ -321,7 +324,8 @@ export default {
   methods: {
     handleUpdateProduct(e){
          e.preventDefault();
-       store.dispatch('updateProduct', this.product)
+   
+       store.dispatch('updateProduct', this.product);
        if (store.state.product) {
        
         this.openUploadImage = "image"

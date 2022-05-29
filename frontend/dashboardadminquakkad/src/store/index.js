@@ -129,19 +129,15 @@ export default new Vuex.Store({
         });
     },
     updateProduct(context, product) {
-      const product_data = {
-        name: product.Product_Name,
-        description: product.Product_Description,
-        price: product.Product_Price,
-        quantity: product.Product_Quantity,
-        category_id: product.Product_Category,
-      };
-      fetch(`http://localhost/QuakkaProject/products/update/${product.Product_Id}`, {
+     
+      console.log(product);
+
+      fetch(`http://localhost/QuakkaProject/products/update/${product.product_id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(product_data),
+        body: JSON.stringify(product),
       })
         .then((response) => response.json())
         .then((data) => {

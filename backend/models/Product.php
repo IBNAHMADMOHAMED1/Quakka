@@ -49,4 +49,20 @@ class Product extends Model
             return false;
         }
     }
+    public function update($id, $data)
+    {
+        $sql = "UPDATE products SET name = :name, description = :description, price = :price, quantity = :quantity, category_id = :category_id WHERE product_id = :id";
+        $stmt = $this->_connexion->prepare($sql);
+        $stmt->bindValue(':name', $data['name']);
+        $stmt->bindValue(':description', $data['description']);
+        $stmt->bindValue(':price', $data['price']);
+        $stmt->bindValue(':quantity', $data['quantity']);
+        $stmt->bindValue(':category_id', $data['category_id']);
+        $stmt->bindValue(':id', $id);
+        if ($stmt->execute()) {
+            return $this->_oneProduct($id);
+        } else {
+            return false;
+        }
+    }
 }

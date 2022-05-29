@@ -51,7 +51,7 @@ class Products extends Controller
         $data = json_decode(file_get_contents('php://input'), true);
         
         if ($this->Product->update($id, $data)) {
-            echo json_encode(['message' => 'Product updated']);
+            echo json_encode(['success' => true, 'product' => 'updated']);
         } else {
             echo json_encode(['message' => 'Product not updated']);
         }
