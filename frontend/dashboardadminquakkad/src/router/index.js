@@ -67,7 +67,7 @@ const routes = [
   {
     path: '/view-hall/:hallId',
     name: 'viewHall',
-    component: () => import('../components/Halls/ViewHall.vue')
+    component: () => import('../components/Halls/ViewHalls.vue')
   }
  
 ]

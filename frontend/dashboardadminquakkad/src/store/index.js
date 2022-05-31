@@ -15,6 +15,9 @@ export default new Vuex.Store({
     getProductCreated: {},
     product: [],
     products: [],
+    halls: [],
+    hall: [],
+    hallCreated: false,
   },
   getters: {
     sideBarOpen: (state) => {
@@ -36,6 +39,12 @@ export default new Vuex.Store({
     product: (state) => {
       return state.product;
     },
+    halls: (state) => {
+      return state.halls;
+    },
+    hall: (state) => {
+      return state.hall;
+    }
   },
   mutations: {
     toggleSidebar(state) {
@@ -56,6 +65,10 @@ export default new Vuex.Store({
     setProduct(state, product) {
       state.product = product;
     },
+    setHalls(state, halls) {
+      state.halls = halls;
+    },
+    setHall(state, hall) {state.hall = hall;}
   },
   actions: {
     toggleSidebar(context) {
@@ -79,7 +92,6 @@ export default new Vuex.Store({
       console.log("logout");
       router.push("/login");
     },
-
     createProduct(context, product) {
       const product_data = {
         name: product.Product_Name,
@@ -118,7 +130,7 @@ export default new Vuex.Store({
           context.commit("setProducts", data[1]);
         });
       },
-      getProduct(context, product_id) {
+    getProduct(context, product_id) {
         console.log(product_id);
       fetch(`http://localhost/QuakkaProject/products/getproduct/${product_id}`)
         .then((response) => response.json())
@@ -162,6 +174,38 @@ export default new Vuex.Store({
             context.dispatch("getProducts");
           } 
         });
+    },
+    createHall(context, hall) {
+       
+
+      fetch("http://localhost/QuakkaProject/halls/create/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(hall),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success === true) {
+            context.commit("setHallCreated", true);
+            console.log(data.hall);
+            context.commit("setHall", data.hall);
+          } else {
+            context.commit("Created", false);
+            alert("you have an error");
+          }
+        });
+  
+
+    },
+    getHalls(context) {
+      fetch("http://localhost/QuakkaProject/halls/gethalls")
+        .then((response) => response.json())
+        .then((data) => {
+          context.commit("setHalls", data[1]);
+        });
     }
+  
   },
 });

@@ -5,7 +5,6 @@
         <h1 class="text-3xl py-4 border-b mb-10">Products List</h1>
         <div v-if="loading">
           <Loading />
-         
         </div>
         <div v-else class="mb-4 flex justify-between items-center">
           <div class="flex-1 pr-4">
@@ -95,15 +94,33 @@
                         {{ header.name }}
                       </th>
                     </tr>
-                  </thead>
+                  
 
+                    <tbody
+                      v-if="products.length == 0 && !searchIsLoading"
+                      class="
+                      text-center
+                       p-5
+                       w-1/2
+                       "
+                    >
+                      <div class="text-gray-600">
+                        No data
+                        <div class="text-gray-600">
+                          <Loading />
+                        </div>
+                      </div>
+                    </tbody>
+                    </thead>
                   <tbody class="bg-white">
+                    
                     <tr v-for="(product, index) in products" :key="index">
                       <td :class="`cursor-pointer ${default_ClassName}`">
                         <div class="text-sm leading-5 text-gray-900">
                           {{ product.name }}
                         </div>
                       </td>
+
                       <td :class="` ${default_ClassName}`">
                         <div class="text-sm leading-5 text-gray-500">
                           {{ product.price }}$
@@ -112,10 +129,9 @@
 
                       <td :class="`${default_ClassName}`">
                         <span
-                        
                           :class="` inline-flex px-2 text-xs font-semibold leading-5   ${creat_status_class}`"
                         >
-                          {{ creat_status(product.quantity) 
+                          {{ creat_status(product.quantity)
                           }}<span class="ml-1">{{ product.quantity }}</span>
                         </span>
                       </td>
@@ -153,7 +169,10 @@
                       >
                         <EditIcon className="w-5 h-5 text-blue-400" />
                       </td>
-                      <td :class="`cursor-pointer ${default_ClassName}`" @click="delete_product(product.product_id)">
+                      <td
+                        :class="`cursor-pointer ${default_ClassName}`"
+                        @click="delete_product(product.product_id)"
+                      >
                         <TrashIcon className="w-5 h-5 text-red-400" />
                       </td>
                     </tr>
@@ -177,7 +196,7 @@ import LinkIcon from "@/components/icons/LinkIcon.vue";
 import Loading from "@/components/base/Loading.vue";
 import ViewProduct from "@/components/Products/ViewProduct.vue";
 // import EditProduct from "@/components/Products/EditProduct.vue";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 export default {
   name: "createProduct",
@@ -206,27 +225,21 @@ export default {
       creat_status_class: "text-orange-500",
       images: [],
       search: "",
+      searchIsLoading: false,
     };
   },
   methods: {
     creat_status(value) {
-     
-        if (value > 10)
-        {
-          this.creat_status_class = "text-green-500 bg-green-100";
-          return "In Stock";
-        }
-        else if (value < 10)
-        {
-          this.creat_status_class = "text-red-500 bg-red-100";
-          return "Out of Stock";
-        }
-        else
-        {
-          this.creat_status_class = "text-orange-500 bg-orange-100";
-          return "Low Stock";
-        }
-    
+      if (value > 10) {
+        this.creat_status_class = "text-green-500 bg-green-100";
+        return "In Stock";
+      } else if (value < 10) {
+        this.creat_status_class = "text-red-500 bg-red-100";
+        return "Out of Stock";
+      } else {
+        this.creat_status_class = "text-orange-500 bg-orange-100";
+        return "Low Stock";
+      }
     },
     date_for_humans(date) {
       const moment = require("moment");
@@ -248,10 +261,9 @@ export default {
         },
       });
     },
-    
     delete_product(product_id) {
       console.log(product_id);
-      
+
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -261,39 +273,37 @@ export default {
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
-        if (result.value) {   
-          let isDelete = false
-          this.$store.dispatch("deleteProduct", product_id )  
+        if (result.value) {
+          let isDelete = false;
+          this.$store.dispatch("deleteProduct", product_id);
           // remove this product from products List
-          this.products = this.products.filter(product => product.product_id !== product_id)
-          Swal.fire(
-            "Deleted!",
-            "Your file has been deleted.",
-            "success"
-          )
-        }
-        else if (result.dismiss === Swal.DismissReason.cancel) {
+          this.products = this.products.filter(
+            (product) => product.product_id !== product_id
+          );
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
           Swal.fire("Cancelled", "Your product is safe :)", "error");
         }
-    });
+      });
     },
-    get_products(){
-       this.products = this.$store.state.products;
+    get_products() {
+      this.products = this.$store.state.products;
     },
     searchKeyPress() {
-    if (this.search.length > 0) {
-      this.products = this.products.filter(product => {
-        return product.name.toLowerCase().includes(this.search.toLowerCase());
-      });
-    } else {
-      this.get_products();
-    }
-
-
-
+      if (this.search.length > 0) {
+        this.products = this.products.filter((product) => {
+          return product.name.toLowerCase().includes(this.search.toLowerCase());
+        });
+      } else {
+        this.get_products();
+      }
+      // chek if backsapce is pressed and search is not empty
+      if (this.search.length > 0 && event.keyCode == 8) {
+        this.products = this.products.filter((product) => {
+          return product.name.toLowerCase().includes(this.search.toLowerCase());
+        });
+      }
     },
-   
-   
   },
   mounted() {
     store.dispatch("getProducts");
@@ -301,7 +311,6 @@ export default {
       this.products = store.state.products;
       this.loading = false;
     }, 1300);
-  }
- 
+  },
 };
 </script>

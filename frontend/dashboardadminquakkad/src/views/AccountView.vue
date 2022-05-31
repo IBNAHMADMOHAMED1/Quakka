@@ -29,7 +29,6 @@
                 child_profile:'Profile',
             }
         }
-        
         }
     
 

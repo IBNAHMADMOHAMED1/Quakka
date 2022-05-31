@@ -1,10 +1,7 @@
 
 <template>
-
-
   <div aria-label="cards" class="bg-white :bg-gray-800 shadow rounded">
     <div class="relative">
-      
       <img
         tabindex="0"
         class="
@@ -15,10 +12,10 @@
           w-full
           object-cover object-center
         "
-       :src="pathImg + user.cover_photo"
+        :src="getImgUrl(user.cover_photo)"
         alt="mountains cover"
       />
-      
+
       <div
         class="
           inset-0
@@ -45,7 +42,7 @@
             object-cover
             rounded
           "
-          :src="pathImg + user.avatar"
+          :src="getImgUrl(user.avatar)"
           alt="person"
         />
       </div>
@@ -96,7 +93,7 @@
                   tracking-normal
                 "
               >
-               {{ user.name }}
+                {{ user.name }}
               </h2></a
             >
           </div>
@@ -114,9 +111,8 @@
               leading-5
             "
           >
-            Hi, I'm {{ user.name }}  Admin of Quakka company <br>
+            Hi, I'm {{ user.name }} Admin of Quakka company <br />
             Email: {{ user.email }}
-            
           </p>
         </div>
         <div
@@ -131,63 +127,58 @@
             md:pl-6
           "
         >
-        <div class="flex gap-5 md:flex-row">
-          <button
-            @click="handleUpdate"
-            class="
-              bg-purple-600
-              hover:bg-purple-500
-              text-white
-              font-bold
-              py-2
-              px-4
-              rounded
-              inline-flex
-              items-center
-            "
-          >
-            <EditIcon  />
-            <span>Update</span>
-
-          </button>
-           <button
-            @click="Logout"
-            class="
-              bg-red-500
-              hover:bg-red-300
-              text-white
-              font-bold
-              py-2
-              px-4
-              rounded
-              inline-flex
-              items-center
-            "
-          >
-            <Logout  />
-            <span>Logout</span>
-          </button>
+          <div class="flex gap-5 md:flex-row">
+            <button
+              @click="handleUpdate"
+              class="
+                bg-purple-600
+                hover:bg-purple-500
+                text-white
+                font-bold
+                py-2
+                px-4
+                rounded
+                inline-flex
+                items-center
+              "
+            >
+              <EditIcon />
+              <span>Update</span>
+            </button>
+            <button
+              @click="Logout"
+              class="
+                bg-red-500
+                hover:bg-red-300
+                text-white
+                font-bold
+                py-2
+                px-4
+                rounded
+                inline-flex
+                items-center
+              "
+            >
+              <Logout />
+              <span>Logout</span>
+            </button>
           </div>
         </div>
       </div>
     </div>
-
-
   </div>
   <UpadeAccount
     :showModal="shwoModal"
-   @updateUser="updateUser"
+    @updateUser="updateUser"
     message="Your email or password is incorrect"
     :typeIcon="typeIcon"
     @closeModal="closeModal"
     :user="user"
   />
-  
 </template>
 
 <script>
-
-import store from '../../store'
+import store from "../../store";
 
 import team2 from "../../assets/img/team-2-800x800.jpg";
 import EditIcon from "@/components/icons/EditIcon.vue";
@@ -199,27 +190,42 @@ export default {
     return {
       team2,
       shwoModal: false,
-      user: '',
-      pathImg: '../../assets/img/Admin/',
+      user: "",
+      pathImg: "../../assets/img/Admin/",
     };
   },
-  components: {EditIcon,UpadeAccount,Logout},
+  components: { EditIcon, UpadeAccount, Logout },
 
   methods: {
     handleUpdate() {
       this.shwoModal = true;
     },
-    closeModal()     {this.shwoModal = false;},
-    updateUser(user) {this.user = user;},
-    Logout() {store.dispatch('logout');}
+    closeModal() {
+      this.shwoModal = false;
+    },
+    updateUser(user) {
+      this.user = user;
+    },
+    Logout() {
+      store.dispatch("logout");
+    },
+    getImgUrl(pet) {
+      if (pet) {
+        let url = require.context(
+          "../../assets/img/Admin",
+          false,
+          /\.(png|jpe?g|svg)$/
+        );
+        return url(`./${pet}`);
+      }
+    },
   },
 
   created() {
-      store.dispatch('getUser').then(() => {
+    store.dispatch("getUser").then(() => {
       this.user = store.state.user;
     });
   },
-
 };
 </script>
 
