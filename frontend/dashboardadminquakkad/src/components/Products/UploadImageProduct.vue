@@ -1,7 +1,16 @@
 <template>
   <div class="mt-8 w-full ">
     <div class="flex justify-center items-center">
-      <form class="flex flex-col justify-center">
+      <div
+      v-if="isLoading"
+      >
+        <div class="lds-dual-ring"></div>
+        <div class="text-gray-500">Loading...</div>
+
+      </div>
+      <form
+      v-else
+      class="flex flex-col justify-center">
         <label class="inline-block mb-2 text-gray-500"
           >Upload Image(jpg,png,svg,jpeg)</label
         >
@@ -118,12 +127,10 @@ export default {
       is_done: false,
       product: null,
       imageUploaded: false,
+      isLoading: true,
     
     };
   },
-  
-  
-    
   methods: {
     uploadImages(e) {
       e.preventDefault();
@@ -132,19 +139,19 @@ export default {
         for (let i = 0; i <this.images.length; i++) {
           formData.append("images"+i
           , this.$refs.file[i].files[0]);
-         
         }
-          
         let requestOptions = {
           method: "POST",
-            body: formData,
+            body: formData
         };
+        console.log(this.product);
        fetch(
-         'http://localhost/QuakkaProject/products/upload_images/'+this.product.product_id,
-           requestOptions)
+         'http://localhost/QuakkaProject/Images/uploadImage/'+this.product.product_id,
+           requestOptions
+           )
           .then((response) => {   
              response.json().then((data) => {
-              console.log(data);
+              console.log('this is ',data);
               this.openProductDone();
               this.is_done = true;   
             });
@@ -172,6 +179,8 @@ export default {
   beforeCreate() {
       setTimeout(() => {
         this.product = store.state.product
+        console.log(this.product);
+        this.isLoading = false;
       }, 1000);
   },
   

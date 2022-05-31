@@ -12,7 +12,7 @@ const routes = [
   {
     path: '/about',
     name: 'about',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: () => import('../views/AboutView.vue')
   },
   {
     path: '/login',
@@ -50,10 +50,24 @@ const routes = [
     component: () => import('../components/Products/ViewProduct.vue')
   },
   {
-    // send obejct data
     path: '/edit-product/:productId',
     name: 'editProduct',
     component: () => import('../components/Products/EditProduct.vue')
+  },
+  {
+    path: '/create-hall',
+    name: 'create-hall',
+    component: () => import('../views/Halls/CreateHall.vue')
+  },
+  {
+    path: '/halls',
+    name: 'halls',
+    component: () => import('../views/Halls/Halls.vue')
+  },
+  {
+    path: '/view-hall/:hallId',
+    name: 'viewHall',
+    component: () => import('../components/Halls/ViewHall.vue')
   }
  
 ]

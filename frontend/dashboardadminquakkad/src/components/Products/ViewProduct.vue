@@ -6,11 +6,10 @@
           id="menu"
           class="md:px-6 px-4 py-12 w-full h-full flex justify-center"
         >
-        {{product.images}}
           <div
             class="
               2xl:container 2xl:mx-auto
-              relative
+            
               flex
               justify-start
               w-96
@@ -29,7 +28,7 @@
             "
           >
             <content-loader
-              v-if="loading && product==null"
+              v-if="loading"
               viewBox="0 0 600 160"
               :speed="1"
               primaryColor="#d8d4d4"
@@ -47,41 +46,60 @@
               <rect x="210" y="148" rx="0" ry="0" width="49" height="13" />
               <rect x="287" y="150" rx="0" ry="0" width="50" height="22" />
             </content-loader>
-            
-            <div class=""
-            v-if="!loading && product!=null"
-            >
-              <div class=" mt-6
-                md:mt-8
-                lg:mt-0
-                flex
-                justify-start
-                items-start
-                w-full
-                flex-col
-                space-y-6">
-                <div class="lg:w-7/12 lg:mt-0 mt-8 w-full"
-                
-               >
 
+            <div class="" v-if="!loading && product !== []">
+              <div
+                class="
+                  mt-6
+                  md:mt-8
+                  lg:mt-0
+                  flex
+                  justify-start
+                  items-start
+                  w-full
+                  flex-col
+                  space-y-6
+                "
+              >
+                <div class="lg:w-7/12 lg:mt-0 mt-8 w-full">
+                  <div id="app">
+                    <div class="slide">
+                      <div
+                        class="carousel-inner  overflow-hidden w-full"
+                      >
+                        <div
+                          v-for="(img, i) in imagess"
+                          :id="`slide-${i}`"
+                          :key="i"
+                          :class="`${active === i ? 'active' : 'left-full'}`"
+                          class="
+                            carousel-item
+                            relative
+                            w-full
+                            transform
+                            transition-all
+                            duration-500
+                            ease-in-out
+                          "
+                        >
+                          <img
+                            class="block w-full"
+                            style="
+                              
+                            "
+                            :src="img"
+                            alt="First slide"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                
-                    <div 
-                     
-                    class="w-full h-full m-4 grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-                     <div
-                     v-for="(image, index) in product.images" :key="index"
-                     >
-                     <img :src="getImgUrl(image.name)" :alt="image.name" class="w-full" />
-                     </div>
-                    </div>
-                    <div class="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 lg:gap-8 gap-6 lg:mt-8 md:mt-6 mt-4">
-                   
-                    </div>
                 </div>
               </div>
             </div>
             <div
-            v-if="!loading"
+              v-if="!loading"
               class="
                 mt-6
                 md:mt-8
@@ -108,7 +126,7 @@
               </h2>
               <div class="flex justify-start items-center mt-4">
                 <p class="font-normal text-lg leading-6 text-gray-600 mr-4">
-                  price :  {{ product.price }} $
+                  price : {{ product.price }} $
                 </p>
                 <div class="cursor-pointer flex space-x-2 mr-3">
                   <img
@@ -137,9 +155,9 @@
                   18 reviews
                 </p>
               </div>
-          
+
               <p class="mt-4 text-gray-600">
-                {{product.description}}
+                {{ product.description }}
               </p>
               <div class="mt-10">
                 <p
@@ -342,7 +360,7 @@
                 </div>
               </div>
               <p
-              @click="handleUpdateCart"
+                @click="handleUpdateCart"
                 class="
                   mt-4
                   font-normal
@@ -360,15 +378,10 @@
 
               <div class="flex flex-col w-full space-y-4 mt-10"></div>
             </div>
-            
           </div>
         </div>
       </div>
-      
-      
-      
     </div>
-
   </Main>
 </template>
 
@@ -384,32 +397,75 @@ export default {
       slides: null,
       slideSayisi: null,
       loop: null,
-      loading: true, 
-      product:null,
-      images:null,
-      pathImg:" ../../assets/img/product/",
+      loading: true,
+      product: [],
+      images: null,
+      pathImg: " ../../assets/img/product/",
+      imagess: [
+        
+      ],
+      active: 0,
     };
   },
- 
+
   methods: {
-     getImgUrl(pet){
-      let url = require.context("../../assets/img/product", false, /\.(png|jpe?g|svg)$/);
+    getImgUrl(pet) {
+      let url = require.context(
+        "../../assets/img/product",
+        false,
+        /\.(png|jpe?g|svg)$/
+      );
       return url(`./${pet}`);
-     },
+    },
   },
 
   beforeCreate() {
-    let productId = this.$route.params.productId;
-    setTimeout(() => {
-      this.$store.dispatch("getProduct", productId);
-      this.product = JSON.parse(JSON.stringify(this.$store.state.product));
-      this.images = this.product.images;
-      alert("productId: " + productId);
-      this.loading = false;
-    }, 1300);
+    // let productId = this.$route.params.productId;
+    // setTimeout(() => {
+    //   fetch(`http://localhost/QuakkaProject/products/getproduct/${productId}`)
+    //     .then((response) => response.json())
+    //     .then((json) => {
+    //       this.product = json[1];
+    //       this.loading = false;
+    //       this.product.images.forEach((element) => {
+    //         this.imagess.push(this.getImgUrl(element.name));
+    //       });
+    //     });
+    // }, 1000);
+    // this.imagess = this.product.images.map(img => {
+    //   return this.pathImg + img.name;
+    // });
   },
- 
-  
+  mounted() {
+    let i = 0;
+    let productId = this.$route.params.productId;
+    setInterval(() => {
+      if (i > this.imagess.length - 1) {
+        i = 0;
+      }
+      this.active = i;
+      i++;
+      fetch(`http://localhost/QuakkaProject/products/getproduct/${productId}`)
+        .then((response) => response.json())
+        .then((json) => {
+          this.product = json[1];
+
+          this.loading = false;
+          this.product.images.forEach((element) => {
+            this.imagess.push(this.getImgUrl(element.name));
+          });
+        });
+    }, 2000);
+  },
+  // created() {
+  //     let productId = this.$route.params.productId;
+  //   setTimeout(() => {
+  //     this.$store.dispatch("getProduct", productId);
+  //     this.product = JSON.parse(JSON.stringify(this.$store.state.product));
+  //     this.images = this.product.images;
+  //     this.loading = false;
+  //   }, 1300);
+  // }
 };
 </script>
 
@@ -429,5 +485,21 @@ export default {
   height: 100%;
   position: absolute;
   transition: all 1s;
+}
+.left-full {
+  left: -100%;
+}
+
+.carousel-item {
+  float: left;
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-right: -100%;
+  backface-visibility: hidden;
+}
+
+.carousel-item.active {
+  left: 0;
 }
 </style>

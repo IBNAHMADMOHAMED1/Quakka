@@ -16,7 +16,6 @@
           bg-black/25
         "
       >
-     
         <section
           class="max-w-8xl p-6 bg-gray-50 rounded-md shadow-md :bg-gray-800"
           style="width: 100%; max-width: 800px"
@@ -24,30 +23,10 @@
           <h2
             class="text-lg font-semibold text-gray-700 capitalize :text-white"
           >
-            Create a new product
+            Create a new Hall 
           </h2>
-          <content-loader
-          v-if="isLoading"
-    viewBox="0 0 400 200"
-    :speed="2"
-    primaryColor="#f3f3f3"
-    secondaryColor="#ecebeb"
-  >
-    <rect x="9" y="9" rx="3" ry="3" width="105" height="4" /> 
-    <rect x="4" y="42" rx="0" ry="0" width="174" height="27" /> 
-    <rect x="200" y="42" rx="0" ry="0" width="174" height="26" /> 
-    <rect x="3" y="86" rx="0" ry="0" width="174" height="30" /> 
-    <rect x="204" y="85" rx="0" ry="0" width="172" height="30" /> 
-    <rect x="6" y="126" rx="0" ry="0" width="372" height="85" /> 
-    <rect x="128" y="9" rx="3" ry="3" width="105" height="4" /> 
-    <rect x="254" y="9" rx="3" ry="3" width="105" height="4" />
-         </content-loader>
-          <div 
-          v-if="!isLoading"
-          class="flex items-stretch gap-2">
-
+          <div class="flex items-stretch gap-2">
             <div
-
               v-for="step in stepsCountWithSuccessPage"
               :key="step"
               class="h-2 w-full rounded text-purple-500 mb-2 mt-3"
@@ -56,9 +35,7 @@
             ></div>
           </div>
 
-          <form 
-          v-if="openUploadImage === 'default' && !isLoading"
-          >
+          <form v-if="openUploadImage === 'default'">
             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
               <div>
                 <label class="text-gray-700 :text-gray-200" for="username">
@@ -67,7 +44,7 @@
                 <input
                   id="Product_Name"
                   valdata="required | min:3"
-                  v-model="product.name"
+                  v-model="product.Product_Name"
                   type="text"
                   class="
                     block
@@ -96,7 +73,7 @@
                 <input
                   id="password"
                   type="number"
-                  v-model="product.price"
+                  v-model="product.Product_Price"
                   min="1"
                   class="
                     block
@@ -127,7 +104,7 @@
                 <input
                   id="Product_Quantity"
                   type="number"
-                  v-model="product.quantity"
+                  v-model="product.Product_Quantity"
                   min="1"
                   class="
                     block
@@ -148,7 +125,6 @@
                   "
                 />
               </div>
-              <input type="hidden" v-model="product.product_id" />
               <div>
                 <label
                   class="text-gray-700 :text-gray-200"
@@ -177,7 +153,7 @@
                     :focus:ring-blue-500
                     :focus:border-blue-500
                   "
-                 v-model="product.category"
+                 v-model="product.Product_Category"
                 >
                 
                   <option selected>Choose a Category</option>
@@ -201,7 +177,7 @@
               <textarea
                 id="message"
                 valdata="required | min:3"
-                v-model="product.description"
+                v-model="product.Product_Description"
                 rows="4"
                 class="
                   block
@@ -250,9 +226,8 @@
               >
                 Cancel
               </button>
-              {{product.name}}
               <button
-                @click="handleUpdateProduct"
+                @click="createProduct"
                 class="
                   px-6
                   py-2
@@ -272,12 +247,12 @@
              
             </div>
           </form>
-          <!-- <div v-if="openUploadImage === 'image'">
+          <div v-if="openUploadImage === 'image'">
           
             <UploadImageProduct 
             
             @openProductDone="openProductDone" />
-          </div> -->
+          </div>
           <!-- product done -->
           <div v-if="openUploadImage === 'done'">
             <PageDone
@@ -292,44 +267,40 @@
 </template>
 <script>
 import Main from "../Main.vue";
-import UploadImageProduct from "./UploadImageProduct.vue";
+import UploadImageProduct from "./UploadImage.vue";
 import PageDone from "../alert/PageDone";
 import store from '@/store';
-import { ContentLoader } from "vue-content-loader"
 
 
 export default {
-  name: "FormCreatorProduct",
-  components: { Main, UploadImageProduct, PageDone,ContentLoader },
+  name: "FormCreatHall",
+  components: { Main, UploadImageProduct, PageDone },
 
   data() {
     return {
-      stepsCountWithSuccessPage: [1, 2],
+      stepsCountWithSuccessPage: [1, 2, 3],
       productCreated:[],
       is_done: false,
       currentStep: 0,
       categorys: [],
       openUploadImage: "default",
       product: {
-        name: "",
-        price: "",
-        quantity: "",
-        description: "",
-        category: "",
-        product_id: "",
+        Product_Name: "",
+        Product_Description: "",
+        Product_Price: "",
+        Product_Quantity: "",
+        Product_Category: "",
       },
-      isLoading: true,
     };
   },
   methods: {
-    handleUpdateProduct(e){
-         e.preventDefault();
-   
-       store.dispatch('updateProduct', this.product);
+    createProduct(e) {
+      e.preventDefault();
+       store.dispatch('createProduct', this.product)
        if (store.state.product) {
        
-        this.openUploadImage = "done"
-        this.currentStep = 2;
+        this.openUploadImage = "image"
+        this.currentStep = 1;
         alert("helow Product Created")
        }
     },
@@ -343,7 +314,7 @@ export default {
     },
     cancelCreateProduct(e) {
       e.preventDefault();
-      this.$router.go(-1);
+      this.$router.push("/halls");
     },
   },
  
@@ -353,14 +324,8 @@ export default {
       .then((data) => {
         this.categorys = data;
       });
-      store.dispatch('getProduct', this.$route.params.productId)
-    setTimeout(() => {
-      this.product = store.state.product
-      this.isLoading = false;
-        
-    }, 1000);
-    
   },
-  
+  // watch localStorage key product
+
 };
 </script>

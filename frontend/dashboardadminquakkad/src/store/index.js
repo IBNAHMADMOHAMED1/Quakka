@@ -123,10 +123,8 @@ export default new Vuex.Store({
       fetch(`http://localhost/QuakkaProject/products/getproduct/${product_id}`)
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
-            context.commit("setProduct", data[1]);
-
-          
+          console.log(data);
+          context.commit("setProduct", data[1]);
         });
     },
     updateProduct(context, product) {
@@ -161,9 +159,6 @@ export default new Vuex.Store({
         .then((response) => response.json())
         .then((data) => {
           if (data.success === true) {
-            //getProducts
-            alert("Product Deleted");
-            
             context.dispatch("getProducts");
           } 
         });

@@ -5,12 +5,15 @@
         <h1 class="text-3xl py-4 border-b mb-10">Products List</h1>
         <div v-if="loading">
           <Loading />
+         
         </div>
         <div v-else class="mb-4 flex justify-between items-center">
           <div class="flex-1 pr-4">
             <div class="relative md:w-1/3">
               <input
                 type="search"
+                v-model="search"
+                @keypress="searchKeyPress"
                 class="
                   w-full
                   pl-10
@@ -109,10 +112,10 @@
 
                       <td :class="`${default_ClassName}`">
                         <span
-                          v-if="product.quantity > 10"
-                          :class="` inline-flex px-2 text-xs font-semibold leading-5 bg-green-100  ${creat_status_class}`"
+                        
+                          :class="` inline-flex px-2 text-xs font-semibold leading-5   ${creat_status_class}`"
                         >
-                          {{ creat_status(product.quantity)
+                          {{ creat_status(product.quantity) 
                           }}<span class="ml-1">{{ product.quantity }}</span>
                         </span>
                       </td>
@@ -200,22 +203,30 @@ export default {
         { name: "Delete" },
       ],
       products: [],
-      creat_status_class: "",
+      creat_status_class: "text-orange-500",
       images: [],
+      search: "",
     };
   },
   methods: {
     creat_status(value) {
-      if (value > 10) {
-        this.creat_status_class = "text-green-500";
-        return "In Stock";
-      } else if (value > 5) {
-        this.creat_status_class = "text-orange-500";
-        return "Low Stock";
-      } else {
-        this.creat_status_class = "text-red-500";
-        return "Out of Stock";
-      }
+     
+        if (value > 10)
+        {
+          this.creat_status_class = "text-green-500 bg-green-100";
+          return "In Stock";
+        }
+        else if (value < 10)
+        {
+          this.creat_status_class = "text-red-500 bg-red-100";
+          return "Out of Stock";
+        }
+        else
+        {
+          this.creat_status_class = "text-orange-500 bg-orange-100";
+          return "Low Stock";
+        }
+    
     },
     date_for_humans(date) {
       const moment = require("moment");
@@ -237,9 +248,10 @@ export default {
         },
       });
     },
+    
     delete_product(product_id) {
       console.log(product_id);
-      // show a popup with a confirmation tow buttons
+      
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -249,16 +261,16 @@ export default {
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
-        if (result.value) {
-          // delete the product
+        if (result.value) {   
           let isDelete = false
-          this.$store
-            .dispatch("deleteProduct", product_id )  
-              // get products after delete in 1300ms
-            .then(() => {
-              this.products = this.$store.getters.getProducts;
-              isDelete = true
-            })
+          this.$store.dispatch("deleteProduct", product_id )  
+          // remove this product from products List
+          this.products = this.products.filter(product => product.product_id !== product_id)
+          Swal.fire(
+            "Deleted!",
+            "Your file has been deleted.",
+            "success"
+          )
         }
         else if (result.dismiss === Swal.DismissReason.cancel) {
           Swal.fire("Cancelled", "Your product is safe :)", "error");
@@ -266,18 +278,30 @@ export default {
     });
     },
     get_products(){
-       this.products = this.$store.state.products.products;
+       this.products = this.$store.state.products;
+    },
+    searchKeyPress() {
+    if (this.search.length > 0) {
+      this.products = this.products.filter(product => {
+        return product.name.toLowerCase().includes(this.search.toLowerCase());
+      });
+    } else {
+      this.get_products();
     }
+
+
+
+    },
+   
    
   },
-
-  beforeCreate() {
+  mounted() {
     store.dispatch("getProducts");
     setTimeout(() => {
       this.products = store.state.products;
       this.loading = false;
     }, 1300);
-  },
+  }
  
 };
 </script>

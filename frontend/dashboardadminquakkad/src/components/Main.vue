@@ -9,15 +9,12 @@
         <Navbar />
 
         <div class="p-6 bg-gray-100 mb-20">
-            <slot>
-            </slot>
-            <router-view />
+            <slot></slot>
         </div>  
-      </div>
-     
+      </div> 
     </div>
- 
   </div>
+ 
 </template>
 
 <script>
