@@ -68,6 +68,16 @@ const routes = [
     path: '/view-hall/:hallId',
     name: 'viewHall',
     component: () => import('../components/Halls/ViewHalls.vue')
+  },
+  {
+    path: '/edit-hall/:hallId',
+    name: 'editHall',
+    component: () => import('../components/Halls/EditHall.vue')
+  },
+  {
+    path: '/tasks',
+    name: 'tasks',
+    component: () => import('../kanban.vue')
   }
  
 ]

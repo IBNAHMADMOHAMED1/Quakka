@@ -24,7 +24,7 @@
           <h2
             class="text-lg font-semibold text-gray-700 capitalize :text-white"
           >
-            Create a new product
+            Update a hall
           </h2>
           <content-loader
           v-if="isLoading"
@@ -56,18 +56,17 @@
             ></div>
           </div>
 
-          <form 
-          v-if="openUploadImage === 'default' && !isLoading"
-          >
+         
+          <form v-if="openUploadImage === 'default' && !isLoading">
             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
               <div>
                 <label class="text-gray-700 :text-gray-200" for="username">
-                  Product Name
+                  Hall Name
                 </label>
                 <input
                   id="Product_Name"
                   valdata="required | min:3"
-                  v-model="product.name"
+                  v-model="hall.name"
                   type="text"
                   class="
                     block
@@ -91,12 +90,12 @@
 
               <div>
                 <label class="text-gray-700 :text-gray-200" for="password">
-                  Product Price
+                  Hall Price
                 </label>
                 <input
                   id="password"
                   type="number"
-                  v-model="product.price"
+                  v-model="hall.price"
                   min="1"
                   class="
                     block
@@ -118,44 +117,10 @@
               </div>
 
               <div>
-                <label
-                  class="text-gray-700 :text-gray-200"
-                  for="Product_Quantity"
-                >
-                  Product_Quantity
+                <label class="text-gray-700 :text-gray-200" for="password">
+                  Hall local
                 </label>
-                <input
-                  id="Product_Quantity"
-                  type="number"
-                  v-model="product.quantity"
-                  min="1"
-                  class="
-                    block
-                    w-full
-                    px-4
-                    py-2
-                    mt-2
-                    text-gray-700
-                    bg-white
-                    border border-gray-200
-                    rounded-md
-                    :bg-gray-800 :text-gray-300 :border-gray-600
-                    focus:border-blue-400
-                    focus:ring-blue-300
-                    focus:ring-opacity-40
-                    :focus:border-blue-300
-                    focus:outline-none focus:ring
-                  "
-                />
-              </div>
-              <input type="hidden" v-model="product.product_id" />
-              <div>
-                <label
-                  class="text-gray-700 :text-gray-200"
-                  for="Product_Quantity"
-                >
-                  Product Category
-                </label>
+
                 <select
                   id="countries"
                   class="
@@ -177,31 +142,57 @@
                     :focus:ring-blue-500
                     :focus:border-blue-500
                   "
-                 v-model="product.category"
+                  v-model="hall.address"
                 >
-                
-                  <option selected>Choose a Category</option>
-                  <option 
-                  v-for="category in categorys" :key="category.id"
-                  :value="category.category_id"
-                  
-                  >
-                    {{ category.name }}
+                  <option selected disabled>Choose a city</option>
+                  <option v-for="city in cities" :key="city.id">
+                    {{ city.name }}
                   </option>
-              
                 </select>
               </div>
+              <div>
+                <label
+                  class="text-gray-700 :text-gray-200"
+                  for="Product_Quantity"
+                >
+                  Hall Capacity
+                </label>
+                <input
+                  id="Product_Quantity"
+                  type="number"
+                  v-model="hall.Nbr_place"
+                  min="1"
+                  class="
+                    block
+                    w-full
+                    px-4
+                    py-2
+                    mt-2
+                    text-gray-700
+                    bg-white
+                    border border-gray-200
+                    rounded-md
+                    :bg-gray-800 :text-gray-300 :border-gray-600
+                    focus:border-blue-400
+                    focus:ring-blue-300
+                    focus:ring-opacity-40
+                    :focus:border-blue-300
+                    focus:outline-none focus:ring
+                  "
+                />
+              </div>
+              <div></div>
             </div>
 
             <div>
               <label class="text-gray-700 :text-gray-200" for="emailAddress">
-                Product Description
+                Hall Description
               </label>
 
               <textarea
                 id="message"
                 valdata="required | min:3"
-                v-model="product.description"
+                v-model="hall.description"
                 rows="4"
                 class="
                   block
@@ -223,11 +214,9 @@
               ></textarea>
             </div>
 
-            <div 
-            class="flex justify-end mt-6 gap-4"
-            >
-               <button
-                @click="cancelCreateProduct"
+            <div class="flex justify-end mt-6 gap-4">
+              <button
+                @click="cancelcreateHall"
                 class="
                   ml-3
                   inline-block
@@ -251,7 +240,7 @@
                 Cancel
               </button>
               <button
-                @click="handleUpdateProduct"
+                @click="handleUpdate"
                 class="
                   px-6
                   py-2
@@ -268,7 +257,6 @@
               >
                 Next
               </button>
-             
             </div>
           </form>
           <!-- <div v-if="openUploadImage === 'image'">
@@ -291,15 +279,16 @@
 </template>
 <script>
 import Main from "../Main.vue";
-import UploadImageProduct from "./UploadImageProduct.vue";
+// import UploadImageProduct from "./UploadImageProduct.vue";
 import PageDone from "../alert/PageDone";
 import store from '@/store';
 import { ContentLoader } from "vue-content-loader"
+import Swal from 'sweetalert2'
 
 
 export default {
   name: "FormCreatorProduct",
-  components: { Main, UploadImageProduct, PageDone,ContentLoader },
+  components: { Main, PageDone,ContentLoader },
 
   data() {
     return {
@@ -309,52 +298,99 @@ export default {
       currentStep: 0,
       categorys: [],
       openUploadImage: "default",
-      product: {
+      hall: {
+        id: null,
         name: "",
         price: "",
-        quantity: "",
         description: "",
-        category: "",
-        product_id: "",
+        address: "",
+        Nbr_place: ""
+       
       },
+         cities: [
+        { id: 1, name: "Casablanca" },
+        { id: 2, name: "Rabat" },
+        { id: 3, name: "Fes" },
+        { id: 4, name: "Marrakech" },
+        { id: 5, name: "Tanger" },
+        { id: 6, name: "Meknes" },
+        { id: 7, name: "Oujda" },
+        { id: 8, name: "Tetouan" },
+        { id: 9, name: "Taza" },
+        { id: 10, name: "El Jadida" },
+        { id: 11, name: "Safi" },
+        { id: 12, name: "Ouarzazate" },
+        { id: 13, name: "Tiznit" },
+        { id: 14, name: "Kenitra" },
+        { id: 15, name: "Settat" },
+        { id: 16, name: "Khouribga" },
+        { id: 17, name: "Sidi Kacem" },
+        { id: 18, name: "Sefrou" },
+        { id: 19, name: "Berkane" },
+        { id: 20, name: "Tetouan" },
+        { id: 21, name: "Oujda" },
+        { id: 22, name: "Tanger" },
+        { id: 23, name: "Oriental" },
+        { id: 24, name: "Taza" },
+        { id: 25, name: "Tetouan" },
+        { id: 26, name: "Oriental" },
+        { id: 27, name: "Tanger" },
+        { id: 28, name: "Oriental" },
+        { id: 29, name: "Tanger" },
+        { id: 30, name: "Oriental" },
+        { id: 31, name: "Tanger" },
+        { id: 32, name: "Oriental" },
+        { id: 33, name: "Tanger" },
+        { id: 34, name: "Oriental" },
+        { id: 35, name: "Tanger" },
+        { id: 36, name: "Oriental" },
+        { id: 37, name: "Tanger" },
+        { id: 38, name: "Oriental" },
+        { id: 39, name: "Tanger" },
+        { id: 40, name: "Oriental" },
+        { id: 41, name: "Tanger" },
+        { id: 42, name: "Oriental" },
+        { id: 43, name: "Tanger" },
+      ],
+    
       isLoading: true,
     };
   },
   methods: {
-    handleUpdateProduct(e){
+    handleUpdate(e){
          e.preventDefault();
-   
-       store.dispatch('update', { id: this.product.product_id, data: this.product, model: 'products' });
-       if (store.state.product) {
+       store.dispatch('update',{ id:this.hall.id,data:this.hall,model:"halls" });
+       if (store.state.hall) {
        
         this.openUploadImage = "done"
         this.currentStep = 2;
+        Swal.fire({
+          title: 'Success',
+          text: 'Hall Updated',
+          type: 'success',
+          confirmButtonText: 'Ok'
+        })
        }
     },
     uploadImages(e, Images) {
       e.preventDefault();
       console.log(Images);
     },
-    openProductDone() {
-      this.currentStep = 2;
-      this.openUploadImage = "done";
+    cancelcreateHall(e) {
+        e.preventDefault();
+        this.$router.push("/halls");
+    
     },
-    cancelCreateProduct(e) {
-      e.preventDefault();
-      this.$router.go(-1);
-    },
+  
   },
  
   created() {
-     this.$store.dispatch('_getOne',{
-      id: this.$route.params.productId,
-      model: 'products'
-     });
+      store.dispatch('_getOne',{ id:this.$route.params.hallId,model: 'halls'});
     setTimeout(() => {
-      this.product = store.state.product
+      this.hall = store.state.hall
       this.isLoading = false;
         
-    }, 1000);
+    }, 1300);
     
   },
   

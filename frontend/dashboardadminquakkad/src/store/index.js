@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import router from "@/router";
+import vuello from './modules/vuello-store'
+import createPersistedState from 'vuex-persistedstate'
 
 export default new Vuex.Store({
   state: {
@@ -132,7 +134,7 @@ export default new Vuex.Store({
       },
     getProduct(context, product_id) {
         console.log(product_id);
-      fetch(`http://localhost/QuakkaProject/products/getproduct/${product_id}`)
+      fetch(`http://localhost/QuakkaProject/products/getone/${product_id}`)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
@@ -161,20 +163,7 @@ export default new Vuex.Store({
           }
         });
     },
-    deleteProduct(context, product_id) {
-      fetch(`http://localhost/QuakkaProject/products/delete/${product_id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success === true) {
-            context.dispatch("getProducts");
-          } 
-        });
-    },
+    
     createHall(context, hall) {
        
 
@@ -205,7 +194,65 @@ export default new Vuex.Store({
         .then((data) => {
           context.commit("setHalls", data[1]);
         });
+    },
+
+    delete(context, id, type_table) {
+      fetch(`http://localhost/QuakkaProject/${type_table}/delete/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success === true) {
+            if (type_table == "halls") {
+              context.dispatch("getHalls");
+            }
+            if (type_table == "products") {
+              context.dispatch("getProducts");
+            }
+          } 
+        });
+
+    },
+    _getOne(context,defineParam) {
+   
+      fetch(`http://localhost/QuakkaProject/${defineParam.model}/getone/${defineParam.id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          
+           if (defineParam.model == "halls") {
+            context.commit("setHall", data[1]);
+           }
+          if (defineParam.model == "products") {
+            context.commit("setProduct", data[1]);
+          }
+          
+        });
+    },
+    update(context, defineParam) {
+      fetch(`http://localhost/QuakkaProject/${defineParam.model}/update/${defineParam.id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(defineParam.data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (defineParam.model == "halls") {
+            context.commit("setHall", data[1]);
+          }
+          if (defineParam.model == "products") {
+            context.commit("setProduct", data[1]);
+          }
+        });
     }
-  
+    
   },
+  modules: {
+    vuello
+  },
+  plugins: [createPersistedState()]
 });

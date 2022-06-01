@@ -1,8 +1,15 @@
 <template>
   <div>
     <Main>
+
+       <BreadCrumb
+       :items="['Dashboard','Halls']"
+       />
       <div class="container mx-auto py-6 px-4" x-data="datatables()" x-cloak>
         <h1 class="text-3xl py-4 border-b mb-10">halls List</h1>
+        <!-- give animat for title -->
+        
+        
         <div v-if="loading">
           <Loading />
         </div>
@@ -114,16 +121,16 @@
                     </thead>
                   <tbody class="bg-white">
                     
-                    <tr v-for="(product, index) in halls" :key="index">
+                    <tr v-for="(hall, index) in halls" :key="index">
                       <td :class="`cursor-pointer ${default_ClassName}`">
                         <div class="text-sm leading-5 text-gray-900">
-                          {{ product.name }}
+                          {{ hall.name }}
                         </div>
                       </td>
 
                       <td :class="` ${default_ClassName}`">
                         <div class="text-sm leading-5 text-gray-500">
-                          {{ product.price }}$
+                          {{ hall.price }}$
                         </div>
                       </td>
 
@@ -131,47 +138,43 @@
                         <span
                           :class="` inline-flex px-2 text-xs font-semibold leading-5   ${creat_status_class}`"
                         >
-                          {{ creat_status(product.quantity)
-                          }}<span class="ml-1">{{ product.quantity }}</span>
+                          {{ creat_status(hall.status) }}
+                        
                         </span>
                       </td>
                       <td :class="`${default_ClassName}`">
                         <div class="text-sm leading-5 text-gray-500">
                           {{
-                            product.category
-                              ? product.category.name
-                              : "No category"
+                            hall.address
                           }}
                         </div>
                       </td>
                       <td :class="` ${default_ClassName}`">
-                        <div
-                          class="
+                        <div class="
                             text-sm
                             leading-5
                             whitespace-no-wrap
-                            text-gray-500
-                          "
+                            text-gray-500"
                         >
-                          {{ date_for_humans(product.created_at) }}
+                          {{ date_for_humans(hall.created_at) }}
                         </div>
                       </td>
 
                       <td
-                        @click="view_product(product)"
+                        @click="view_hall(hall)"
                         :class="`cursor-pointer ${default_ClassName}`"
                       >
                         <LinkIcon className="w-5 h-5 text-blue-400" />
                       </td>
                       <td
-                        @click="edit_product(product)"
+                        @click="edit_hall(hall)"
                         :class="`cursor-pointer ${default_ClassName}`"
                       >
                         <EditIcon className="w-5 h-5 text-blue-400" />
                       </td>
                       <td
                         :class="`cursor-pointer ${default_ClassName}`"
-                        @click="delete_product(product.product_id)"
+                        @click="delete_hall(hall.id)"
                       >
                         <TrashIcon className="w-5 h-5 text-red-400" />
                       </td>
@@ -194,13 +197,14 @@ import EditIcon from "@/components/icons/EditIcon.vue";
 import TrashIcon from "@/components/icons/TrashIcon.vue";
 import LinkIcon from "@/components/icons/LinkIcon.vue";
 import Loading from "@/components/base/Loading.vue";
+import BreadCrumb from "@/components/base/BreadCrummb.vue";
 // import ViewHalls from "@/components/halls/ViewHalls.vue";
 // import EditProduct from "@/components/halls/EditProduct.vue";
 import Swal from "sweetalert2";
 
 export default {
   name: "createProduct",
-  components: { Main, EditIcon, TrashIcon, LinkIcon, Loading },
+  components: { Main, EditIcon, TrashIcon, LinkIcon, Loading,BreadCrumb },
 
   data() {
     return {
@@ -215,7 +219,7 @@ export default {
         { name: "Name" },
         { name: "Price" },
         { name: "Status" },
-        { name: "Price" },
+        { name: "Adrress" },
         { name: "Created at" },
         { name: "View" },
         { name: "Edit" },
@@ -226,6 +230,7 @@ export default {
       images: [],
       search: "",
       searchIsLoading: false,
+      items: [],
     };
   },
   methods: {
@@ -246,24 +251,24 @@ export default {
       const moment = require("moment");
       return moment(date).format("MMMM Do YYYY, h:mm a");
     },
-    view_product(product) {
-      product = JSON.parse(JSON.stringify(product));
+   view_hall(hall) {
+      hall = JSON.parse(JSON.stringify(hall));
       this.$router.push({
-        name: "viewProduct",
-        params: { productId: product.product_id },
+        name: "viewHall",
+        params: { hallId: hall.id },
       });
     },
-    edit_product(product) {
-      product = JSON.parse(JSON.stringify(product));
+    edit_hall(hall) {
+      hall = JSON.parse(JSON.stringify(hall));
       this.$router.push({
-        name: "editProduct",
+        name: "editHall",
         params: {
-          productId: product.product_id,
+          hallId: hall.id,
         },
       });
     },
-    delete_product(product_id) {
-      console.log(product_id);
+    delete_hall(id) {
+      console.log(id);
 
       Swal.fire({
         title: "Are you sure?",
@@ -276,14 +281,13 @@ export default {
       }).then((result) => {
         if (result.value) {
           let isDelete = false;
-          this.$store.dispatch("deleteProduct", product_id);
-          // remove this product from halls List
+          this.$store.dispatch("delete",id,'halls');
           this.halls = this.halls.filter(
-            (product) => product.product_id !== product_id
+            (hall) => hall.id !== id
           );
           Swal.fire("Deleted!", "Your file has been deleted.", "success");
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-          Swal.fire("Cancelled", "Your product is safe :)", "error");
+          Swal.fire("Cancelled", "Your hall is safe :)", "error");
         }
       });
     },
@@ -292,16 +296,15 @@ export default {
     },
     searchKeyPress() {
       if (this.search.length > 0) {
-        this.halls = this.halls.filter((product) => {
-          return product.name.toLowerCase().includes(this.search.toLowerCase());
+        this.halls = this.halls.filter((hall) => {
+          return hall.name.toLowerCase().includes(this.search.toLowerCase());
         });
       } else {
         this.get_halls();
       }
-      // chek if backsapce is pressed and search is not empty
       if (this.search.length > 0 && event.keyCode == 8) {
-        this.halls = this.halls.filter((product) => {
-          return product.name.toLowerCase().includes(this.search.toLowerCase());
+        this.halls = this.halls.filter((hall) => {
+          return hall.name.toLowerCase().includes(this.search.toLowerCase());
         });
       }
     },
@@ -311,7 +314,10 @@ export default {
     setTimeout(() => {
       this.halls = store.state.halls;
       this.loading = false;
+
+
     }, 1300);
+
   },
 };
 </script>

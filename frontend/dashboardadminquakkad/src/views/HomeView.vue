@@ -1,14 +1,17 @@
 <template>
  <div>
-  
-   <Dashboard>
-     hello world
+  <Main>
+     <Dashboard>
+     
    </Dashboard>
+  </Main>
+  
    
  </div>
 </template>
 <script>
 import { mapState } from 'vuex'
+import Main from '@/components/Main'
 
 
 
@@ -23,7 +26,7 @@ export default {
   computed: {
     ...mapState(['sideBarOpen'])
   },
-  components: { Dashboard },
+  components: { Dashboard , Main},
    beforeCreate() {
       console.log(localStorage.getItem('user'))
       if (localStorage.getItem('user') === null) {

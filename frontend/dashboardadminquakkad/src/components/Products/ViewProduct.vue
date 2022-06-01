@@ -445,7 +445,7 @@ export default {
       }
       this.active = i;
       i++;
-      fetch(`http://localhost/QuakkaProject/products/getproduct/${productId}`)
+      fetch(`http://localhost/QuakkaProject/products/getone/${productId}`)
         .then((response) => response.json())
         .then((json) => {
           this.product = json[1];

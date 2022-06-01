@@ -1,6 +1,11 @@
 <template>
   <div>
     <Main>
+
+      <BreadCrumb
+      :items="['Home','Products']"
+      />
+
       <div class="container mx-auto py-6 px-4" x-data="datatables()" x-cloak>
         <h1 class="text-3xl py-4 border-b mb-10">Products List</h1>
         <div v-if="loading">
@@ -195,12 +200,13 @@ import TrashIcon from "@/components/icons/TrashIcon.vue";
 import LinkIcon from "@/components/icons/LinkIcon.vue";
 import Loading from "@/components/base/Loading.vue";
 import ViewProduct from "@/components/Products/ViewProduct.vue";
-// import EditProduct from "@/components/Products/EditProduct.vue";
 import Swal from "sweetalert2";
+import BreadCrumb from "@/components/base/BreadCrummb.vue";
+
 
 export default {
   name: "createProduct",
-  components: { Main, EditIcon, TrashIcon, LinkIcon, Loading, ViewProduct },
+  components: { Main, EditIcon, TrashIcon, LinkIcon, Loading, ViewProduct ,BreadCrumb },
 
   data() {
     return {
@@ -262,7 +268,6 @@ export default {
       });
     },
     delete_product(product_id) {
-      console.log(product_id);
 
       Swal.fire({
         title: "Are you sure?",
@@ -273,9 +278,11 @@ export default {
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
+
         if (result.value) {
+
           let isDelete = false;
-          this.$store.dispatch("deleteProduct", product_id);
+          this.$store.dispatch("delete", product_id,'products');
           // remove this product from products List
           this.products = this.products.filter(
             (product) => product.product_id !== product_id
