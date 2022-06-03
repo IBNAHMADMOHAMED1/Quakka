@@ -7,16 +7,24 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@chenfengyuan/vue-carousel": "^2.0.0",
+    "@popperjs/core": "^2.11.5",
     "core-js": "^3.8.3",
-    "vue": "^3.2.13",
+    "tiny-slider": "^2.9.4",
+    "vue": "^3.2.36",
+    "vue-content-loader": "^2.0.1",
+    "vue-feather": "^2.0.0-rc.1",
     "vue-router": "^4.0.3",
+    "vue-tiny-slider": "^0.1.39",
     "vuex": "^4.0.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-vuex": "~5.0.0",
-    "@vue/cli-service": "~5.0.0"
+    "@vue/cli-service": "~5.0.0",
+    "node-sass": "^7.0.1",
+    "sass-loader": "^13.0.0"
   },
   "browserslist": [
     "> 1%",

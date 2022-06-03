@@ -282,7 +282,11 @@ export default {
         if (result.value) {
 
           let isDelete = false;
-          this.$store.dispatch("delete", product_id,'products');
+          let params ={
+            id: product_id,
+            model: "product"
+          }
+          this.$store.dispatch("delete",params);
           // remove this product from products List
           this.products = this.products.filter(
             (product) => product.product_id !== product_id

@@ -281,7 +281,11 @@ export default {
       }).then((result) => {
         if (result.value) {
           let isDelete = false;
-          this.$store.dispatch("delete",id,'halls');
+            let params ={
+            id: id,
+            model: "halls",
+          }
+          this.$store.dispatch("delete",params);
           this.halls = this.halls.filter(
             (hall) => hall.id !== id
           );
