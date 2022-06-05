@@ -284,7 +284,7 @@ export default {
           let isDelete = false;
           let params ={
             id: product_id,
-            model: "product"
+            model: "products"
           }
           this.$store.dispatch("delete",params);
           // remove this product from products List

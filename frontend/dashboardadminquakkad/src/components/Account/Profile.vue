@@ -211,12 +211,9 @@ export default {
     },
     getImgUrl(pet) {
       if (pet) {
-        let url = require.context(
-          "../../assets/img/Admin",
-          false,
-          /\.(png|jpe?g|svg)$/
-        );
-        return url(`./${pet}`);
+        return this.pathImg + pet + ".jpg";
+      } else {
+        return this.team2;
       }
     },
   },

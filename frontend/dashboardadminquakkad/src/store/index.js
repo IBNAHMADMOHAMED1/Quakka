@@ -202,10 +202,7 @@ export default new Vuex.Store({
      let  id = defineParam.id;
       fetch(`http://localhost/QuakkaProject/${type_table}/delete/${id}`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-        },
+      
       })
         .then((response) => response.json())
         .then((data) => {

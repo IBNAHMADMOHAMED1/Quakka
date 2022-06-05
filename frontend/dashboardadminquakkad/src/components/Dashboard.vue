@@ -1,8 +1,10 @@
 
 <template>
-    <div id="home">
-
-        <!-- breadcrumb -->
+  <div class="container">
+<ContentLoader  v-if="loading" />
+    <div 
+    v-else
+    id="home">
             <nav class="text-sm font-semibold mb-6" aria-label="Breadcrumb">
               <ol class="list-none p-0 inline-flex">
                 <li @click="$route.go(-1)" class="flex items-center text-blue-500">
@@ -14,13 +16,14 @@
                 </li>
               </ol>
             </nav>
-            <!-- breadcrumb end -->
 
             <div class="lg:flex justify-between items-center mb-6">
-              <p class="text-2xl font-semibold mb-2 lg:mb-0">Good afternoon,
-                {{ user.nom }}
-              </p>
-              <button class="bg-blue-500 hover:bg-blue-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow">View Profile</button>
+              <p class="text-2xl font-semibold mb-2 lg:mb-0">{{ greeting}}
+               </p>
+            
+              <button 
+              @click="accountSettings"
+              class="bg-blue-500 hover:bg-blue-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow">View Profile</button>
             </div>
 
             <div class="flex flex-wrap -mx-3 mb-20">
@@ -32,7 +35,7 @@
                   </svg>
 
                   <div class="text-gray-700">
-                    <p class="font-semibold text-3xl">237</p>
+                    <p class="font-semibold text-3xl">{{ProductsSold}}</p>
                     <p>Products Sold</p>
                   </div>
 
@@ -46,7 +49,7 @@
                   </svg>
 
                   <div class="text-gray-700">
-                    <p class="font-semibold text-3xl">177</p>
+                    <p class="font-semibold text-3xl">0</p>
                     <p>Product Reviews</p>
                   </div>
                 </div>
@@ -59,7 +62,7 @@
                   </svg>
 
                   <div class="text-gray-700">
-                    <p class="font-semibold text-3xl">31</p>
+                    <p class="font-semibold text-3xl">0</p>
                     <p>New Enquiries</p>
                   </div>
                 </div>
@@ -72,7 +75,7 @@
                   </svg>
 
                   <div class="text-gray-700">
-                    <p class="font-semibold text-3xl">1,653</p>
+                    <p class="font-semibold text-3xl">0</p>
                     <p>Product Views</p>
                   </div>
 
@@ -139,12 +142,14 @@
             </div>
 
     </div>
+  </div>
 </template>
 
 <script>
-
+import ContentLoader from '@/components/base/ContentLoader.vue'
 export default {
     name: 'DashboardHome',
+    components: {ContentLoader},
     data() {
         return {
             buyersData: {
@@ -221,13 +226,42 @@ export default {
                 }
 
             },
-            user:{}
+            greeting: '',
+            ProductsSold: '',
+            loading: true,
         }
     },
+    methods: {
+       accountSettings(){
+           this.$router.push('/account');
+       },
+    },
     mounted () {
-        // new Chart(document.getElementById('buyers-chart'), this.buyersData)
-        // new Chart(document.getElementById('reviews-chart'), this.reviewsData)
-        this.user = JSON.parse(localStorage.getItem('user'))
+       
+        setTimeout(() => {
+            let user = localStorage.getItem('user');
+            user = JSON.parse(user);
+            let name = user[Object.keys(user)[0]];
+            console.log(name);
+            let hour = new Date().getHours();
+            if (hour < 12) {
+                this.greeting = 'Good Morning'+' '+name;
+            } else if (hour < 18) {
+                this.greeting = 'Good Afternoon'+' '+name;
+            } else {
+                this.greeting = 'Good Evening'+' '+name;
+            }
+            const products = this.$store.state.products;
+            let count = 0;
+            for (let i = 0; i < products.length; i++) {
+                count += products[i].quantity;
+            }
+            this.ProductsSold = count;
+            this.loading = false;
+        }, 1300);
+        
+
+      
     },
    
     
