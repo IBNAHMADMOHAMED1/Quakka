@@ -27,7 +27,6 @@ const routes = [
     name: 'product-details',
     component: () => import('@/views/product/ProductDetails.vue')
   },
-  // page not found
   {
     path: '/:cathAll(.*)',
     name: '404',
@@ -37,7 +36,17 @@ const routes = [
     path: '/view-cart',
     name: 'view-cart',
     component: () => import('@/views/cart/ViewCart.vue')
-  }
+  },
+  {
+    path: '/checkout',
+    name: 'checkout',
+    component: () => import('@/views/cart/Checkout.vue')
+  },
+  {
+    path: '/order-success',
+    name: 'order-success',
+    component: () => import('@/views/cart/OrderSuccess.vue')
+  },
 ]
 
 const router = createRouter({

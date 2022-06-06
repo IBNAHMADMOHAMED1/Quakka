@@ -11,7 +11,7 @@ v-if="loading"
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h2>Trending Product</h2>
+                        <h2>Trending hall</h2>
                         <p>There are many variations of passages of Lorem Ipsum available, but the majority have
                             suffered alteration in some form.</p>
                             
@@ -20,19 +20,19 @@ v-if="loading"
             </div>
             <div class="row"> 
                 <div 
-                v-for="product in products"
+                v-for="hall in halls"
                 class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Single Product -->
+                    <!-- Start Single hall -->
                     {{}}
                     <div class="single-product">
                         <div class="product-image">
                             <img 
                             style="height:360px;"
-                            :src="getImgUrl(product.images)"
+                            :src="getImgUrl(hall.images)"
                              alt="#">
                             <div class="button">
                                 <button 
-                                @click="addToCart(product)"
+                                @click="addToCart(hall)"
                                 class="btn"><i class="lni lni-cart"></i> Add to Cart</button>
                             </div>
                         </div>
@@ -40,19 +40,19 @@ v-if="loading"
                         style="
                         cursor:pointer
                         "
-                        @click="showProduct(product)"
+                        @click="showhall(hall)"
                         class="product-info">
                             <span class="category">
                                  category:
                               {{
-                            product.category
-                              ? product.category.name
+                            hall.category
+                              ? hall.category.name
                               : "No category"
                           }}
                             </span>
                             <h4 class="title">
                                 <span >
-                                    {{product.name}}
+                                    {{hall.name}}
                                 </span>
                             </h4>
                             <ul class="review">
@@ -65,12 +65,12 @@ v-if="loading"
                             </ul>
                             <div class="price">
                                 <span>
-                                     {{product.price}}$
+                                     {{hall.price}}$
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <!-- End Single Product -->
+                    <!-- End Single hall -->
                 </div>
               
             </div>
@@ -86,19 +86,19 @@ import store from "@/store";
 import Swal from "sweetalert2";
 
 export default {
-    name: "ProductGrids",
+    name: "hallGrids",
     components: {
         Loader
     },
     data() {
         return {
-            products: [],
+            halls: [],
             loading: true,
         }
     },
     methods: {
-        addToCart(product) {
-            store.dispatch("addToCart", product);
+        addToCart(hall) {
+            store.dispatch("addToCart", hall);
             Swal.fire({
                 position: "top-end",
                 type: "success",
@@ -108,9 +108,9 @@ export default {
             });
 
         },
-        showProduct(product) {
+        showhall(hall) {
             this.$router.push({
-                name: "product-details",
+                name: "hall-details",
                 params: {
                     id: product.product_id
                 }
@@ -130,11 +130,11 @@ export default {
 
     mounted() {
     // get the product from stor
-      store.dispatch("getProducts");
+      store.dispatch("gethalls");
     setTimeout(() => {
-      this.products = store.state.products;
-      // max products Is 8
-        this.products = this.products.slice(0, 8);
+      this.halls = store.state.halls;
+      // max halls Is 8
+        this.halls = this.halls.slice(0, 8);
       this.loading = false;
     }, 1300);
     

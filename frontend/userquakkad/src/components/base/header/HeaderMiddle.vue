@@ -178,8 +178,16 @@ export default {
         removeItem(index) {
             this.cart.splice(index, 1);
             this.totalCart--;
-            this.totalAmount -= this.cart[index].price;
+            // this.totalAmount -= this.cart[index].price;
+            if (this.cart[index]) {
+
+                this.totalAmount -= this.cart[index].price;
+                
+            }
+            console.log(this.cart);
+            localStorage.removeItem('cart');
             localStorage.setItem('cart', JSON.stringify(this.cart));
+            
         },
         removeLike(index) {
             this.WishList.splice(index, 1);
