@@ -51,7 +51,10 @@
                       >
                     </div>
                     <div class="col-lg-4 col-md-4 col-12">
-                      <a class="btn google-btn" href="javascript:void(0)"
+                      
+                      <a 
+                      @click="GoogleLogin"
+                      class="btn google-btn" href="javascript:void(0)"
                         ><i class="lni lni-google"></i> Google login</a
                       >
                     </div>
@@ -116,7 +119,7 @@
 
 <script>
 import Crumbs from '@/components/base/Crumbs'
-
+// import GoogleAuth from '@/config/google.js'
 export default {
   name: "Login",
     data() {
@@ -131,6 +134,14 @@ export default {
     methods: {
         handleSubmit() {
             this.$store.dispatch("login", this.user);
+        },
+        GoogleLogin() {
+            this.$store.dispatch("googleLogin");
+        },
+        CreateUserWithLogin() {
+            // get user data from google
+            // create user in database
+            // login user
         }
     }
 };

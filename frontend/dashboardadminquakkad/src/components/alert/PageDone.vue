@@ -76,7 +76,7 @@ export default {
     okText: {
       type: String,
       default: 'OK'
-    },
+    }
     
   },
 }

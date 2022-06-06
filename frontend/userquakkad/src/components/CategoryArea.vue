@@ -14,14 +14,25 @@
                 <div class="col-lg-4 col-md-6 col-12">
                     <!-- Start Single Category -->
                     <div class="single-category">
-                        <h3 class="heading">Ball Gown </h3>
-                        <ul>
-                            <li><a href="product-grids.html">Accessories</a></li>
-                            <li><a href="product-grids.html">Jewelry</a></li>
-                            <li><a href="product-grids.html">View All</a></li>
-                        </ul>
+                        <h3 class="heading">
+                            Dresses womens
+                            </h3>
+                         <p
+                        style="
+                       
+                        font-size:11px;
+                        height:100px;
+                        width:180px;
+                        
+                        "
+
+                        >
+                        Whether it is a secular ceremony or a traditional church wedding
+                        </p>
                         <div class="images">
-                            <img src="https://via.placeholder.com/180x180" alt="#">
+                            <img 
+                            style="width:180px;height:180px;"
+                            src="/assets/images/Happy.svg" alt="#">
                         </div>
                     </div>
                     <!-- End Single Category -->
@@ -29,14 +40,23 @@
                 <div class="col-lg-4 col-md-6 col-12">
                     <!-- Start Single Category -->
                     <div class="single-category">
-                        <h3 class="heading">Princess Seams </h3>
-                        <ul>
-                           <li><a href="product-grids.html">Accessories</a></li>
-                            <li><a href="product-grids.html">Jewelry</a></li>
-                            <li><a href="product-grids.html">View All</a></li>
-                        </ul>
+                        <h3 class="heading">Man suit </h3>
+                        <p
+                        style="
+                       
+                        font-size:11px;
+                        height:100px;
+                        width:180px;
+                        
+                        "
+
+                        >
+                        Whether it is a secular ceremony or a traditional church wedding
+                        </p>
                         <div class="images">
-                            <img src="https://via.placeholder.com/180x180" alt="#">
+                           <img 
+                            style="width:180px;height:180px;"
+                            src="/assets/images/Happy2.svg" alt="#">
                         </div>
                     </div>
                     <!-- End Single Category -->
@@ -45,13 +65,23 @@
                     <!-- Start Single Category -->
                     <div class="single-category">
                         <h3 class="heading">Halls</h3>
-                        <ul>
-                           <li><a href="product-grids.html">Accessories</a></li>
-                            <li><a href="product-grids.html">Jewelry</a></li>
-                            <li><a href="product-grids.html">View All</a></li>
-                        </ul>
+                        <p
+                        style="
+                       
+                        font-size:11px;
+                        height:100px;
+                        width:180px;
+                        
+                        "
+
+                        >
+                        Whether it is a secular ceremony or a traditional church wedding
+                        </p>
                         <div class="images">
-                            <img src="https://via.placeholder.com/180x180" alt="#">
+
+                           <img 
+                            style="width:180px;height:180px;"
+                            src="/assets/images/Happy3.svg" alt="#">
                         </div>
                     </div>
                     <!-- End Single Category -->
@@ -59,14 +89,23 @@
                 <div class="col-lg-4 col-md-6 col-12">
                     <!-- Start Single Category -->
                     <div class="single-category">
-                        <h3 class="heading">Formal Dress For Men</h3>
-                        <ul>
-                           <li><a href="product-grids.html">Accessories</a></li>
-                            <li><a href="product-grids.html">Jewelry</a></li>
-                            <li><a href="product-grids.html">View All</a></li>
-                        </ul>
+                        <h3 class="heading">CEREMONY</h3>
+                        <p
+                        style="
+                       
+                        font-size:11px;
+                        height:100px;
+                        width:180px;
+                        
+                        "
+
+                        >
+                        Whether it is a secular ceremony or a traditional church wedding
+                        </p>
                         <div class="images">
-                            <img src="https://via.placeholder.com/180x180" alt="#">
+                             <img 
+                            style="width:180px;height:180px;"
+                            src="/assets/images/Happy4.svg" alt="#">
                         </div>
                     </div>
                     <!-- End Single Category -->
@@ -75,13 +114,22 @@
                     <!-- Start Single Category -->
                     <div class="single-category">
                         <h3 class="heading">Formal Dress For Men</h3>
-                        <ul>
-                          <li><a href="product-grids.html">Accessories</a></li>
-                            <li><a href="product-grids.html">Jewelry</a></li>
-                            <li><a href="product-grids.html">View All</a></li>
-                        </ul>
+                          <p
+                        style="
+                       
+                        font-size:11px;
+                        height:100px;
+                        width:180px;
+                        
+                        "
+
+                        >
+                        Whether it is a secular ceremony or a traditional church wedding
+                        </p>
                         <div class="images">
-                            <img src="https://via.placeholder.com/180x180" alt="#">
+                             <img 
+                            style="width:180px;height:180px;"
+                            src="/assets/images/Happy6.svg" alt="#">
                         </div>
                     </div>
                     <!-- End Single Category -->
@@ -89,14 +137,23 @@
                 <div class="col-lg-4 col-md-6 col-12">
                     <!-- Start Single Category -->
                     <div class="single-category">
-                        <h3 class="heading">Formal Dress For Men</h3>
-                        <ul>
-                            <li><a href="product-grids.html">Accessories</a></li>
-                            <li><a href="product-grids.html">Jewelry</a></li>
-                            <li><a href="product-grids.html">View All</a></li>
-                        </ul>
+                        <h3 class="heading">Cars</h3>
+                          <p
+                        style="
+                       
+                        font-size:11px;
+                        height:100px;
+                        width:180px;
+                        
+                        "
+
+                        >
+                        Whether it is a secular ceremony or a traditional church wedding
+                        </p>
                         <div class="images">
-                            <img src="https://via.placeholder.com/180x180" alt="#">
+                             <img 
+                            style="width:180px;height:180px;"
+                            src="/assets/images/Happy5.svg" alt="#">
                         </div>
                     </div>
                     
@@ -114,10 +171,7 @@ export default {
     name: 'CategoryArea',
     data() {
         return {
-            items:{
-               
-
-            }
+            
         }
     }
 }

@@ -142,6 +142,7 @@
                       </td>
                       <td :class="`${default_ClassName}`">
                         <div class="text-sm leading-5 text-gray-500">
+                         
                           {{
                             product.category
                               ? product.category.name

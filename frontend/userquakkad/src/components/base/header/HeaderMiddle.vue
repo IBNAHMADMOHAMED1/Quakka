@@ -7,7 +7,6 @@
                         <a class="navbar-brand" href="index.html">
                            Quakka
                         </a>
-                        <!-- End Header Logo -->
                     </div>
                     <div class="col-lg-5 col-md-7 d-xs-none">
                         <!-- Start Main Menu Search -->
@@ -45,59 +44,111 @@
                                     <span>(+100) 123 456 7890</span>
                                 </h3>
                             </div>
-                            <div class="navbar-cart">
-                                <div class="wishlist">
-                                    <a href="javascript:void(0)">
-                                        <i class="lni lni-heart"></i>
-                                        <span class="total-items">0</span>
-                                    </a>
-                                </div>
-                                <div class="cart-items">
-                                    <a href="javascript:void(0)" class="main-btn">
-                                        <i class="lni lni-cart"></i>
-                                        <span class="total-items">2</span>
+                            <div class="navbar-cart"
+                           style="
+                           display: flex;
+                           gap: 10px;
+                           "
+                            >
+                               
+                                 <div class="cart-items">
+                                    <a class="main-btn">
+                                         <i class="lni lni-heart"></i>
+                                        <span class="total-items">
+                                            {{WishListTotal}}
+                                        </span>
                                     </a>
                                     <!-- Shopping Item -->
                                     <div class="shopping-item">
                                         <div class="dropdown-cart-header">
-                                            <span>2 Items</span>
-                                            <a href="cart.html">View Cart</a>
+                                            <span>{{WishListTotal}}</span>
+                                            <p type="button" class=""
+                                            @click="$router.push('/view-cart')"
+                                            >View Cart</p>
                                         </div>
                                         <ul class="shopping-list">
-                                            <li>
-                                                <a href="javascript:void(0)" class="remove" title="Remove this item"><i
-                                                        class="lni lni-close"></i></a>
+                                            <li
+                                            v-for="(item, index) in WishList"
+                                            >
+                                                <p 
+                                                @click ="removeLike(index)"
+                                                class="remove" title="Remove this item"><i
+                                                        class="lni lni-close"></i></p>
                                                 <div class="cart-img-head">
                                                     <a class="cart-img" href="product-details.html"><img
-                                                            src="assets/images/header/cart-items/item1.jpg" alt="#"></a>
+                                                            src="/assets/images/producs/default.jpg"  alt="#"></a>
                                                 </div>
 
                                                 <div class="content">
                                                     <h4><a href="product-details.html">
-                                                            Apple Watch Series 6</a></h4>
-                                                    <p class="quantity">1x - <span class="amount">$99.00</span></p>
+                                                           {{ item.name }}
+                                                           </a></h4>
+                                                    <p class="quantity">1x - <span class="amount">
+                                                            {{ item.price }}
+                                                    </span></p>
                                                 </div>
                                             </li>
-                                            <li>
-                                                <a href="javascript:void(0)" class="remove" title="Remove this item"><i
-                                                        class="lni lni-close"></i></a>
+                                        </ul>
+                                        <div class="bottom">
+                                           
+                                            <div
+                                            @click="$router.push('/view-cart')"
+                                            class="button">
+                                                <span class="btn animate">Checkout</span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/ End Shopping Item -->
+                                </div>
+                                <div class="cart-items">
+                                    <a class="main-btn">
+                                        <i class="lni lni-cart"></i>
+                                        <span class="total-items">{{totalCart}}</span>
+                                    </a>
+                                    <!-- Shopping Item -->
+                                    <div class="shopping-item">
+                                        <div class="dropdown-cart-header">
+                                            <span>{{totalCart}}</span>
+                                            <p type="button" class=""
+                                            @click="$router.push('/view-cart')"
+                                            >View Cart</p>
+                                        </div>
+                                        <ul class="shopping-list">
+                                            <li
+                                            v-for="(item, index) in cart"
+                                            >
+                                                <p 
+                                                @click ="removeItem(index)"
+                                                class="remove" title="Remove this item"><i
+                                                        class="lni lni-close"></i></p>
                                                 <div class="cart-img-head">
                                                     <a class="cart-img" href="product-details.html"><img
-                                                            src="assets/images/header/cart-items/item2.jpg" alt="#"></a>
+                                                            src="/assets/images/producs/default.jpg"  alt="#"></a>
                                                 </div>
+
                                                 <div class="content">
-                                                    <h4><a href="product-details.html">Wi-Fi Smart Camera</a></h4>
-                                                    <p class="quantity">1x - <span class="amount">$35.00</span></p>
+                                                    <h4><a href="product-details.html">
+                                                           {{ item.name }}
+                                                           </a></h4>
+                                                    <p class="quantity">1x - <span class="amount">
+                                                            {{ item.price }}
+                                                    </span></p>
                                                 </div>
                                             </li>
                                         </ul>
                                         <div class="bottom">
                                             <div class="total">
                                                 <span>Total</span>
-                                                <span class="total-amount">$134.00</span>
+                                                <span class="total-amount">
+                                                    {{ totalAmount }}
+                                                </span>
                                             </div>
-                                            <div class="button">
-                                                <a href="checkout.html" class="btn animate">Checkout</a>
+                                            <div
+                                            @click="$router.push('/view-cart')"
+                                            class="button">
+                                                <span class="btn animate">Checkout</span>
+
                                             </div>
                                         </div>
                                     </div>
@@ -114,5 +165,94 @@
 <script>
 export default {
     name: "HeaderMiddle",
+    data() {
+        return {
+            totalCart: 0,
+            cart: [],
+            totalAmount: 0,
+            WishList: [],
+            WishListTotal: 0,
+        }
+    },
+    methods: {
+        removeItem(index) {
+            this.cart.splice(index, 1);
+            this.totalCart--;
+            this.totalAmount -= this.cart[index].price;
+            localStorage.setItem('cart', JSON.stringify(this.cart));
+        },
+        removeLike(index) {
+            this.WishList.splice(index, 1);
+            this.WishListTotal--;
+            localStorage.setItem('wishList', JSON.stringify(this.WishList));
+        },
+       
+       
+    },
+  
+  
+    created() {
+        let cart = localStorage.getItem('cart');
+        if (cart) {
+                cart = JSON.parse(cart);
+       this.totalCart = cart.length;
+         this.cart = cart;
+            this.totalAmount = this.cart.reduce((total, item) => {
+                return total + item.price;
+            }, 0);
+        }
+        
+
+        
+             let WishList = localStorage.getItem('wishList');
+            if (WishList != null) {
+                 WishList = JSON.parse(WishList);
+                this.WishList = WishList;
+                this.WishListTotal = WishList.length;
+            }
+
+
+
+
+    },
+    mounted() {
+        window.addEventListener('cart-updated', (e) => {
+            this.cart = e.detail.cart;
+        });
+        window.addEventListener('wishlist-updated', (e) => {
+            this.WishList = e.detail.wishList;
+        });
+        
+
+    },
+
+
+    watch: {
+        cart: {
+            handler() {
+                this.totalAmount = this.cart.reduce((total, item) => {
+                    return total + item.price;
+                }, 0);
+                this.totalCart = this.cart.length;
+                    this.cart = localStorage.getItem('cart');
+                   this.cart = JSON.parse(this.cart);
+            },
+            deep: true
+        },
+        WishList: {
+            handler() {
+                this.WishListTotal = this.WishList.length;
+                this.WishList = localStorage.getItem('wishList');
+                this.WishList = JSON.parse(this.WishList);
+            },
+            deep: true
+        }
+
+
+    },
+
+  
+  
 }
+
 </script>

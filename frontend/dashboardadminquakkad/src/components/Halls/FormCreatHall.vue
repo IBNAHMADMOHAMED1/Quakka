@@ -342,6 +342,7 @@ export default {
           icon: "success",
           confirmButtonText: "Ok",
         });
+        
       }
     },
     uploadImages(e, Images) {

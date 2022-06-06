@@ -15,4 +15,7 @@ import bglightbox from '@/assets/js/glightbox.min.js'
 
 
 
+
+
 createApp(App).use(store).use(router).mount('#app')
+

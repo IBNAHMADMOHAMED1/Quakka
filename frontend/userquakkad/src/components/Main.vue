@@ -1,22 +1,23 @@
 <template>
   
+<slot>
+  <Header>
+  </header>
 
-<Main/>
- <Footer/>
 
+</slot>
 
+  <router-view/>
 </template>
 
 <script>
 
-import Main from './components/Main.vue'
-import Footer from '@/components/base/Footer.vue'
-
+import Header from './base/Header.vue'
 
 export default {
 
   components: {
-    Main,Footer
+    Header
   },
   
 }

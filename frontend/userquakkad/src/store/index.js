@@ -8,6 +8,7 @@ state: {
       email: "",
       password: "",
       avatar: "",
+      
     },
     productCreated: false,
     getProductCreated: {},
@@ -16,6 +17,8 @@ state: {
     halls: [],
     hall: [],
     hallCreated: false,
+    cart: [],
+    wishList: [],
   },
   getters: {
     sideBarOpen: (state) => {
@@ -42,36 +45,28 @@ state: {
     },
     hall: (state) => {
       return state.hall;
+    },
+    cart: (state) => {
+      return state.cart;
+    },
+    wishList: (state) => {
+      return state.wishList;
     }
   },
   mutations: {
-    toggleSidebar(state) {
-      state.sideBarOpen = !state.sideBarOpen;
-    },
-    setUser(state, user) {
-      state.user = user;
-    },
-    setProducts(state, products) {
-      state.products = products;
-    },
-    setProductCreated(state, productCreated) {
-      state.productCreated = productCreated;
-    },
-    setGetProductCreated(state, getProductCreated) {
-      state.getProductCreated = getProductCreated;
-    },
-    setProduct(state, product) {
-      state.product = product;
-    },
-    setHalls(state, halls) {
-      state.halls = halls;
-    },
-    setHall(state, hall) {state.hall = hall;}
+    toggleSidebar(state) {state.sideBarOpen = !state.sideBarOpen;},
+    setUser(state, user) {state.user = user;},
+    setProducts(state, products) {state.products = products;},
+    setProductCreated(state, productCreated) {state.productCreated = productCreated;},
+    setGetProductCreated(state, getProductCreated) {state.getProductCreated = getProductCreated;},
+    setProduct(state, product) {state.product = product;},
+    setHalls(state, halls) {state.halls = halls;},
+    setHall(state, hall) { state.hall = hall; },
+    setCart(state, cart) { state.cart = cart; },
+    setWishList(state, wishList) { state.wishList = wishList; }
   },
   actions: {
-    toggleSidebar(context) {
-      context.commit("toggleSidebar");
-    },
+    toggleSidebar(context) {context.commit("toggleSidebar");},
     getUser(context) {
       return new Promise((resolve, reject) => {
         let user = localStorage.getItem("user");
@@ -128,25 +123,6 @@ state: {
           context.commit("setProducts", data[1]);
         });
       },
-    getProduct(context, product_id) {
-        console.log(product_id);
-      fetch(`http://localhost/QuakkaProject/products/getone/${product_id}`)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          context.commit("setProduct", data[1]);
-        });
-    },
- 
-  
-    getHalls(context) {
-      fetch("http://localhost/QuakkaProject/halls/gethalls")
-        .then((response) => response.json())
-        .then((data) => {
-          context.commit("setHalls", data[1]);
-        });
-    },
-
     _getOne(context,defineParam) {
    
       fetch(`http://localhost/QuakkaProject/${defineParam.model}/getone/${defineParam.id}`)
@@ -162,7 +138,45 @@ state: {
           
         });
     },
-  
-    
+    addToCart(context, product) {
+      let cart = localStorage.getItem("cart");
+      cart = JSON.parse(cart);
+      if (cart === null) {
+        cart = [];
+      }
+      cart.push(product);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      context.commit("setCart", cart);
+
+      window.dispatchEvent(new CustomEvent("cart-updated", {
+        detail: {
+          cart: cart,
+        }
+      }));
+
+    },
+    addToWishList(context, product) {
+      let wishList = localStorage.getItem("wishList");
+      wishList = JSON.parse(wishList);
+      if (wishList === null) {
+        wishList = [];
+      }
+      wishList.push(product);
+      localStorage.setItem("wishList", JSON.stringify(wishList));
+      context.commit("setWishList", wishList);
+
+      window.dispatchEvent(new CustomEvent("wishlist-updated", {
+        detail: {
+          wishList: wishList,
+        }
+      }));
+
+    },
+    googleLogin(context, user) {
+      context.commit("setUser", user);
+      localStorage.setItem("user", JSON.stringify(user));
+     //  CreateUserWithLogin
+      
+    }
   },
 })

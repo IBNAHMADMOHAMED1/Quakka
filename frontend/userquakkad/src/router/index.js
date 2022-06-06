@@ -21,6 +21,22 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: () => import('@/views/auth/RegisterView.vue')
+  },
+  {
+    path: '/product-details/:id',
+    name: 'product-details',
+    component: () => import('@/views/product/ProductDetails.vue')
+  },
+  // page not found
+  {
+    path: '/:cathAll(.*)',
+    name: '404',
+    component: () => import('@/views/404.vue')
+  },
+  {
+    path: '/view-cart',
+    name: 'view-cart',
+    component: () => import('@/views/cart/ViewCart.vue')
   }
 ]
 

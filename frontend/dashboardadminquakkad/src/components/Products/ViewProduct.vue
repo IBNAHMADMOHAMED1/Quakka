@@ -27,26 +27,7 @@
               bg-white
             "
           >
-            <content-loader
-              v-if="loading"
-              viewBox="0 0 600 160"
-              :speed="1"
-              primaryColor="#d8d4d4"
-              secondaryColor="#ecebeb"
-            >
-              <rect x="136" y="18" rx="3" ry="3" width="88" height="6" />
-              <rect x="136" y="34" rx="3" ry="3" width="52" height="6" />
-              <rect x="136" y="62" rx="3" ry="3" width="410" height="6" />
-              <rect x="137" y="79" rx="3" ry="3" width="331" height="5" />
-              <rect x="137" y="97" rx="3" ry="3" width="178" height="6" />
-              <circle cx="58" cy="245" r="20" />
-              <rect x="4" y="15" rx="0" ry="0" width="113" height="113" />
-              <rect x="54" y="85" rx="0" ry="0" width="8" height="37" />
-              <rect x="144" y="149" rx="0" ry="0" width="45" height="46" />
-              <rect x="210" y="148" rx="0" ry="0" width="49" height="13" />
-              <rect x="287" y="150" rx="0" ry="0" width="50" height="22" />
-            </content-loader>
-
+           
             <div class="" v-if="!loading && product !== []">
               <div
                 class="
@@ -457,15 +438,6 @@ export default {
         });
     }, 2000);
   },
-  // created() {
-  //     let productId = this.$route.params.productId;
-  //   setTimeout(() => {
-  //     this.$store.dispatch("getProduct", productId);
-  //     this.product = JSON.parse(JSON.stringify(this.$store.state.product));
-  //     this.images = this.product.images;
-  //     this.loading = false;
-  //   }, 1300);
-  // }
 };
 </script>
 
