@@ -163,7 +163,6 @@ export default new Vuex.Store({
           }
         });
     },
-    
     createHall(context, hall) {
        
 
@@ -195,7 +194,6 @@ export default new Vuex.Store({
           context.commit("setHalls", data[1]);
         });
     },
-
     delete(context, defineParam) {
      // convert defineParam to object:
      let  type_table = defineParam.model;

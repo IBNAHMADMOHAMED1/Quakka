@@ -30,8 +30,7 @@
         On apprend mieux quand on est impliqué dans un projet particulier et quand on rencontre un problème.
 ____________________________________________________________________________________________________________
 
-- Pourqoui avez-vous choisi d’integre YouCode?
-        durant le confinement
+- Pourqoui avez-vous choisi d’integre YouCode?  durant le confinement
         je me suis davantage intéressé à la programmation,
         j'ai donc senti que je devais améliorer mes connaissances en suivant un apprentissage
         professionnel, et YouCode était le meilleur choix pour cela
@@ -39,6 +38,8 @@ ________________________________________________________________________________
 
 - Pourqoui avoire choisi la specialite Java SalesForce ?
 	Java a toujours été intéressant pour moi en raison de sa stabilité et de sa cohérence sur plusieurs années,
+  et salesForce sera une bonne chose pour moi car il me permet de me former à une bonne base de connaissances .
+  donc je suis davantage intéressé à la specialite Java SalesForce.
 
 _____________________________________________________________________________________________________
 
@@ -71,6 +72,9 @@ ________________________________________________________________________________
     Class:c'est le modèle pour construire des objets, il contient des attributs de différents niveaux de visibilité, ainsi que des méthodes qui représentent les capacités de l'objet
     Objet:l'objet est une instance d'une classe, contient des attributs et des capacités définis par la classe
     Héritage:quand une classe possède tous les attributs et méthodes d'une autre classe
+    Le concept d’encapsulation : c'est un concept qui permet de visibilité des attributs et méthodes d'une classe,hhhhh
+    polymorphisme:quand une classe possède des méthodes différentes pour différents types d'objets
+    abstraction:quand une classe possède des méthodes qui sont abstraites et ne sont pas implémentées dans les classes filles
 
 _____________________________________________________________________________________________________
 - Quelles technologies vous avez travaille avec pendant l’annee?
@@ -78,14 +82,25 @@ ________________________________________________________________________________
         projets avec php et aussi laravel, et d'autres choses comme wordpress, docker, mvc, git…
 
 
-j
+Modèle-vue-contrôleur ou MVC est un motif d'architecture logicielle destiné aux interfaces graphiques lancé en 1978 et 
+très populaire pour les applications web. Le motif est composé de trois types de modules ayant trois responsabilités différentes : 
+les modèles, les vues Page | 24 et les contrôleurs.
+ - Un modèle (Model) contient les données à afficher.
+ - Une vue (View) contient la présentation de l'interface graphique.
+ - Un contrôleur (Controller) contient la logique concernant les actions effectuées par l'utilisateur
+ 
+
 
 ERP :
 Le logiciel ERP (pour Entreprise Resource Planning) centralise l’ensemble des outils nécessaire à la gestion de votre entreprise :
  comptabilité, gestion commerciale, GPAO, CRM, etc.
 
 
+model vue con ou lvc et un trafi d'architectur
+logiciel destiné aux intrfac graphiq lnce ne 1978 ET TRee populaire pour les app web ,
 
+le moftif compose de troi type de mdukkes aynat les modules :les vue page le s contrôleur
+p
 
 
 
