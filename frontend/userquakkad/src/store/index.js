@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import Swal from 'sweetalert2'
 
 export default createStore({
 state: {
@@ -177,6 +178,31 @@ state: {
       localStorage.setItem("user", JSON.stringify(user));
      //  CreateUserWithLogin
       
+    },
+    subscribeEmail(context, email) {
+      fetch("http://localhost/QuakkaProject/subscribes/createSubscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: email }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data[0] === true) {
+            Swal.fire({
+              icon: "success",
+              title: "Subscribed",
+              text: "You have been subscribed to our newsletter",
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "You have an error",
+            });
+          }
+        });
     }
   },
 })

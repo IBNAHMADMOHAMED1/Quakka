@@ -1,8 +1,6 @@
 <template>
-    <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapsefive" aria-expanded="false"
-        aria-controls="collapsefive">Payment Info</h6>
-    <section class="checkout-steps-form-content collapse" id="collapsefive" aria-labelledby="headingFive"
-        data-bs-parent="#accordionExample">
+    <h6 class="title collapsed" >Payment Info</h6>
+    <section class="checkout-steps-form-content collapse" id="collapsefive">
         <div class="row">
             <div class="col-12">
                 <div class="checkout-payment-form">

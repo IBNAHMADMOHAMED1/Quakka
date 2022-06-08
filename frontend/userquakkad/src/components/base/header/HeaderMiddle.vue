@@ -1,165 +1,154 @@
 <template>
-<div class="header-middle">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-3 col-md-3 col-7">
-                        <!-- Start Header Logo -->
-                        <a class="navbar-brand" href="index.html">
-                           Quakka
-                        </a>
+    <div class="header-middle">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-3 col-md-3 col-7">
+                    <div class="navbar-brand" @click="$router.push('/')">
+                        Quakka <span>Shopping</span>
+                
+
                     </div>
-                    <div class="col-lg-5 col-md-7 d-xs-none">
-                        <!-- Start Main Menu Search -->
-                        <div class="main-menu-search">
-                            <!-- navbar search start -->
-                            <div class="navbar-search search-style-5">
-                                <div class="search-select">
-                                    <div class="select-position">
-                                        <select id="select1">
-                                            <option selected>All</option>
-                                            <option value="1">option 01</option>
-                                            <option value="2">option 02</option>
-                                            <option value="3">option 03</option>
-                                            <option value="4">option 04</option>
-                                            <option value="5">option 05</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="search-input">
-                                    <input type="text" placeholder="Search">
-                                </div>
-                                <div class="search-btn">
-                                    <button><i class="lni lni-search-alt"></i></button>
+                </div>
+                <div class="col-lg-5 col-md-7 d-xs-none">
+                    <!-- Start Main Menu Search -->
+                    <div class="main-menu-search">
+                        <!-- navbar search start -->
+                        <div class="navbar-search search-style-5">
+                            <div class="search-select">
+                                <div class="select-position">
+                                    <select id="select1">
+                                        <option selected>All</option>
+                                        <option value="1">option 01</option>
+                                        <option value="2">option 02</option>
+                                        <option value="3">option 03</option>
+                                        <option value="4">option 04</option>
+                                        <option value="5">option 05</option>
+                                    </select>
                                 </div>
                             </div>
-                            <!-- navbar search Ends -->
+                            <div class="search-input">
+                                <input type="text" placeholder="Search">
+                            </div>
+                            <div class="search-btn">
+                                <button><i class="lni lni-search-alt"></i></button>
+                            </div>
                         </div>
-                        <!-- End Main Menu Search -->
+                        <!-- navbar search Ends -->
                     </div>
-                    <div class="col-lg-4 col-md-2 col-5">
-                        <div class="middle-right-area">
-                            <div class="nav-hotline">
-                                <i class="lni lni-phone"></i>
-                                <h3>Hotline:
-                                    <span>(+100) 123 456 7890</span>
-                                </h3>
-                            </div>
-                            <div class="navbar-cart"
-                           style="
+                    <!-- End Main Menu Search -->
+                </div>
+                <div class="col-lg-4 col-md-2 col-5">
+                    <div class="middle-right-area">
+                        <div class="nav-hotline">
+                            <i class="lni lni-phone"></i>
+                            <h3>Hotline:
+                                <span>(+100) 123 456 7890</span>
+                            </h3>
+                        </div>
+                        <div class="navbar-cart" style="
                            display: flex;
                            gap: 10px;
-                           "
-                            >
-                               
-                                 <div class="cart-items">
-                                    <a class="main-btn">
-                                         <i class="lni lni-heart"></i>
-                                        <span class="total-items">
-                                            {{WishListTotal}}
-                                        </span>
-                                    </a>
-                                    <!-- Shopping Item -->
-                                    <div class="shopping-item">
-                                        <div class="dropdown-cart-header">
-                                            <span>{{WishListTotal}}</span>
-                                            <p type="button" class=""
-                                            @click="$router.push('/view-cart')"
-                                            >View Cart</p>
-                                        </div>
-                                        <ul class="shopping-list">
-                                            <li
-                                            v-for="(item, index) in WishList"
-                                            >
-                                                <p 
-                                                @click ="removeLike(index)"
-                                                class="remove" title="Remove this item"><i
-                                                        class="lni lni-close"></i></p>
-                                                <div class="cart-img-head">
-                                                    <a class="cart-img" href="product-details.html"><img
-                                                            src="/assets/images/producs/default.jpg"  alt="#"></a>
-                                                </div>
+                           ">
 
-                                                <div class="content">
-                                                    <h4><a href="product-details.html">
-                                                           {{ item.name }}
-                                                           </a></h4>
-                                                    <p class="quantity">1x - <span class="amount">
-                                                            {{ item.price }}
-                                                    </span></p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <div class="bottom">
-                                           
-                                            <div
-                                            @click="$router.push('/view-cart')"
-                                            class="button">
-                                                <span class="btn animate">Checkout</span>
-
+                            <div class="cart-items">
+                                <a class="main-btn">
+                                    <i class="lni lni-heart"></i>
+                                    <span class="total-items">
+                                        {{WishListTotal}}
+                                    </span>
+                                </a>
+                                <!-- Shopping Item -->
+                                <div class="shopping-item">
+                                    <div class="dropdown-cart-header">
+                                        <span>{{WishListTotal}}</span>
+                                        <p type="button" class="" @click="$router.push('/view-cart')">View Cart</p>
+                                    </div>
+                                    <ul class="shopping-list">
+                                        <li v-for="(item, index) in WishList" :key="index">
+                                            <p @click="removeLike(index)" class="remove" title="Remove this item"><i
+                                                    class="lni lni-close"></i></p>
+                                            <div class="cart-img-head">
+                                                <div @click="$router.push('/product-details/'+item.product_id)"
+                                                    class="cart-img"><img src="/assets/images/producs/default.jpg"
+                                                        alt="#"></div>
                                             </div>
+
+                                            <div class="content">
+                                                <h4>
+                                                    <div @click="$router.push('/product-details/'+item.product_id)">
+                                                        {{ item.name }}
+                                                    </div>
+                                                </h4>
+                                                <p class="quantity">1x - <span class="amount">
+                                                        {{ item.price }}
+                                                    </span></p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="bottom">
+
+                                        <div @click="$router.push('/checkout')" class="button">
+                                            <span class="btn animate">Checkout</span>
+
                                         </div>
                                     </div>
-                                    <!--/ End Shopping Item -->
                                 </div>
-                                <div class="cart-items">
-                                    <a class="main-btn">
-                                        <i class="lni lni-cart"></i>
-                                        <span class="total-items">{{totalCart}}</span>
-                                    </a>
-                                    <!-- Shopping Item -->
-                                    <div class="shopping-item">
-                                        <div class="dropdown-cart-header">
-                                            <span>{{totalCart}}</span>
-                                            <p type="button" class=""
-                                            @click="$router.push('/view-cart')"
-                                            >View Cart</p>
-                                        </div>
-                                        <ul class="shopping-list">
-                                            <li
-                                            v-for="(item, index) in cart"
-                                            >
-                                                <p 
-                                                @click ="removeItem(index)"
-                                                class="remove" title="Remove this item"><i
-                                                        class="lni lni-close"></i></p>
-                                                <div class="cart-img-head">
-                                                    <a class="cart-img" href="product-details.html"><img
-                                                            src="/assets/images/producs/default.jpg"  alt="#"></a>
-                                                </div>
+                                <!--/ End Shopping Item -->
+                            </div>
+                            <div class="cart-items">
+                                <a class="main-btn">
+                                    <i class="lni lni-cart"></i>
+                                    <span class="total-items">{{totalCart}}</span>
+                                </a>
+                                <!-- Shopping Item -->
+                                <div class="shopping-item">
+                                    <div class="dropdown-cart-header">
+                                        <span>{{totalCart}}</span>
+                                        <p type="button" class="" @click="$router.push('/view-cart')">View Cart</p>
+                                    </div>
+                                    <ul class="shopping-list">
+                                        <li v-for="(item, index) in cart">
+                                            <p @click="removeItem(index)" class="remove" title="Remove this item"><i
+                                                    class="lni lni-close"></i></p>
+                                            <div class="cart-img-head">
+                                                <div @click="$router.push('/product-details/'+item.product_id)"
+                                                    class="cart-img"><img src="/assets/images/producs/default.jpg"
+                                                        alt="#"></div>
+                                            </div>
 
-                                                <div class="content">
-                                                    <h4><a href="product-details.html">
-                                                           {{ item.name }}
-                                                           </a></h4>
-                                                    <p class="quantity">1x - <span class="amount">
-                                                            {{ item.price }}
+                                            <div class="content">
+                                                <h4>
+                                                    <div @click="$router.push('/product-details/'+item.product_id)">
+                                                        {{ item.name }}
+                                                    </div>
+                                                </h4>
+                                                <p class="quantity">1x - <span class="amount">
+                                                        {{ item.price }}
                                                     </span></p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <div class="bottom">
-                                            <div class="total">
-                                                <span>Total</span>
-                                                <span class="total-amount">
-                                                    {{ totalAmount }}
-                                                </span>
                                             </div>
-                                            <div
-                                            @click="$router.push('/view-cart')"
-                                            class="button">
-                                                <span class="btn animate">Checkout</span>
+                                        </li>
+                                    </ul>
+                                    <div class="bottom">
+                                        <div class="total">
+                                            <span>Total</span>
+                                            <span class="total-amount">
+                                                {{ totalAmount }}
+                                            </span>
+                                        </div>
+                                        <div @click="$router.push('/view-cart')" class="button">
+                                            <span class="btn animate">Checkout</span>
 
-                                            </div>
                                         </div>
                                     </div>
-                                    <!--/ End Shopping Item -->
                                 </div>
+                                <!--/ End Shopping Item -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 </template>
 
 <script>
