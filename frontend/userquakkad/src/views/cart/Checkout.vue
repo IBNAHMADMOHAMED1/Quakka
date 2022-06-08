@@ -10,7 +10,8 @@
                         <ul @click="close">
 
                             <li>
-                                <Shipping v-if="next_step === 'Shipping'" :completeStep="completeStep" />
+                                <Shipping v-if="next_step === 'Shipping'" :completeStep="completeStep"
+                                    :idClient="idClient" />
                                 <div v-if="next_step === 'PersonalDetails' ">
                                     <h6 class="title">
                                         Your Personal Details

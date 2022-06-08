@@ -18,6 +18,12 @@ export default {
     Main,Footer
   },
   
+  beforeCreate() { 
+    this.$store.commit('setCart', JSON.parse(localStorage.getItem('cart')));
+  
+  }
+
+  
 }
 </script>
 

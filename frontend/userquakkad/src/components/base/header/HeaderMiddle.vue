@@ -107,7 +107,7 @@
                                         <p type="button" class="" @click="$router.push('/view-cart')">View Cart</p>
                                     </div>
                                     <ul class="shopping-list">
-                                        <li v-for="(item, index) in cart">
+                                        <li v-for="(item, index) in cart" :key="index" >
                                             <p @click="removeItem(index)" class="remove" title="Remove this item"><i
                                                     class="lni lni-close"></i></p>
                                             <div class="cart-img-head">
@@ -176,12 +176,18 @@ export default {
             console.log(this.cart);
             localStorage.removeItem('cart');
             localStorage.setItem('cart', JSON.stringify(this.cart));
+            // commit cart in store
+            this.$store.commit('setCart', this.cart);
+            
+            this.totalAmount = this.$store.state.cart.reduce((total, item) => {
+                return total + item.price;
+            }, 0);
             
         },
         removeLike(index) {
             this.WishList.splice(index, 1);
             this.WishListTotal--;
-            localStorage.setItem('wishList', JSON.stringify(this.WishList));
+            localStorage.setItem('wishList', JSON.stringify(this.WishList)); 
         },
        
        
@@ -189,9 +195,9 @@ export default {
   
   
     created() {
-        let cart = localStorage.getItem('cart');
+        let cart = this.$store.state.cart;
         if (cart) {
-                cart = JSON.parse(cart);
+                // cart = JSON.parse(cart);
        this.totalCart = cart.length;
          this.cart = cart;
             this.totalAmount = this.cart.reduce((total, item) => {
@@ -231,8 +237,8 @@ export default {
                     return total + item.price;
                 }, 0);
                 this.totalCart = this.cart.length;
-                    this.cart = localStorage.getItem('cart');
-                   this.cart = JSON.parse(this.cart);
+                    this.cart = this.$store.state.cart;
+                //    this.cart = JSON.parse(this.cart);
             },
             deep: true
         },

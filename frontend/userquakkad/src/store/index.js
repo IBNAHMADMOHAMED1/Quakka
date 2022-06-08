@@ -148,6 +148,7 @@ state: {
       cart.push(product);
       localStorage.setItem("cart", JSON.stringify(cart));
       context.commit("setCart", cart);
+      // add cart to 
 
       window.dispatchEvent(new CustomEvent("cart-updated", {
         detail: {

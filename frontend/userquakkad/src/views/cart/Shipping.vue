@@ -2,7 +2,10 @@
 <script>
 export default {
   name: "Shipping",
-  props: { completeStep: Function },
+  props: {
+    completeStep: Function,
+    idClient: Number,
+  },
     data (){
       return {
         shipping_methods: [
@@ -34,6 +37,7 @@ export default {
           state: '',
           country: '',
           selected_shipping_method: '',
+          
         },
         
       }
@@ -43,6 +47,10 @@ export default {
         {  
         console.log(this.shipping_details);
         this.completeStep();
+        //  call server to save shipping details
+        // fetch
+
+
         },
         completeStep()
         {
