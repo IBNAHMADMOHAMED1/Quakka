@@ -10,9 +10,7 @@
                         <ul @click="close">
 
                             <li>
-                                <Shipping 
-                                v-if="next_step === 'Shipping'" 
-                                :completeStep="completeStep" />
+                                <Shipping v-if="next_step === 'Shipping'" :completeStep="completeStep" />
                                 <div v-if="next_step === 'PersonalDetails' ">
                                     <h6 class="title">
                                         Your Personal Details
@@ -26,11 +24,11 @@
                                                         <div class="row">
                                                             <div class="col-md-6 form-input form">
                                                                 <input type="text" placeholder="First Name"
-                                                                    v-model="first_name" />
+                                                                    v-model="client.first_name" />
                                                             </div>
                                                             <div class="col-md-6 form-input form">
                                                                 <input type="text" placeholder="Last Name"
-                                                                    v-model="last_name" />
+                                                                    v-model="client.last_name" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -40,7 +38,7 @@
                                                         <label>Email Address</label>
                                                         <div class="form-input form">
                                                             <input type="text" placeholder="Email Address"
-                                                                v-model="email" />
+                                                                v-model="client.email" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -49,7 +47,7 @@
                                                         <label>Phone Number</label>
                                                         <div class="form-input form">
                                                             <input type="text" placeholder="Phone Number"
-                                                                v-model="phone" />
+                                                                v-model="client.phone" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -58,7 +56,7 @@
                                                         <label>Mailing Address</label>
                                                         <div class="form-input form">
                                                             <input type="text" placeholder="Mailing Address"
-                                                                v-model="mailing_address" />
+                                                                v-model="client.mailing_address" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -66,7 +64,8 @@
                                                     <div class="single-form form-default">
                                                         <label>City</label>
                                                         <div class="form-input form">
-                                                            <input type="text" placeholder="City" v-model="city" />
+                                                            <input type="text" placeholder="City"
+                                                                v-model="client.city" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -75,7 +74,7 @@
                                                         <label>Post Code</label>
                                                         <div class="form-input form">
                                                             <input type="text" placeholder="Post Code"
-                                                                v-model="postal_code" />
+                                                                v-model="client.postal_code" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -84,21 +83,23 @@
                                                         <label>Country</label>
                                                         <div class="form-input form">
                                                             <input type="text" placeholder="Country"
-                                                                v-model="country" />
+                                                                v-model="client.country" />
 
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="single-checkbox checkbox-style-3">
-                                                        <input type="checkbox" id="checkbox-3" />
+                                                        <input type="checkbox" id="checkbox-3"
+                                                            v-model="client.is_same_address" />
+                                                        />
                                                         <label for="checkbox-3"><span></span></label>
                                                         <p>My delivery and mailing addresses are the same.</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="single-form button">
-                                                        <button @click.prevent="handleCreateUser" class="btn">
+                                                        <button @click.prevent="handleCreateClinet" class="btn">
                                                             next step
                                                         </button>
                                                     </div>
@@ -107,9 +108,7 @@
                                         </section>
                                     </form>
                                 </div>
-                                <Payment 
-                                v-if="next_step === 'Payment'"
-                                 :completeStep="completeStep" />
+                                <Payment v-if="next_step === 'Payment'" />
 
                             </li>
                         </ul>
@@ -151,6 +150,7 @@ import Payment from "../../components/Pay.vue";
 import Crumbs from "@/components/base/Crumbs.vue";
 import PricingTable from "./PricingTable.vue";
 import Shipping from "./Shipping.vue";
+import Swal from "sweetalert2";
 export default {
   name: "checkout",
   components: {
@@ -167,18 +167,62 @@ export default {
                 city: "",
                 postal_code: "",
                 country: "",
+                is_same_address: false
             },
             next_step: "PersonalDetails",
+            idClient: 0,
+          
 
 
         };
 
     },
     methods: {
-        handleCreateUser()
+        handleCreateClinet()
         {
             console.log(this.client);
-            this.next_step = "Shipping";
+            fetch("http://localhost/QuakkaProject/clients/createClient", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+
+                },
+                body: JSON.stringify(this.client)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data[0]);
+                    if (data[0])
+                    {
+
+                        this.idClient = data[1].id;
+                        if (this.client.is_same_address) {  
+                            this.next_step = "Payment";
+                        }
+                        else {
+                            this.next_step = "Shipping";
+                        }
+                        Swal.fire({
+                            title: 'Success',
+                            text: 'Client Created',
+                            type: 'success',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                    else
+                    {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'You have to fill all fields',
+                            type: 'error',
+                            confirmButtonText: 'Ok'
+                        })
+                    }
+                })
+               
+            
         },
         applyCoupon()
         {

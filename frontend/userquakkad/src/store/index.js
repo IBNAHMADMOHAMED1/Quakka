@@ -203,6 +203,31 @@ state: {
             });
           }
         });
+    },
+    submitPayment(context, payment) {
+      fetch("http://localhost/QuakkaProject/payments/createPayment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payment),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data[0] === true) {
+            Swal.fire({
+              icon: "success",
+              title: "Payment Successful",
+              text: "You have successfully paid",
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "You have an error",
+            });
+          }
+        });
     }
   },
 })
