@@ -17,9 +17,21 @@ export default {
   components: {
     Main,Footer
   },
+  data() {
+    return {
+      isLoggedIn: false,
+    };
+  },
   
   beforeCreate() { 
     this.$store.commit('setCart', JSON.parse(localStorage.getItem('cart')));
+    // check if user is logged in
+    if (localStorage.getItem('client') !== null) {
+      this.isLoggedIn = true;
+      this.$store.commit('setUser', JSON.parse(localStorage.getItem('user')));
+      this.$store.commit('setIsLoggedIn', this.isLoggedIn);
+    }
+    
   
   }
 

@@ -47,6 +47,11 @@ const routes = [
     name: 'order-success',
     component: () => import('@/views/cart/OrderSuccess.vue')
   },
+  {
+    path: '/cart-list',
+    name: 'cart-list',
+    component: () => import('@/views/cart/CartList.vue')
+  }
 ]
 
 const router = createRouter({

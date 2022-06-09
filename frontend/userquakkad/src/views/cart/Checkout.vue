@@ -12,7 +12,7 @@
                             <li>
                                 <Shipping v-if="next_step === 'Shipping'" :completeStep="completeStep"
                                     :idClient="idClient" />
-                                <div v-if="next_step === 'PersonalDetails' ">
+                                <div v-if="next_step === 'PersonalDetails' && isLoggedIn  ">
                                     <h6 class="title">
                                         Your Personal Details
                                     </h6>
@@ -109,6 +109,19 @@
                                         </section>
                                     </form>
                                 </div>
+                                <div v-if="!isLoggedIn && next_step === 'PersonalDetails'">
+
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert" >
+                                        <strong>You must be logged in to continue</strong>
+                                    </div>
+                                    <div class="price-table-btn button">
+                                        <button 
+                                        @click="$router.push('/login')"
+                                        class="btn" style="
+                                            background-color: #f07878;
+                                             color: white;"> Go To Login</button>
+                                    </div>
+                                </div>
                                 <Payment v-if="next_step === 'Payment'" />
 
                             </li>
@@ -134,10 +147,7 @@
                             </form>
                         </div>
                         <PricingTable />
-                        <div class="price-table-btn button" style="margin-top:20px;">
 
-                            <button class="btn">Checkout</button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -172,6 +182,7 @@ export default {
             },
             next_step: "PersonalDetails",
             idClient: 0,
+            isLoggedIn: false,
           
 
 
@@ -234,5 +245,11 @@ export default {
             this.next_step ="Payment";
         }
     },
+
+    mounted() {
+        if (this.$store.state.isLoggedIn) {
+            this.isLoggedIn = true;
+        }
+    }
 };
 </script>

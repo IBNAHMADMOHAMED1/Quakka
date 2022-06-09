@@ -8,21 +8,17 @@
             justify-content: space-between;
             align-items: center;
             ">
-                <div
-                class="total-price-item"
-                >
+                <div class="total-price-item">
                     <p class="payable-pric">
                         <span class="value">{{item.name}} :</span>
                         <span class="price"> ${{item.price}}</span>
                     </p>
                 </div>
-                    <span
-                    @click="removeItem(index)"
-                    >
-                        <i class="lni lni-close"></i>
-                    </span>
+                <span @click="removeItem(index)">
+                    <i class="lni lni-close"></i>
+                </span>
             </div>
-       
+
         </div>
 
         <div class="total-payable">
@@ -30,6 +26,10 @@
                 <p class="value">Subotal Price:</p>
                 <p class="price">${{total}}</p>
             </div>
+        </div>
+        <div class="price-table-btn button" style="margin-top:20px;">
+
+            <button class="btn">Checkout</button>
         </div>
 
     </div>
@@ -85,12 +85,5 @@ export default {
 
         },
     },
-
- 
-    
-  
-
-  
-
 }
 </script>

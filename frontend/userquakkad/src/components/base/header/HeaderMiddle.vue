@@ -5,7 +5,7 @@
                 <div class="col-lg-3 col-md-3 col-7">
                     <div class="navbar-brand" @click="$router.push('/')">
                         Quakka <span>Shopping</span>
-                
+
 
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                                 <div class="shopping-item">
                                     <div class="dropdown-cart-header">
                                         <span>{{WishListTotal}}</span>
-                                        <p type="button" class="" @click="$router.push('/view-cart')">View Cart</p>
+                                        <p type="button" class="" @click="$router.push('/cart-list')">View Cart</p>
                                     </div>
                                     <ul class="shopping-list">
                                         <li v-for="(item, index) in WishList" :key="index">
@@ -87,8 +87,8 @@
                                     </ul>
                                     <div class="bottom">
 
-                                        <div @click="$router.push('/checkout')" class="button">
-                                            <span class="btn animate">Checkout</span>
+                                        <div @click="$router.push('/cart-list')" class="button">
+                                            <span class="btn animate">Cart List</span>
 
                                         </div>
                                     </div>
@@ -104,10 +104,10 @@
                                 <div class="shopping-item">
                                     <div class="dropdown-cart-header">
                                         <span>{{totalCart}}</span>
-                                        <p type="button" class="" @click="$router.push('/view-cart')">View Cart</p>
+                                        <p type="button" class="" @click="$router.push('/cart-list')">View Cart</p>
                                     </div>
                                     <ul class="shopping-list">
-                                        <li v-for="(item, index) in cart" :key="index" >
+                                        <li v-for="(item, index) in cart" :key="index">
                                             <p @click="removeItem(index)" class="remove" title="Remove this item"><i
                                                     class="lni lni-close"></i></p>
                                             <div class="cart-img-head">
@@ -135,7 +135,7 @@
                                                 {{ totalAmount }}
                                             </span>
                                         </div>
-                                        <div @click="$router.push('/view-cart')" class="button">
+                                        <div @click="$router.push('/cart-list')" class="button">
                                             <span class="btn animate">Checkout</span>
 
                                         </div>

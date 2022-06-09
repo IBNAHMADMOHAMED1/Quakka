@@ -20,6 +20,7 @@ state: {
     hallCreated: false,
     cart: [],
     wishList: [],
+    isLoggedIn: false,
   },
   getters: {
     sideBarOpen: (state) => {
@@ -52,6 +53,9 @@ state: {
     },
     wishList: (state) => {
       return state.wishList;
+    },
+    isLoggedIn: (state) => {
+      return state.isLoggedIn;
     }
   },
   mutations: {
@@ -64,7 +68,8 @@ state: {
     setHalls(state, halls) {state.halls = halls;},
     setHall(state, hall) { state.hall = hall; },
     setCart(state, cart) { state.cart = cart; },
-    setWishList(state, wishList) { state.wishList = wishList; }
+    setWishList(state, wishList) { state.wishList = wishList; },
+    setIsLoggedIn(state, isLoggedIn) { state.isLoggedIn = isLoggedIn; }
   },
   actions: {
     toggleSidebar(context) {context.commit("toggleSidebar");},
