@@ -27,7 +27,9 @@
                 <p class="price">${{total}}</p>
             </div>
         </div>
-        <div class="price-table-btn button" style="margin-top:20px;">
+        <div
+        @click="$router.push('/checkout')"
+        class="price-table-btn button" style="margin-top:20px;">
 
             <button class="btn">Checkout</button>
         </div>

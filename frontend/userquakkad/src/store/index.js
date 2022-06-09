@@ -234,6 +234,68 @@ state: {
             });
           }
         });
+    },
+    loginUser(context, user) {
+      console.log( JSON.stringify(user));
+      fetch("http://localhost/QuakkaProject/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify(user),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data[0] === true) {
+            context.commit("setUser", data[1]);
+            localStorage.setItem("user", JSON.stringify(data[1]));
+          
+            Swal.fire({
+              icon: "success",
+              title: "Login Successful",
+              text: "You have successfully logged in",
+            });
+            this.$router.get(-1)
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "You have an error",
+            });
+          }
+        }
+      );
+      
+    },
+    Register(context, user) {
+      const newLocal = "http://localhost/QuakkaProject/users/create";
+      // console.log( JSON.stringify(user));
+      fetch(newLocal, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify(user),
+      })
+        .then((response) => response.text())
+        .then((data) => {
+          if (data[0] === true) {
+            Swal.fire({
+              icon: "success",
+              title: "Registration Successful",
+              text: "You have successfully registered",
+            });
+            this.$router.push("/login");
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "You have an error",
+            });
+          }
+        });
     }
   },
 })

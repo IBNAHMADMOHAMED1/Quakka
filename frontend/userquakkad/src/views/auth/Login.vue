@@ -25,7 +25,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6 offset-lg-3 col-md-10 offset-md-1 col-12">
-            <form class="card login-form" method="post">
+            <form class="card login-form">
               <div class="card-body">
                 <div class="title">
                   <h3>Login Now</h3>
@@ -48,8 +48,8 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-12">
 
-                      <div @click="CreateUserWithLogin" class="btn google-btn"><i
-                          class="lni lni-google"></i> Google login</div>
+                      <div @click="CreateUserWithLogin" class="btn google-btn"><i class="lni lni-google"></i> Google
+                        login</div>
                     </div>
                   </div>
                 </div>
@@ -70,14 +70,14 @@
                       id="exampleCheck1" />
                     <label class="form-check-label">Remember me</label>
                   </div>
-                  <a class="lost-pass" href="account-password-recovery.html">Forgot password?</a>
+                  <div @click="Forgotpassword" class="lost-pass">Forgot password?</div>
                 </div>
                 <div class="button">
-                  <button @click="handleSubmit" class="btn" type="submit">Login</button>
+                  <button @click.prevent="handleSubmit" class="btn" type="submit">Login</button>
                 </div>
-                <p class="outer-link">
+                <p @click="$router.push('/register')" class="outer-link">
                   Don't have an account?
-                  <button>Register here </button>
+                  <span style="color: #00bcd4;font-weight: bold;cursor: pointer;">Register here </span>
                 </p>
               </div>
             </form>
@@ -92,6 +92,7 @@
 import Crumbs from '@/components/base/Crumbs'
 // import GoogleAuth from '@/config/google.js'
 import Swal from 'sweetalert2'
+import { mapActions } from 'vuex';
 export default {
   name: "Login",
     data() {
@@ -99,17 +100,13 @@ export default {
         user: {
             email: "",
             password: "",
-            remember: false
         }
         };
     },
     methods: {
-        handleSubmit() {
-            this.$store.dispatch("login", this.user);
-        },
-        GoogleLogin() {
-            this.$store.dispatch("googleLogin");
-        },
+      handleSubmit() {
+        this.$store.dispatch('loginUser', this.user)
+      },
         CreateUserWithLogin() {
             // coming soon
             Swal.fire({
@@ -118,7 +115,17 @@ export default {
                 type: 'info',
                 confirmButtonText: 'OK'
             })  
-        }
+      },
+      Forgotpassword() {
+        Swal.fire({
+            title: 'Coming Soon',
+            text: 'This feature is coming soon',
+            type: 'info',
+            confirmButtonText: 'OK'
+        })  
+      },
+     
+
     }
 };
 </script>
