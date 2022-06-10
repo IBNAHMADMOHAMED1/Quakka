@@ -36,9 +36,11 @@
                 <div class="col-lg-4 col-md-4 col-12">
                     <div class="top-middle">
                         <ul class="useful-links">
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="about-us.html">About Us</a></li>
-                            <li><a href="contact.html">Contact Us</a></li>
+                            <li @click="$router.push('/')" style="cursor: pointer;">
+                                ><a>Home</a></li>
+                            <li style="cursor: pointer;" @click="$router.push('/about')"><a>About Us</a></li>
+                            <li style="cursor: pointer;"
+                            @click=" $router.push('/contact')"><a>Contact Us</a></li>
                         </ul>
                     </div>
                 </div>
@@ -55,9 +57,7 @@
                             <li v-if="!isLoggedIn" @click="$router.push('/register')">
                                 <span>Register</span>
                             </li>
-                            <li 
-                            @click="Logout"
-                            v-if="isLoggedIn">
+                            <li @click="Logout" v-if="isLoggedIn">
                                 <span>
                                     Logout
                                 </span>
