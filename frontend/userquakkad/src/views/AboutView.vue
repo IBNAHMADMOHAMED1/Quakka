@@ -1,5 +1,26 @@
+<script>
+import TeamSection from "@/components/TeamSection";
+import Crumbs from "@/components/base/Crumbs";
+export default {
+  components: {
+    TeamSection, Crumbs
+  },
+};
+</script>
+
+
+
+
+
+
+
+
+
+
+
 <template>
-  <section class="about-us section">
+  <Crumbs title="About"/>
+   <section class="about-us section">
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-6 col-md-12 col-12">
@@ -30,15 +51,8 @@
         </div>
       </div>
     </div>
-  </section>
-  <TeamSection />
+    </section>
+    <TeamSection />
 </template>
 
-    <script>
-import TeamSection from "@/components/TeamSection";
-export default {
-  components: {
-    TeamSection,
-  },
-};
-</script>
+
