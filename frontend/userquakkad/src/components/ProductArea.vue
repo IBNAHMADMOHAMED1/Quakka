@@ -1,11 +1,6 @@
 <template>
-<div
-v-if="loading"
->  <Loader />
-</div>
- <section 
- v-if="!loading"
- class="trending-product section">
+
+    <section class="trending-product section">
 
         <div class="container">
             <div class="row">
@@ -14,44 +9,37 @@ v-if="loading"
                         <h2>Trending Product</h2>
                         <p>There are many variations of passages of Lorem Ipsum available, but the majority have
                             suffered alteration in some form.</p>
-                            
+
                     </div>
                 </div>
             </div>
-            <div class="row"> 
-                <div 
-                v-for="product in products"
-                class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Single Product -->
-                    {{}}
+            <div v-if="loading">
+                <Loader />
+            </div>
+            <div v-if="!loading" class="row">
+                <div v-for="product in products" :key="product.id" class="col-lg-3 col-md-6 col-12">
+
                     <div class="single-product">
                         <div class="product-image">
-                            <img 
-                            style="height:360px;"
-                            :src="getImgUrl(product.images)"
-                             alt="#">
+                            <img style="height:360px;" :src="getImgUrl(product.images)" alt="#">
                             <div class="button">
-                                <button 
-                                @click="addToCart(product)"
-                                class="btn"><i class="lni lni-cart"></i> Add to Cart</button>
+                                <button @click="addToCart(product)" class="btn"><i class="lni lni-cart"></i> Add to
+                                    Cart</button>
                             </div>
                         </div>
-                        <div
-                        style="
+                        <div style="
                         cursor:pointer
-                        "
-                        @click="showProduct(product)"
-                        class="product-info">
+                        " @click="showProduct(product)" class="product-info">
                             <span class="category">
-                                 category:
-                              {{
-                            product.category
-                              ? product.category.name
-                              : "No category"
-                          }}
+                                category:
+                                {{
+                                product.category
+                                ? product.category.name
+                                : "No category"
+                                }}
                             </span>
                             <h4 class="title">
-                                <span >
+                                <span>
                                     {{product.name}}
                                 </span>
                             </h4>
@@ -65,18 +53,18 @@ v-if="loading"
                             </ul>
                             <div class="price">
                                 <span>
-                                     {{product.price}}$
+                                    {{product.price}}$
                                 </span>
                             </div>
                         </div>
                     </div>
                     <!-- End Single Product -->
                 </div>
-              
+
             </div>
         </div>
     </section>
- 
+
 </template>
 
 <script>
