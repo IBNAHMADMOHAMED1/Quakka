@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import Swal from 'sweetalert2'
+import router from '@/router';
 
 export default createStore({
 state: {
@@ -21,6 +22,8 @@ state: {
     cart: [],
     wishList: [],
     isLoggedIn: false,
+    orderCreated: false,
+    
   },
   getters: {
     sideBarOpen: (state) => {
@@ -56,6 +59,9 @@ state: {
     },
     isLoggedIn: (state) => {
       return state.isLoggedIn;
+    },
+    orderCreated: (state) => {
+      return state.orderCreated;
     }
   },
   mutations: {
@@ -69,9 +75,14 @@ state: {
     setHall(state, hall) { state.hall = hall; },
     setCart(state, cart) { state.cart = cart; },
     setWishList(state, wishList) { state.wishList = wishList; },
-    setIsLoggedIn(state, isLoggedIn) { state.isLoggedIn = isLoggedIn; }
+    setIsLoggedIn(state, isLoggedIn) { state.isLoggedIn = isLoggedIn; },
+    setOrderCreated(state, orderCreated) { state.orderCreated = orderCreated; }
   },
   actions: {
+
+    // variables
+
+
     toggleSidebar(context) {context.commit("toggleSidebar");},
     getUser(context) {
       return new Promise((resolve, reject) => {
@@ -85,12 +96,7 @@ state: {
         }
       });
     },
-    logout: function (context) {
-      localStorage.removeItem("user");
-      context.commit("setUser", null);
-      console.log("logout");
-      router.push("/login");
-    },
+  
     createProduct(context, product) {
       const product_data = {
         name: product.Product_Name,
@@ -211,29 +217,26 @@ state: {
         });
     },
     submitPayment(context, payment) {
-      fetch("http://localhost/QuakkaProject/payments/createPayment", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payment),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data[0] === true) {
-            Swal.fire({
-              icon: "success",
-              title: "Payment Successful",
-              text: "You have successfully paid",
-            });
-          } else {
-            Swal.fire({
-              icon: "error",
-              title: "Error",
-              text: "You have an error",
-            });
-          }
+
+       const order =  this.dispatch("createOrder", this.state.cart);
+      console.log(this.state.orderCreated);
+
+      if (this.state.orderCreated)
+      {
+        const payment_data = {}
+        localStorage.setItem("cart", JSON.stringify([]));
+        context.commit("setCart", []);
+        // swal processing success 2s
+        Swal.fire({
+          icon: "success",
+          title: "Payment Successful",
+          text: "Your order has been placed",
+          timer: 2000,
+          showConfirmButton: false,
         });
+        
+        }
+      ;
     },
     loginUser(context, user) {
       console.log( JSON.stringify(user));
@@ -249,14 +252,16 @@ state: {
         .then((data) => {
           if (data[0] === true) {
             context.commit("setUser", data[1]);
-            localStorage.setItem("user", JSON.stringify(data[1]));
+            localStorage.setItem("client", JSON.stringify(data[1]));
+            context.commit("setIsLoggedIn", true);
+
           
             Swal.fire({
               icon: "success",
               title: "Login Successful",
               text: "You have successfully logged in",
             });
-            this.$router.get(-1)
+            router.push("/")
           } else {
             Swal.fire({
               icon: "error",
@@ -279,7 +284,7 @@ state: {
         },
         body: JSON.stringify(user),
       })
-        .then((response) => response.text())
+        .then((response) => response.json())
         .then((data) => {
           if (data[0] === true) {
             Swal.fire({
@@ -287,7 +292,7 @@ state: {
               title: "Registration Successful",
               text: "You have successfully registered",
             });
-            this.$router.push("/login");
+             router.push("/login");
           } else {
             Swal.fire({
               icon: "error",
@@ -296,6 +301,115 @@ state: {
             });
           }
         });
+    },
+    logout(context) {
+      context.commit("setIsLoggedIn", false);
+      localStorage.removeItem("client");
+      router.push("/");
+    },
+    createOrder(context, cart) {
+     
+      let client = JSON.parse(localStorage.getItem("client"));
+      let products = [];
+      cart.forEach((product) => {
+        products.push({
+          product_id: product. product_id,
+          quantity: cart.length,
+          client_id:client.id,
+        });
+      });
+      console.log(products);
+      const list = this.dispatch("createListOfProducts", products);
+      if (list) {
+
+     const  order = {
+          client_id: client.id,
+          shipping_id: 1,
+          total_amount: this.state.cart.reduce((a, b) => a + b.price, 0),
+        };
+
+        fetch("http://localhost/QuakkaProject/orders/createOrder", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(order),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data[0] === true) {    
+             
+              this.state.orderCreated = true;
+              context.commit("setOrderCreated", true);
+              localStorage.setItem("cart", JSON.stringify([]));
+              context.commit("setCart", []);
+      
+              Swal.fire({
+                icon: "success",
+                title: "Payment Successful",
+                text: "Your order has been placed",
+                showConfirmButton: false,
+              });
+
+              // send mail to client
+              const mail = {
+                to: client.email,
+                subject: "Order Confirmation",
+                body: `Hello ${client.first_name} ${client.last_name},
+                Your order has been placed successfully.
+                Your order number is ${data[1].id}
+                Thank you for shopping with us.`,
+              };
+              this.dispatch("sendMail", mail);
+
+              router.go(-1);
+
+
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "You have an error",
+              });
+               context.commit(" setOrderCreated", true);
+            }
+          });
+      }
+    },
+    createListOfProducts(context, products) {
+      fetch("http://localhost/QuakkaProject/orders/createListOfProducts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(products),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data[0] === true) {
+            return data;
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "You have an error",
+            });
+            return null;
+          }
+        });
+    },
+    sendMail(context, mail) {
+   // send mail to client dont connect to server
+    //  sendMail(mail)
+    },
+    createShippingClient(context, shipping) {
+      const newLocal = "http://localhost/QuakkaProject/shipping/createShipping";
+     
+      
     }
-  },
+    
+  }, 
+
+
 })
+

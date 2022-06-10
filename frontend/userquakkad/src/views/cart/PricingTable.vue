@@ -62,6 +62,7 @@ export default {
             this.total = this.cart.reduce((acc, item) => {
                 return acc + item.price;
             }, 0);
+
             return this.$store.state.cart;
         },
     },
@@ -79,7 +80,6 @@ export default {
         removeItem(index) {
             this.cart.splice(index, 1);
             this.$store.commit('setCart', this.cart);
-            // set localStorage cart
             this.total = this.cart.reduce((acc, item) => {
                 return acc + item.price;
             }, 0);

@@ -1,129 +1,148 @@
 <template>
-
     <Crumbs title="checkout" />
 
-    <section class="checkout-wrapper section">
+    <div  v-if="isEmpty">
+        >
+        <div class="error-area">
+            <div class="d-table">
+                <div class="d-table-cell">
+                    <div class="container">
+                        <div class="error-content">
+                            <h1>
+                                Sad
+                            </h1>
+                            <h2>Oops! you don't have any items in your cart</h2>
+                            <p>
+                                Please add some items to your cart
+
+                            </p>
+                            <div class="button">
+                                <button @click="$router.push('/')" class="btn">Back to Products
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <section 
+    v-else
+    class="checkout-wrapper section">
+
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="checkout-steps-form-style-1">
                         <ul @click="close">
-
                             <li>
-                                <Shipping v-if="next_step === 'Shipping'" :completeStep="completeStep"
-                                    :idClient="idClient" />
-                                <div v-if="next_step === 'PersonalDetails' && isLoggedIn  ">
-                                    <h6 class="title">
-                                        Your Personal Details
-                                    </h6>
-                                    <form>
-                                        <section class="checkout-steps-form-content collapse show" id="collapseThree">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="single-form form-default">
-                                                        <label>User Name</label>
-                                                        <div class="row">
-                                                            <div class="col-md-6 form-input form">
-                                                                <input type="text" placeholder="First Name"
-                                                                    v-model="client.first_name" />
-                                                            </div>
-                                                            <div class="col-md-6 form-input form">
-                                                                <input type="text" placeholder="Last Name"
-                                                                    v-model="client.last_name" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="single-form form-default">
-                                                        <label>Email Address</label>
-                                                        <div class="form-input form">
-                                                            <input type="text" placeholder="Email Address"
-                                                                v-model="client.email" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="single-form form-default">
-                                                        <label>Phone Number</label>
-                                                        <div class="form-input form">
-                                                            <input type="text" placeholder="Phone Number"
-                                                                v-model="client.phone" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="single-form form-default">
-                                                        <label>Mailing Address</label>
-                                                        <div class="form-input form">
-                                                            <input type="text" placeholder="Mailing Address"
-                                                                v-model="client.mailing_address" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="single-form form-default">
-                                                        <label>City</label>
-                                                        <div class="form-input form">
-                                                            <input type="text" placeholder="City"
-                                                                v-model="client.city" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="single-form form-default">
-                                                        <label>Post Code</label>
-                                                        <div class="form-input form">
-                                                            <input type="text" placeholder="Post Code"
-                                                                v-model="client.postal_code" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="single-form form-default">
-                                                        <label>Country</label>
-                                                        <div class="form-input form">
-                                                            <input type="text" placeholder="Country"
-                                                                v-model="client.country" />
+                                <div class="col-md-12"></div>
+                                <div v-if="next_step === 'PersonalDetails' && isLoggedIn">
+                                    <div class="single-checkbox checkbox-style-3">
+                                        <input type="checkbox" v-model="is_same_address" id="checkbox-3" />
+                                        <label for="checkbox-3"><span></span></label>
+                                        <p>Delivery to other address.</p>
+                                    </div>
+                                    <div v-if="!is_same_address" class="single-checkbox checkbox-style-3">
+                                        <input checked type="checkbox" v-model="is_other_address" id="checkbox-4" />
+                                        <label for="checkbox-4"><span></span></label>
+                                        <p>My delivery and mailing addresses are the same</p>
 
+                                        <div style="margin-top: 19px">
+                                            <h6 class="title collapsed">Shipping ifno</h6>
+                                            <form>
+
+                                                <section class="checkout-steps-form-content collapse show"
+                                                    id="collapsefive">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="checkout-payment-form">
+                                                                <div class="checkout-payment-option">
+                                                                    <h6 class="
+                                        heading-6
+                                        font-weight-400
+                                        payment-title
+                                      ">
+                                                                        Select Delivery Option
+                                                                    </h6>
+                                                                    <div class="payment-option-wrapper">
+                                                                        <div class="single-payment-option">
+                                                                            <input type="radio" name="shipping"
+                                                                                id="shipping-2" v-model="shipping_name"
+                                                                                value="Traghat Shipping" />
+
+                                                                            <label for="shipping-2">
+                                                                                <img src="assets/images/shipping/flat-rate.png"
+                                                                                    style="width: 100px; height: 50px"
+                                                                                    alt="Sipping" />
+
+                                                                                <p style="inline-block">
+                                                                                    Traghat Shipping
+                                                                                </p>
+                                                                                <span class="price">$10.50</span>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="single-payment-option">
+                                                                            <input type="radio" name="shipping"
+                                                                                id="shipping-3" v-model="shipping_name"
+                                                                                value="Tarola Shipping" />
+                                                                            <label for="shipping-3">
+                                                                                <img src="assets/images/shipping/standard-shipping.png"
+                                                                                    alt="Sipping"
+                                                                                    style="width: 100px; height: 50px" />
+
+                                                                                <p style="inline-block">
+                                                                                    Tarola Shipping
+                                                                                </p>
+                                                                                <span class="price">$10.50</span>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="single-payment-option">
+                                                                            <input type="radio" name="shipping"
+                                                                                id="shipping-4" v-model="shipping_name"
+                                                                                value="Express Shipping" />
+                                                                            <label for="shipping-4">
+                                                                                <img src="assets/images/shipping/standard-shipping.png"
+                                                                                    style="width: 100px; height: 50px"
+                                                                                    alt="Sipping" />
+                                                                                <p style="inline-block">
+                                                                                    Express Shipping
+                                                                                </p>
+                                                                                <span class="price">$10.50</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="single-form form-default button">
+                                                                    <button @click.prevent="openPayment" class="btn">
+                                                                        pay now
+                                                                    </button>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="single-checkbox checkbox-style-3">
-                                                        <input type="checkbox" id="checkbox-3"
-                                                            v-model="client.is_same_address" />
-                                                        />
-                                                        <label for="checkbox-3"><span></span></label>
-                                                        <p>My delivery and mailing addresses are the same.</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="single-form button">
-                                                        <button @click.prevent="handleCreateClinet" class="btn">
-                                                            next step
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </section>
-                                    </form>
+                                                </section>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 10px" v-if="is_same_address">
+                                        <Shipping :completeStep="completeStep" :idClient="idClient" />
+                                    </div>
                                 </div>
                                 <div v-if="!isLoggedIn && next_step === 'PersonalDetails'">
-
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert" >
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         <strong>You must be logged in to continue</strong>
                                     </div>
                                     <div class="price-table-btn button">
-                                        <button 
-                                        @click="$router.push('/login')"
-                                        class="btn" style="
-                                            background-color: #f07878;
-                                             color: white;"> Go To Login</button>
+                                        <button @click="$router.push('/login')" class="btn"
+                                            style="background-color: #f07878; color: white">
+                                            Go To Login
+                                        </button>
                                     </div>
                                 </div>
                                 <Payment v-if="next_step === 'Payment'" />
-
                             </li>
                         </ul>
                     </div>
@@ -147,7 +166,6 @@
                             </form>
                         </div>
                         <PricingTable />
-
                     </div>
                 </div>
             </div>
@@ -162,94 +180,147 @@ import Crumbs from "@/components/base/Crumbs.vue";
 import PricingTable from "./PricingTable.vue";
 import Shipping from "./Shipping.vue";
 import Swal from "sweetalert2";
+import store from "@/store";
 export default {
   name: "checkout",
   components: {
-      Payment, Crumbs, PricingTable,Shipping
+    Payment,
+    Crumbs,
+    PricingTable,
+    Shipping,
   },
-    data() {
-        return {
-            client: {
-                last_name: "",
-                first_name: "",
-                email: "",
-                phone: "",
-                mailing_address: "",
-                city: "",
-                postal_code: "",
-                country: "",
-                is_same_address: false
-            },
-            next_step: "PersonalDetails",
-            idClient: 0,
-            isLoggedIn: false,
-          
-
-
-        };
-
+  data() {
+    return {
+      client: {
+        last_name: "",
+        first_name: "",
+        email: "",
+        phone: "",
+        mailing_address: "",
+        city: "",
+        postal_code: "",
+        country: "",
+      },
+      next_step: "PersonalDetails",
+      idClient: 0,
+      isLoggedIn: false,
+      is_same_address: false,
+      is_other_address: true,
+        shipping_name: "",
+      isEmpty: false,
+    };
+  },
+  methods: {
+    applyCoupon() {
+      console.log("apply coupon");
     },
-    methods: {
-        handleCreateClinet()
-        {
-            console.log(this.client);
-            fetch("http://localhost/QuakkaProject/clients/createClient", {
+    completeStep() {
+      this.next_step = "Payment";
+    },
+    openPayment() {
+          let client = localStorage.getItem("client");
+          // convert to json
+          client = JSON.parse(client);
+            const shipping = {
+              client_id: client.id,
+              shipping_name: this.shipping_name,
+            };
+            const newLocal = "http://localhost/QuakkaProject/shippings/createShipping";
+        
+            fetch(newLocal, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*",
-                    "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-
                 },
-                body: JSON.stringify(this.client)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data[0]);
-                    if (data[0])
-                    {
-
-                        this.idClient = data[1].id;
-                        if (this.client.is_same_address) {  
+                body: JSON.stringify(shipping),
+            }).
+            then((response) => {
+                return response.json();
+            }).
+            then((data) => {
+                console.log(data);
+                if (data[0])
+                {
+                    Swal.fire({
+                        title: "Success",
+                        text: "Shipping has been added",
+                        icon: "success",
+                        showCancelButton: false,
+                        confirmButtonColor: "#3085d6",
+                        confirmButtonText: "OK",
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                    }).then((result) => {
+                        if (result.value) {
+                            // this.$router.push("/payment");
                             this.next_step = "Payment";
+                            // this.$store.dispatch("submitPayment", data[0]);
                         }
-                        else {
-                            this.next_step = "Shipping";
+                    });
+                }
+                else
+                {
+                    Swal.fire({
+                        title: "Error",
+                        text: "Something went wrong",
+                        icon: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#3085d6",
+                        confirmButtonText: "OK",
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                    }).then((result) => {
+                        if (result.value) {
+                            this.$router.push("/payment");
                         }
-                        Swal.fire({
-                            title: 'Success',
-                            text: 'Client Created',
-                            type: 'success',
-                            confirmButtonText: 'OK'
-                        });
-                    }
-                    else
-                    {
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'You have to fill all fields',
-                            type: 'error',
-                            confirmButtonText: 'Ok'
-                        })
-                    }
-                })
-               
-            
-        },
-        applyCoupon()
-        {
-            console.log("apply coupon");
-        },
-        completeStep()
-        {
-            this.next_step ="Payment";
+                    });
+                }
+            }).
+            catch((error) => {
+                console.log(error);
+            });
         }
-    },
+    
+  },
 
-    mounted() {
-        if (this.$store.state.isLoggedIn) {
-            this.isLoggedIn = true;
+  mounted() {
+    if (this.$store.state.isLoggedIn) {
+      this.isLoggedIn = true;
+      }
+      
+      let cart = this.$store.state.cart.length
+      
+      if (
+          cart <= 0
+     ) {
+            this.isEmpty = true;
         }
-    }
+        else {
+            this.isEmpty = false;
+        }
+      
+    
+    
+  },
 };
 </script>
+
+
+<style>
+
+.error-area {
+  height: 50vh;
+  text-align: center;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+  position: relative;
+  background-image: url("@/assets/images/error/404-bg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+</style>
