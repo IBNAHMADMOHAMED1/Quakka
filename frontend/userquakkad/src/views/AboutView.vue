@@ -32,7 +32,8 @@ export default {
         <div class="col-lg-6 col-md-12 col-12">
           <!-- content-1 start -->
           <div class="content-right">
-            <h2>ShopGrids - Your Trusted & Reliable Partner.</h2>
+            <h2>Shop Quakka is a new online store for all your needs</h2>
+            
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
               id purus at risus pellentesque faucibus a quis eros. In eu

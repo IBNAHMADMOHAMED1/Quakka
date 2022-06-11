@@ -61,6 +61,12 @@ const routes = [
     path: '/contact',
     name: 'contact',
     component: () => import('@/views/Contact.vue')
+  },
+  {
+    // demand to reserve hall
+    path: '/hall-details/:id',
+    name: 'hall-details',
+    component: () => import('@/views/hall/ReserveHall.vue')
   }
 ]
 

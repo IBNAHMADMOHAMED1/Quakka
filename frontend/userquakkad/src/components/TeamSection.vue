@@ -33,7 +33,7 @@ export default {
                         </div>
                         <div class="content">
                             <div class="info">
-                                <h3>Grace Wright</h3>
+                                <h3>Ibnahmad Mohamed</h3>
                                 <h5>Founder, CEO</h5>
                                 <ul class="social">
                                     <li><a><i class="lni lni-facebook-filled"></i></a>

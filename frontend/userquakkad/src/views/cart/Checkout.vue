@@ -53,7 +53,6 @@
                                         <div style="margin-top: 19px">
                                             <h6 class="title collapsed">Shipping ifno</h6>
                                             <form>
-
                                                 <section class="checkout-steps-form-content collapse show"
                                                     id="collapsefive">
                                                     <div class="row">

@@ -23,7 +23,8 @@
                         <div class="product-image">
                             <img style="height:360px;" :src="getImgUrl(product.images)" alt="#">
                             <div class="button">
-                                <button @click="addToCart(product)" class="btn"><i class="lni lni-cart"></i> Add to
+                                <button :disabled="product.quantity <= 0" @click="addToCart(product)" class="btn"><i
+                                        class="lni lni-cart"></i> Add to
                                     Cart</button>
                             </div>
                         </div>
@@ -38,6 +39,8 @@
                                 : "No category"
                                 }}
                             </span>
+                            <span v-if="product.quantity <=0" class="badge badge-danger" style="color:red;">Out ofStock</span>
+                            <span v-else class="badge badge-success"  style="color:green;">In Stock</span>
                             <h4 class="title">
                                 <span>
                                     {{product.name}}
@@ -114,14 +117,10 @@ export default {
             
         }
     },
-    
-
     mounted() {
-    // get the product from stor
       store.dispatch("getProducts");
     setTimeout(() => {
       this.products = store.state.products;
-      // max products Is 8
         this.products = this.products.slice(0, 8);
       this.loading = false;
     }, 1300);

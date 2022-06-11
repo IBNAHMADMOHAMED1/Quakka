@@ -1,12 +1,13 @@
 <template>
-<Main>
-  <div>
-   <HeroArea />
-   <CategoryArea />
-   <ProductArea />
-
-  </div>
- </Main> 
+  <Main>
+    <div>
+      <HeroArea />
+      <CategoryArea />
+      <ProductArea />
+      <BannerArea />
+      <HallArea />
+    </div>
+  </Main>
 </template>
 
 <script>
@@ -14,10 +15,12 @@ import Main from '@/components/Main'
 import CategoryArea from '@/components/CategoryArea.vue'
 import HeroArea from '@/components/HeroArea.vue'
 import ProductArea from '@/components/ProductArea.vue'
+import BannerArea from '@/components/BannerArea.vue'
+import HallArea from '@/components/HallsArea.vue'
 export default {
   name: 'HomeView',
   components: {
-    HeroArea,CategoryArea,ProductArea,Main
+    HeroArea, CategoryArea, ProductArea, Main, BannerArea, HallArea
   }
 }
 </script>

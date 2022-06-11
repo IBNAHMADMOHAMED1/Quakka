@@ -7,13 +7,13 @@
                         <!-- Single Widget -->
                         <div class="single-footer f-contact">
                             <h3>Get In Touch With Us</h3>
-                            <p class="phone">Phone: +1 (900) 33 169 7720</p>
+                            <p class="phone">Phone: 33 33 169 7720</p>
                             <ul>
                                 <li><span>Monday-Friday: </span> 9.00 am - 8.00 pm</li>
                                 <li><span>Saturday: </span> 10.00 am - 6.00 pm</li>
                             </ul>
                             <p class="mail">
-                                <a href="mailto:support@shopgrids.com">support@shopgrids.com</a>
+                                <a href="">support@quakka.ma</a>
                             </p>
                         </div>
                         <!-- End Single Widget -->
@@ -24,14 +24,14 @@
                             <h3>Our Mobile App</h3>
                             <ul class="app-btn">
                                 <li>
-                                    <a href="javascript:void(0)">
+                                    <a>
                                         <i class="lni lni-apple"></i>
                                         <span class="small-title">Download on the</span>
                                         <span class="big-title">App Store</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)">
+                                    <a>
                                         <i class="lni lni-play-store"></i>
                                         <span class="small-title">Download on the</span>
                                         <span class="big-title">Google Play</span>
@@ -46,11 +46,10 @@
                         <div class="single-footer f-link">
                             <h3>Information</h3>
                             <ul>
-                                <li><a href="javascript:void(0)">About Us</a></li>
-                                <li><a href="javascript:void(0)">Contact Us</a></li>
-                                <li><a href="javascript:void(0)">Downloads</a></li>
-                                <li><a href="javascript:void(0)">Sitemap</a></li>
-                                <li><a href="javascript:void(0)">FAQs Page</a></li>
+                                <li><a>About Us</a></li>
+                                <li><a>Contact Us</a></li>
+                                <li><a>Sohp</a></li>
+                                <li><a>FAQs Page</a></li>
                             </ul>
                         </div>
                         <!-- End Single Widget -->
@@ -60,11 +59,11 @@
                         <div class="single-footer f-link">
                             <h3>Shop Departments</h3>
                             <ul>
-                                <li><a href="javascript:void(0)">Computers & Accessories</a></li>
-                                <li><a href="javascript:void(0)">Smartphones & Tablets</a></li>
-                                <li><a href="javascript:void(0)">TV, Video & Audio</a></li>
-                                <li><a href="javascript:void(0)">Cameras, Photo & Video</a></li>
-                                <li><a href="javascript:void(0)">Headphones</a></li>
+                                <li><a>Department 1</a></li>
+                                <li><a>Department 2</a></li>
+                                <li><a>Department 3</a></li>
+                                <li><a>Department 4</a></li>
+                                <li><a>Department 5</a></li>
                             </ul>
                         </div>
                         <!-- End Single Widget -->

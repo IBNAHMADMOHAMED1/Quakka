@@ -165,8 +165,6 @@ export default {
             })
         },
     },
-
-
     beforeCreate() {
         let productId = this.$route.params.id;
         setTimeout(() => {
@@ -178,7 +176,6 @@ export default {
           this.loading = false;
           this.product.images.forEach((element) => {
             this.imagess.push(this.getImgUrl(element.name));
-            // m seconds now 
             this.MSeconds = new Date().getTime();
           });
         });

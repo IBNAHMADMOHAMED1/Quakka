@@ -41,7 +41,6 @@ export default {
   },
   methods: {
     submitShipping() {
-      // check if shipping details are valid to serve as a shipping method
       if (
         this.shipping_details.email &&
         this.shipping_details.phone &&
@@ -68,10 +67,13 @@ export default {
               this.is_step_completed = true;
               Swal.fire({
                 title: "Shipping Details Saved",
-                text: "You can now choose a shipping method",
+                text: "You can now choose a payment method",
                 type: "success",
                 confirmButtonText: "OK",
               });
+                // commit the id of shipping to the store
+                console.log(data[1]);
+                this.$store.commit("setShippingId", data[1]);
               this.completeStep();
             } else {
               Swal.fire({

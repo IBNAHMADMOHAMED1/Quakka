@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@chenfengyuan/vue-carousel": "^2.0.0",
+    "@emailjs/browser": "^3.6.2",
     "@popperjs/core": "^2.11.5",
     "core-js": "^3.8.3",
     "sweetalert2": "^11.4.17",
