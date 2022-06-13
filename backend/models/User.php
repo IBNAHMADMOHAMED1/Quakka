@@ -1,6 +1,7 @@
 <?php
 
-class Client extends Model
+
+class User extends Model
 {
     public function __construct()
     {
@@ -8,7 +9,24 @@ class Client extends Model
 
         $this->getConnection();
     }
-
+   
+    public function login($data)
+    {
+        // die(var_dump($data));
+        
+        $sql = "SELECT * FROM $this->table WHERE email = :email AND password = :password";
+        $stmt = $this->_connexion->prepare($sql);
+        $stmt->bindValue(':email', $data['email']);
+        $stmt->bindValue(':password', $data['password']);
+        if ($stmt->execute()) {
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($user) {
+                return $user;
+            } else {
+                return false;
+            }
+        }
+    }
     public function create($data)
     {
         // die(var_dump($data));
@@ -20,28 +38,12 @@ class Client extends Model
         $stmt->bindValue(':mailing_address', $data['mailing_address']);
         $stmt->bindValue(':city', $data['city']);
         $stmt->bindValue(':password', $data['password']);
-
+       
         if ($stmt->execute()) {
             return true;
         } else {
             return false;
         }
     }
-
-    public function lastInsertId()
-    {
-        return $this->_connexion->lastInsertId();
-    }
-    public function getClient($id)
-    {
-        $sql = "SELECT * FROM clients WHERE id = :id";
-        $stmt = $this->_connexion->prepare($sql);
-        $stmt->bindValue(':id', $id);
-        if ($stmt->execute()) {
-            return $stmt->fetch(PDO::FETCH_ASSOC);
-        } else {
-            return false;
-        }
-    }
-    
+  
 }

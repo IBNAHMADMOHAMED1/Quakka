@@ -83,7 +83,7 @@ class admins extends Controller
             $errorMSG = json_encode(array("message" => "please select image", "status" => false));
             echo $errorMSG;
         } else {
-            $upload_path = 'C:\Users\youcode\Desktop\dashboardadminquakkad\public\assets\img\Admin/'; // set upload folder path 
+            $upload_path = 'C:\xampp\htdocs\Quakka\frontend\dashboardadminquakkad\src\assets\img\Admin/'; // set upload folder path 
 
             $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION)); // get image extension
 
@@ -128,7 +128,7 @@ class admins extends Controller
             $errorMSG = json_encode(array("message" => "please select image", "status" => false));
             echo $errorMSG;
         } else {
-            $upload_path = 'C:\Users\youcode\Desktop\dashboardadminquakkad\public\assets\img\Admin/'; // set upload folder path 
+            $upload_path = 'C:\xampp\htdocs\Quakka\frontend\dashboardadminquakkad\src\assets\img\Admin/'; // set upload folder path 
 
             $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION)); // get image extension
 

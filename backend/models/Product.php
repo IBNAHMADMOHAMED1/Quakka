@@ -29,14 +29,7 @@ class Product extends Model
 
     public function get_products_with_images()
     {
-        $sql = "SELECT products.*, imags.name as image_name FROM products LEFT JOIN imags ON products.product_id = imags.product_id";
-        $stmt = $this->_connexion->prepare($sql);
-        if ($stmt->execute()) {
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } else {
-            return false;
-        }
-
+        // body
     }
     public function _oneProduct($id)
     {
@@ -49,9 +42,10 @@ class Product extends Model
             return false;
         }
     }
+    
     public function update($id, $data)
     {
-        $sql = "UPDATE products SET name = :name, description = :description, price = :price, quantity = :quantity, category_id = :category_id WHERE product_id = :id";
+        $sql = "UPDATE products SET name = :name, description = :description, price = :price, quantity = :quantity, category_id = :category_id ,created_at = NOW() WHERE product_id = :id";
         $stmt = $this->_connexion->prepare($sql);
         $stmt->bindValue(':name', $data['name']);
         $stmt->bindValue(':description', $data['description']);
@@ -61,6 +55,28 @@ class Product extends Model
         $stmt->bindValue(':id', $id);
         if ($stmt->execute()) {
             return $this->_oneProduct($id);
+        } else {
+            return false;
+        }
+    }
+    public function _deleteProduct($id) {
+        $sql = "DELETE FROM products WHERE product_id = :id";
+        $stmt = $this->_connexion->prepare($sql);
+        $stmt->bindValue(':id', $id);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function updateProduct($data, $newQuantity)
+    {
+        $sql = "UPDATE products SET quantity = :quantity WHERE product_id = :id";
+        $stmt = $this->_connexion->prepare($sql);
+        $stmt->bindValue(':quantity', $newQuantity);
+        $stmt->bindValue(':id', $data['product_id']);
+        if ($stmt->execute()) {
+            return $this->_oneProduct($data['product_id']);
         } else {
             return false;
         }

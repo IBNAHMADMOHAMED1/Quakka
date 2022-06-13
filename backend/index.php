@@ -1,4 +1,11 @@
 <?php
+
+header('Access-Control-Allow-Origin: *');
+header('Content-Type: application/json');
+header('Access-Control-Allow-Methods: POST,UPDATE,DELETE,GET');
+header('Access-Control-Allow-Headers: *');
+
+
 // On génère une constante contenant le chemin vers la racine publique du projet
 define('ROOT', str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']));
 // die(ROOT);
@@ -26,9 +33,6 @@ if ($params[0] != "") {
     if (file_exists(ROOT . 'controllers/' . $controller . '.php')) {
     }
     require_once(ROOT . 'controllers/' . $controller . '.php');
-
-
-
     // On instancie le contrôleur
     $controller = new $controller();
 

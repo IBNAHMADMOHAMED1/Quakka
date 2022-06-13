@@ -40,8 +40,6 @@ abstract class Model
      */
     public function getOne($id)
     {
-        // die(var_dump($this->id));
-        // die(var_dump($this->table));
         $sql = "SELECT * FROM " . $this->table . " WHERE id=" . $id;
         $query = $this->_connexion->prepare($sql);
         $query->execute();
@@ -55,10 +53,16 @@ abstract class Model
      */
     public function getAll()
     {
-      
         $sql = "SELECT * FROM " . $this->table . " WHERE 1";
         $query = $this->_connexion->prepare($sql);
         $query->execute();
         return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function delete($id)
+    {
+        $sql = "DELETE FROM " . $this->table . " WHERE id=" . $id;
+        $query = $this->_connexion->prepare($sql);
+        return $query->execute();
     }
 }

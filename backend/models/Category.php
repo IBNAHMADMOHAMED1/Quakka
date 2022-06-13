@@ -24,7 +24,28 @@ class Category extends Model
         }
 
     }
-
+    public function _getCategory($product_id)
+    {
+        $sql = "SELECT * FROM $this->table WHERE category_id = :category_id";
+        $stmt = $this->_connexion->prepare($sql);
+        $stmt->bindValue(':category_id', $product_id);
+        if ($stmt->execute()) {
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } else {
+            return false;
+        }
+    }
+    public function _geOne($id)
+    {
+        $sql = "SELECT * FROM $this->table WHERE category_id = :category_id";
+        $stmt = $this->_connexion->prepare($sql);
+        $stmt->bindValue(':category_id', $id);
+        if ($stmt->execute()) {
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } else {
+            return false;
+        }
+    }
 
     
 }   
