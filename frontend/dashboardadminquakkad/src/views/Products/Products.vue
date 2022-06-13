@@ -318,7 +318,10 @@ export default {
     },
   },
   mounted() {
-    store.dispatch("getProducts");
+    const params = {
+      model: "products",
+    }
+    store.dispatch("getAll",params);
     setTimeout(() => {
       this.products = store.state.products;
       this.loading = false;

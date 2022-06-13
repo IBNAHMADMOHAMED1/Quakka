@@ -63,10 +63,26 @@ const routes = [
     component: () => import('@/views/Contact.vue')
   },
   {
-    // demand to reserve hall
     path: '/hall-details/:id',
     name: 'hall-details',
     component: () => import('@/views/hall/ReserveHall.vue')
+  },
+  {
+    path: '/blog/blog-details/',
+    name: 'blog-details',
+    component: () => import('@/views/blog/BlogDetails.vue')
+  },
+  {
+    path: '/blog-list',
+    name: 'blog-list',
+    component: () => import('@/views/blog/BlogList.vue')
+
+  },
+  {
+    path: '/faq',
+    name: 'faq',
+    component: () => import('@/views/faq/Faq.vue')
+
   }
 ]
 

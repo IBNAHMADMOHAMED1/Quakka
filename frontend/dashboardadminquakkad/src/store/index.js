@@ -20,6 +20,11 @@ export default new Vuex.Store({
     halls: [],
     hall: [],
     hallCreated: false,
+    commands: [],
+    command: [],
+    orders: [],
+    listOfProducts: [],
+    list : [],
   },
   getters: {
     sideBarOpen: (state) => {
@@ -46,7 +51,25 @@ export default new Vuex.Store({
     },
     hall: (state) => {
       return state.hall;
+    },
+    hallCreated: (state) => {
+      return state.hallCreated;
+    },
+    commands: (state) => {return state.commands;},
+    command: (state) => {
+      return state.command;
+    },
+    orders: (state) => {
+      return state.orders;
+    },
+    listOfProducts: (state) => {
+      return state.listOfProducts;
+    },
+    list: (state) => {
+      return state.list;
     }
+
+
   },
   mutations: {
     toggleSidebar(state) {
@@ -70,7 +93,26 @@ export default new Vuex.Store({
     setHalls(state, halls) {
       state.halls = halls;
     },
-    setHall(state, hall) {state.hall = hall;}
+    setHall(state, hall) { state.hall = hall; },
+    setHallCreated(state, hallCreated) {
+      state.hallCreated = hallCreated;
+    },
+    setCommands(state, commands) {
+      state.commands = commands;
+    },
+    setCommand(state, command) {
+      state.command = command;
+    },
+    setOrders(state, orders) {
+      state.orders = orders;
+    },
+    setListOfProducts(state, listOfProducts) {
+      state.listOfProducts = listOfProducts;
+    },
+    setList(state, list) {
+      state.list = list;
+    }
+
   },
   actions: {
     toggleSidebar(context) {
@@ -123,15 +165,6 @@ export default new Vuex.Store({
           }
         });
     },
-    getProducts(context) {
-      console.log("from getProducts");
-      fetch("http://localhost/QuakkaProject/products/getproducts")
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          context.commit("setProducts", data[1]);
-        });
-      },
     getProduct(context, product_id) {
         console.log(product_id);
       fetch(`http://localhost/QuakkaProject/products/getone/${product_id}`)
@@ -187,13 +220,6 @@ export default new Vuex.Store({
   
 
     },
-    getHalls(context) {
-      fetch("http://localhost/QuakkaProject/halls/gethalls")
-        .then((response) => response.json())
-        .then((data) => {
-          context.commit("setHalls", data[1]);
-        });
-    },
     delete(context, defineParam) {
      // convert defineParam to object:
      let  type_table = defineParam.model;
@@ -247,7 +273,81 @@ export default new Vuex.Store({
             context.commit("setProduct", data[1]);
           }
         });
+    },
+    updateSatus(context, defineParam) {
+      fetch(`http://localhost/QuakkaProject/commands/updatestatus/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(defineParam.data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          
+           
+          const params = { model: "commands", };
+          context.dispatch("getAll", params);
+          
+          
+        });
+    },
+    sendMail(context, defineParam) {
+      fetch(`http://localhost/QuakkaProject/${defineParam.model}/sendMail/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(defineParam.data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+        });
+    },
+    getAll(context, defineParam) {
+      fetch(`http://localhost/QuakkaProject/${defineParam.model}/getall/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(defineParam.data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (defineParam.model == "halls") {
+             context.commit("setHalls", data[1]);
+          }
+          if (defineParam.model == "products") {
+            context.commit("setProducts", data[1]);
+          }
+          if (defineParam.model == "commands") {
+            context.commit("setCommands", data[1]);
+          }
+          if (defineParam.model == "orders") {
+            context.commit("setOrders", data);
+           
+            
+          }
+          
+        });
+    },
+    getListOfProducts(context, data) {
+      fetch(`http://localhost/QuakkaProject/orders/getlistofproducts/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          context.commit("setList", data);
+          
+          
+        });
     }
+      
     
   },
   modules: {

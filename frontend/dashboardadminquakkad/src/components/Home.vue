@@ -20,7 +20,15 @@
             </div>
         </div>
     </header>
-    <div class="bg-white :bg-gray-800 flex relative z-20 items-center overflow-hidden ">
+    <div
+    style="
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    "
+    class="bg-white :bg-gray-800 flex relative z-20 items-center overflow-hidden ">
         <div class="container  px-16 flex relative py-20">
             <div class="sm:w-2/3 lg:w-2/5 flex flex-col relative z-20">
                 <span class="w-20 h-2 bg-gray-800 :bg-white mb-12">

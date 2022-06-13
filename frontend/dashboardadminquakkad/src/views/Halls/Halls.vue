@@ -314,7 +314,10 @@ export default {
     },
   },
   mounted() {
-    store.dispatch("getHalls");
+    const params = {
+      model: "halls",
+    };
+    store.dispatch("getAll", params);
     setTimeout(() => {
       this.halls = store.state.halls;
       this.loading = false;

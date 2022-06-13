@@ -16,28 +16,37 @@
                 </div>
             </div>
             <div class="row">
-                {{halls}}
-                <div v-for="hall in halls" :key="hall.id" class="col-lg-3 col-md-6 col-12">
+                <div v-for="hall in halls" :key="hall.id" class="col-lg-3 col-md-6 col-12" style="width:30%;">
                     <div class="single-product">
                         <div class="product-image">
                             <img style="height:360px;" :src="getImgUrl(hall.images)" alt="#">
                             <div class="button">
                                 <button @click="showhall(hall)" class=" btn">
                                     View Details</button>
-
                             </div>
                         </div>
                         <div style="
                         cursor:pointer
                         " @click="showhall(hall)" class="product-info">
-                            <span class="category">
-                                category:
-                                {{
-                                hall.category
-                                ? hall.category.name
-                                : "No category"
-                                }}
-                            </span>
+                            <ul style="gap: 10px;" class="meta-info d-flex">
+                                <li>
+                                    <a>
+                                        <i class="lni lni-users"></i>
+                    
+                                        {{ hall.Nbr_place }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a><i class="lni lni-dollar"></i>
+                                        {{hall.price}}/day
+                                    </a>
+                                </li>
+                                <li>
+                                    <a><i class="lni lni-map-marker"></i>
+                                        {{ hall.address}}
+                                    </a>
+                                </li>
+                            </ul>
                             <h4 class="title">
                                 <span>
                                     {{hall.name}}
@@ -103,21 +112,16 @@ export default {
                 }
             });
         },
-        getImgUrl(image) {
-            // const images = JSON.parse(JSON.stringify(image))
-            // const imagesArray = Object.values(images)  
-            // console.log(imagesArray[0].name)
-            // let url = require.context('C:/xampp/htdocs/Quakka/frontend/dashboardadminquakkad/src/assets/img/halls/', false, /\.(png|jpe?g|svg)$/);
-            // const img = url('./' + imagesArray[0].name)
-            // if (img) {
-            //     return img
-            // } else {
-                return "https://img.freepik.com/photos-gratuite/belle-mariee-attrayante-robe-mariee-jupe-longue_125374-8.jpg?w=1380"
-            
-            
-           
-            
-        }
+        getImgUrl(Imags) {
+            console.log(Imags);
+            const images = JSON.parse(JSON.stringify(Imags))
+            let nameImg = images[0].name;
+
+            let url = require.context("C:/xampp/htdocs/Quakka/frontend/dashboardadminquakkad/src/assets/img/halls/", true, /\.(png|jpe?g|svg)$/);
+            let img = url(`./${nameImg}`);
+            return img;
+
+        },
     },
     
 

@@ -6,7 +6,9 @@
       <ProductArea />
       <BannerArea />
       <HallArea />
-    </div>
+      <BlogArea />
+      <ShippingInfo/>
+      </div>
   </Main>
 </template>
 
@@ -17,10 +19,12 @@ import HeroArea from '@/components/HeroArea.vue'
 import ProductArea from '@/components/ProductArea.vue'
 import BannerArea from '@/components/BannerArea.vue'
 import HallArea from '@/components/HallsArea.vue'
+import BlogArea from '@/components/BlogArea.vue'
+import ShippingInfo from '@/components/ShippingInfo.vue'
 export default {
   name: 'HomeView',
   components: {
-    HeroArea, CategoryArea, ProductArea, Main, BannerArea, HallArea
+    HeroArea, CategoryArea, ProductArea, Main, BannerArea, HallArea, BlogArea, ShippingInfo
   }
 }
 </script>

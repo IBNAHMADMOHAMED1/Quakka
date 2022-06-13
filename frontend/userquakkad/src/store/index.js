@@ -155,7 +155,7 @@ export default createStore({
     },
     getProducts(context) {
       console.log("from getProducts");
-      fetch("http://localhost/QuakkaProject/products/getproducts")
+      fetch("http://localhost/QuakkaProject/products/getall")
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
@@ -329,6 +329,7 @@ export default createStore({
     createOrder(context, cart) {
       let client = JSON.parse(localStorage.getItem("client"));
       let products = [];
+      let id_list = '';
       cart.forEach((product) => {
         products.push({
           product_id: product.product_id,
@@ -337,57 +338,76 @@ export default createStore({
         });
       });
       console.log(products);
-      const list = this.dispatch("createListOfProducts", products);
-      if (list) {
-        const order = {
-          client_id: client.id,
-          shipping_id: this.state.ShippingId,
-          total_amount: this.state.cart.reduce((a, b) => a + b.price, 0),
-        };
 
-        fetch("http://localhost/QuakkaProject/orders/createOrder", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(order),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data[0] === true) {
-              this.state.orderCreated = true;
-              context.commit("setOrderCreated", true);
-              localStorage.setItem("cart", JSON.stringify([]));
-              context.commit("setCart", []);
+      fetch("http://localhost/QuakkaProject/orders/createListOfProducts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(products),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data[0] === true) {
+            context.commit("setOrderCreated", true);
+            id_list = data[1]
+            const order = {
+              client_id: client.id,
+              shipping_id: this.state.ShippingId,
+              total_amount: this.state.cart.reduce((a, b) => a + b.price, 0),
+              list_of_products: id_list,
+            };
+            console.log("ids",id_list);
+    
+            fetch("http://localhost/QuakkaProject/orders/createOrder", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(order),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                if (data[0] === true) {
+                  this.state.orderCreated = true;
+                  context.commit("setOrderCreated", true);
+                  localStorage.setItem("cart", JSON.stringify([]));
+                  context.commit("setCart", []);
+    
+                  Swal.fire({
+                    icon: "success",
+                    title: "Payment Successful",
+                    text: "Your order has been placed",
+                    showConfirmButton: true,
+                  });
+                  router.push("/shop");
+                  const mail = {
+                    to: "M.ibnahmad@student.youcode.ma",
+                    subject: "Order Confirmation",
+                    body: `Hello ${client.first_name} ${client.last_name},
+                    Your order has been placed successfully.
+                    Your order number is ${data[1].id}
+                    Thank you for shopping with us.`,
+                    from: "ibnahmadmohamed8@gmail.com",
+                  };
+                  this.dispatch("sendMail", mail);
+                  router.go(-1);
+                } else {
+                  Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "You have an error",
+                  });
+                  context.commit(" setOrderCreated", true);
+                }
+              });
 
-              Swal.fire({
-                icon: "success",
-                title: "Payment Successful",
-                text: "Your order has been placed",
-                showConfirmButton: true,
-              });
-              router.push("/shop");
-              const mail = {
-                to: "M.ibnahmad@student.youcode.ma",
-                subject: "Order Confirmation",
-                body: `Hello ${client.first_name} ${client.last_name},
-                Your order has been placed successfully.
-                Your order number is ${data[1].id}
-                Thank you for shopping with us.`,
-                from: "ibnahmadmohamed8@gmail.com",
-              };
-              this.dispatch("sendMail", mail);
-              router.go(-1);
-            } else {
-              Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: "You have an error",
-              });
-              context.commit(" setOrderCreated", true);
-            }
-          });
-      }
+          } else {
+            context.commit("setOrderCreated", false);
+          }
+        });
+      
+      
     },
     createListOfProducts(context, products) {
       fetch("http://localhost/QuakkaProject/orders/createListOfProducts", {
@@ -430,7 +450,7 @@ export default createStore({
       const newLocal = "http://localhost/QuakkaProject/shipping/createShipping";
     },
     getHalls(context) {
-      const newLocal = "http://localhost/QuakkaProject/halls/gethalls";
+      const newLocal = "http://localhost/QuakkaProject/halls/getall";
       fetch(newLocal)
         .then((response) => response.json())
         .then((data) => {

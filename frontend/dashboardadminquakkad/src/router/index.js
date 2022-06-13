@@ -78,6 +78,40 @@ const routes = [
     path: '/tasks',
     name: 'tasks',
     component: () => import('../kanban.vue')
+  },
+  {
+    path: '/commands',
+    name: 'commands',
+    component: () => import('@/views/Commands/Commands.vue')
+  },
+  {
+    path: '/create-command',
+    name: 'create-command',
+    component: () => import('@/views/Commands/CreateCommand.vue')
+  },
+  {
+    path: '/view-command/:commandId',
+    name: 'view-command',
+    component: () => import('@/views/Commands/ViewCommand.vue')
+  },
+  {
+    path: '/purcahse-orders',
+    name: 'purcahse-orders',
+    params: {
+      ListOfProducts: ['test']
+    },
+    
+    component: () => import('@/views/PurchaseOrders/PurchaseOrders.vue')
+  },
+  {
+    path: '/:catchAll(.*)',
+    name: '404',
+    component: () => import('@/views/404.vue')
+  },
+  {
+    name: 'listOfProducts',
+    path: '/list-of-products',
+    component: () => import('@/views/Products/ListOfProducts.vue')
   }
  
 ]
