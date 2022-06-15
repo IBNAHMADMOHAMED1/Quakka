@@ -7,26 +7,10 @@
                         <ul class="menu-top-link">
                             <li>
                                 <div class="select-position">
-                                    <select id="select4">
-                                        <option value="0" selected>$ USD</option>
-                                        <option value="1">€ EURO</option>
-                                        <option value="2">$ CAD</option>
-                                        <option value="3">₹ INR</option>
-                                        <option value="4">¥ CNY</option>
-                                        <option value="5">৳ BDT</option>
-                                    </select>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="select-position">
-                                    <select id="select5">
+                                    <select @change="changeLanguage" id="select5">
                                         <option value="0" selected>English</option>
-                                        <option value="1">Español</option>
-                                        <option value="2">Filipino</option>
                                         <option value="3">Français</option>
                                         <option value="4">العربية</option>
-                                        <option value="5">हिन्दी</option>
-                                        <option value="6">বাংলা</option>
                                     </select>
                                 </div>
                             </li>
@@ -37,10 +21,10 @@
                     <div class="top-middle">
                         <ul class="useful-links">
                             <li @click="$router.push('/')" style="cursor: pointer;">
-                                ><a>Home</a></li>
+                                <a>Home</a>
+                            </li>
                             <li style="cursor: pointer;" @click="$router.push('/about')"><a>About Us</a></li>
-                            <li style="cursor: pointer;"
-                            @click=" $router.push('/contact')"><a>Contact Us</a></li>
+                            <li style="cursor: pointer;" @click=" $router.push('/contact')"><a>Contact Us</a></li>
                         </ul>
                     </div>
                 </div>
@@ -73,6 +57,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import Swal from 'sweetalert2';
 export default {
     name: 'HeaderTopbar',
     data() {
@@ -95,13 +80,21 @@ export default {
             this.isLoggedIn = this.$store.state.isLoggedIn
         }
     },
-    // watch localStorage client side
     computed: {
         isLoggedIn() {
             this.isLoggedIn = this.$store.state.isLoggedIn
             return this.$store.state.isLoggedIn
        }
     },
+    changeLanguage() {
+      Swal.fire({
+        title: 'Coming Soon',
+        text: 'This feature is coming soon',
+        type: 'info',
+        confirmButtonText: 'OK'
+      })
+        console.log('changeLanguage')
+    }
 }
 
 

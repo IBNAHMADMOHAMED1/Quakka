@@ -337,8 +337,6 @@ export default createStore({
           client_id: client.id,
         });
       });
-      console.log(products);
-
       fetch("http://localhost/QuakkaProject/orders/createListOfProducts", {
         method: "POST",
         headers: {
@@ -357,8 +355,6 @@ export default createStore({
               total_amount: this.state.cart.reduce((a, b) => a + b.price, 0),
               list_of_products: id_list,
             };
-            console.log("ids",id_list);
-    
             fetch("http://localhost/QuakkaProject/orders/createOrder", {
               method: "POST",
               headers: {
@@ -406,8 +402,6 @@ export default createStore({
             context.commit("setOrderCreated", false);
           }
         });
-      
-      
     },
     createListOfProducts(context, products) {
       fetch("http://localhost/QuakkaProject/orders/createListOfProducts", {
@@ -465,6 +459,43 @@ export default createStore({
           }
         }
       );
+    },
+    createReserve(context, reserve) {
+      const newLocal = "http://localhost/QuakkaProject/commands/create";
+      fetch(newLocal, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*", },
+        body: JSON.stringify(reserve),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data[0] === true) {
+            Swal.fire({
+              icon: "success",
+              title: "Reservation Successful",
+              text: "You have successfully reserved",
+            });
+            router.push("/");
+          }
+        });
+    },
+    createMessage(context, message) {
+      const newLocal = "http://localhost/QuakkaProject/messages/createMessage";
+      fetch(newLocal, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*", },
+        body: JSON.stringify(message),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data[0] === true) {
+            Swal.fire({
+              icon: "success",
+              title: "Message Successful",
+              text: "You have successfully sent a message",
+            });
+          }
+        });
     }
 
   },

@@ -2,15 +2,15 @@
   <div class="header-middle">
     <div class="container">
       <div class="row align-items-center">
-        <div class="col-lg-3 col-md-3 col-7">
+        <div
+        style="cursor: pointer;"
+        class="col-lg-3 col-md-3 col-7">
           <div class="navbar-brand" @click="$router.push('/')">
             Quakka <span>Shopping</span>
           </div>
         </div>
         <div class="col-lg-5 col-md-7 d-xs-none">
-          <!-- Start Main Menu Search -->
           <div class="main-menu-search">
-            <!-- navbar search start -->
             <div class="navbar-search search-style-5">
               <div class="search-select">
                 <div class="select-position">
@@ -31,9 +31,7 @@
                 <button><i class="lni lni-search-alt"></i></button>
               </div>
             </div>
-            <!-- navbar search Ends -->
           </div>
-          <!-- End Main Menu Search -->
         </div>
         <div class="col-lg-4 col-md-2 col-5">
           <div class="middle-right-area">
@@ -41,7 +39,7 @@
               <i class="lni lni-phone"></i>
               <h3>
                 Hotline:
-                <span>(+100) 123 456 7890</span>
+                <span>(+212) 684632770</span>
               </h3>
             </div>
             <div class="navbar-cart" style="display: flex; gap: 10px">
@@ -52,7 +50,6 @@
                     {{ WishListTotal }}
                   </span>
                 </a>
-                <!-- Shopping Item -->
                 <div class="shopping-item">
                   <div class="dropdown-cart-header">
                     <span>{{ WishListTotal }}</span>

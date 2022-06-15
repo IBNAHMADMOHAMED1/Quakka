@@ -1,21 +1,20 @@
 <script>
 import { mapGetters } from "vuex";
-import { ContentLoader } from "vue-content-loader";
+import FormResrve from "./FormResrve.vue";
+import Comments from "@/components/comments/Comments.vue";
 export default {
   name: "ReserveHall",
-  components: {
-    ContentLoader,
-  },
+    components: { FormResrve, Comments },
   data() {
     return {
       isLoggedIn: false,
       isLoading: true,
-        hall: {},
-        images: [],
-      fristImag:'',
+      hall: {},
+      images: [],
+        fristImag: '',
+      id: 0,
     };
   },
-
   computed: {
     ...mapGetters(["isLoggedIn"]),
   },
@@ -29,11 +28,9 @@ export default {
         .then((data) => {
           this.hall = data[1];
             this.isLoading = false;
-
             this.images = this.hall.images;
             this.fristImag = this.images[0].name
-
-
+            this.id = this.hall.id;
           if (!this.hall) {
             this.isLoading = true;
           }
@@ -46,9 +43,7 @@ export default {
     methods: {
         getImgUrl(nameImg) {
             let url = require.context("C:/xampp/htdocs/Quakka/frontend/dashboardadminquakkad/src/assets/img/halls/", true, /\.(png|jpe?g|svg)$/);
-            let img = url(`./${nameImg}`);
-            return img;            
-
+            return url(`./${nameImg}`);  
         },
   }
 };
@@ -56,19 +51,19 @@ export default {
 
 <template>
     <div v-if="isLoading" style="margin-left: 30%; margin-top: 5%">
-        <ContentLoader viewBox="0 0 1300 500">
-            <rect x="20" y="15" rx="20" ry="20" width="300" height="320" />
-            <rect x="92" y="347" rx="5" ry="5" width="45" height="45" />
-            <rect x="148" y="347" rx="5" ry="5" width="45" height="45" />
-            <rect x="205" y="347" rx="5" ry="5" width="45" height="45" />
-            <rect x="361" y="17" rx="10" ry="10" width="420" height="33" />
-            <rect x="361" y="71" rx="10" ry="10" width="315" height="33" />
-            <rect x="361" y="125" rx="10" ry="10" width="233" height="20" />
-            <rect x="361" y="216" rx="5" ry="5" width="195" height="13" />
-            <rect x="361" y="251" rx="5" ry="5" width="195" height="13" />
-            <rect x="367" y="311" rx="8" ry="8" width="130" height="38" />
-            <rect x="515" y="311" rx="8" ry="8" width="130" height="38" />
-        </ContentLoader>
+        <div class="loader">
+            <div class="loader-inner">
+                <div class="lds-roller">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
     </div>
     <div v-if="!isLoading">
         <section class="section blog-single">
@@ -85,10 +80,8 @@ export default {
                                         <h2 class="post-title">
                                             <a>
                                                 Hall Name: {{ hall.name }}
-
                                             </a>
                                         </h2>
-                                        <!-- End Meta Info -->
                                         <ul class="meta-info">
                                             <li>
                                                 <a>
@@ -169,7 +162,6 @@ export default {
                                             sint occaecat cupidatat non proident, sunt in culpa qui
                                             officia.
                                         </p>
-                                        <!-- post quote -->
                                         <blockquote>
                                             <div class="icon">
                                                 <i class="lni lni-quotation"></i>
@@ -249,69 +241,13 @@ export default {
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <!-- Post Social Share -->
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Comments -->
-                                <div class="post-comments">
-                                    <h3 class="comment-title"><span>Post comments</span></h3>
-                                    <ul class="comments-list">
-                                        <li>
-                                            <div class="comment-img">
-                                                <img src="http://localhost:8080/assets/images/01.jpg" alt="img" />
-                                            </div>
-                                            <div class="comment-desc">
-                                                <div class="desc-top">
-                                                    <h6>Arista Williamson</h6>
-                                                    <span class="date">19th May 2023</span>
-                                                    <a class="reply-link"><i class="lni lni-reply"></i>Reply</a>
-                                                </div>
-                                                <p>
-                                                    Donec aliquam ex ut odio dictum, ut consequat leo
-                                                    interdum. Aenean nunc ipsum, blandit eu enim sed,
-                                                    facilisis convallis orci. Etiam commodo lectus quis
-                                                    vulputate tincidunt. Mauris tristique velit eu magna
-                                                    maximus condimentum.
-                                                </p>
-                                            </div>
-                                        </li>
-                                        <li class="children">
-                                            <div class="comment-img">
-                                                <img src="http://localhost:8080/assets/images/01.jpg" alt="img" />
-                                            </div>
-                                            <div class="comment-desc">
-                                                <div class="desc-top">
-                                                    <h6>Rosalina Kelian</h6>
-                                                    <span class="date">15th May 2023</span>
-                                                    <a class="reply-link"><i class="lni lni-reply"></i>Reply</a>
-                                                </div>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing
-                                                    elit, sed do eiusmod tempor incididunt ut labore et
-                                                    dolore magna aliqua. Ut enim.
-                                                </p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="comment-img">
-                                                <img src="http://localhost:8080/assets/images/01.jpg" alt="img" />
-                                            </div>
-                                            <div class="comment-desc">
-                                                <div class="desc-top">
-                                                    <h6>Alex Jemmi</h6>
-                                                    <span class="date">12th May 2023</span>
-                                                    <a class="reply-link"><i class="lni lni-reply"></i>Reply</a>
-                                                </div>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing
-                                                    elit, sed do eiusmod tempor incididunt ut labore et
-                                                    dolore magna aliqua. Ut enim ad minim veniam.
-                                                </p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <FormResrve 
+                                    
+                                    :id="hall.id"                                
+                                />
                             </div>
                         </div>
                     </div>

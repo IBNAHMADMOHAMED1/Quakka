@@ -17,14 +17,14 @@ export default {
 
     methods: {
         handleSubmit() {
+            if (this.message.name == "" || this.message.email == "" || this.message.object == "" || this.message.phone == "" || this.message.message == "") 
                 Swal.fire({
-                    title: "Success",
-                    text: "Your message has been sent successfully",
-                    type: "success",
-                    confirmButtonText: "OK",
-                });
-            
-
+                    title: "Error",
+                    text: "Please fill all fields",
+                    type: "error",
+                    confirmButtonText: "OK"
+                })
+              else this.$store.dispatch("createMessage", this.message);
         },
     },
 };

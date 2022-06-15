@@ -227,8 +227,6 @@ export default {
                             command => command.command_id !== id
                         );
                     }); // end of store.dispatch
-
-
                 }
             });
         },
@@ -243,7 +241,6 @@ export default {
                 confirmButtonText: "Yes, accept it!"
             }).then(result => {
                 if (result.value) {
-                    // update the command status to accepted and update hall status to true and send mail to the user
                     this.loading = true;
                     var params = {
                         model: "commands",
@@ -253,11 +250,8 @@ export default {
                             status: 1,
                         }
                     };
-
                     this.$store.dispatch('updateSatus', params)
-                    // this.sendMail(command.clinet.username, command.hall.name);
                     this.getCommands();
-
                 }
             })
         },

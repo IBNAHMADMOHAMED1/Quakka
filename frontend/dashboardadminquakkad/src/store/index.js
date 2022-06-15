@@ -326,8 +326,6 @@ export default new Vuex.Store({
           }
           if (defineParam.model == "orders") {
             context.commit("setOrders", data);
-           
-            
           }
           
         });
@@ -347,7 +345,6 @@ export default new Vuex.Store({
           
         });
     }
-      
     
   },
   modules: {
