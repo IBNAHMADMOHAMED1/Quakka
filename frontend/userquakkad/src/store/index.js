@@ -24,6 +24,7 @@ export default createStore({
     isLoggedIn: false,
     orderCreated: false,
     ShippingId: 1,
+    commands: [],
   },
   getters: {
     sideBarOpen: (state) => {
@@ -66,6 +67,9 @@ export default createStore({
     ShippingId: (state) => {
       return state.ShippingId;
     },
+    getCommands: (state) => {
+      return state.commands;
+    }
   },
   mutations: {
     toggleSidebar(state) {
@@ -107,6 +111,9 @@ export default createStore({
     setShippingId(state, ShippingId) {
       state.ShippingId = ShippingId;
     },
+    setCommands(state, commands) {
+      state.commands = commands;
+    }
   },
   actions: {
     toggleSidebar(context) {
@@ -216,7 +223,6 @@ export default createStore({
     googleLogin(context, user) {
       context.commit("setUser", user);
       localStorage.setItem("user", JSON.stringify(user));
-      //  CreateUserWithLogin
     },
     subscribeEmail(context, email) {
       fetch("http://localhost/QuakkaProject/subscribes/createSubscribe", {
@@ -458,7 +464,7 @@ export default createStore({
             });
           }
         }
-      );
+        );
     },
     createReserve(context, reserve) {
       const newLocal = "http://localhost/QuakkaProject/commands/create";
@@ -494,9 +500,33 @@ export default createStore({
               title: "Message Successful",
               text: "You have successfully sent a message",
             });
+            router.push("/commands");
           }
         });
-    }
+    },
+    getCommands(context, id) {
+      const newLocal = "http://localhost/QuakkaProject/commands/getCommands/" + id;
+      fetch(newLocal)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data[0] === true) {
+            context.commit("setCommands", data[1]);
+          }
+        });
+    },
+    removeCommand(context, id) {
+      const newLocal = "http://localhost/QuakkaProject/commands/delete/" + id;
+      fetch(newLocal, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*", },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data[0] === true) {
+            router.push("/commands");
+          }
+        });
+    },
 
   },
 });

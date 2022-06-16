@@ -1,13 +1,8 @@
 <template>
-
 <section class="item-details section">
   <div
-  v-if="loading"
-  style="height: 100vh;"
-  >
-
+  v-if="loading" style="height: 100vh;">
       <Loading 
-       
        :Seconds="MSeconds"
        />
   </div>
@@ -25,7 +20,7 @@
                                 <div
                                  class="images">
                                     <div
-                                        v-for="(image, index) in product.images">
+                                        v-for="(image, index) in product.images" :key="index">
                                         <img :src="getImgUrl(image.name)" class="img" alt="#">
                                         </div>
                                 </div>

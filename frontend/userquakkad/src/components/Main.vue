@@ -4,7 +4,6 @@
   <Header>
   </header>
 
-
 </slot>
 
   <router-view/>
