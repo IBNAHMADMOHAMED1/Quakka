@@ -25,6 +25,7 @@ export default createStore({
     orderCreated: false,
     ShippingId: 1,
     commands: [],
+    blogs: [],
   },
   getters: {
     sideBarOpen: (state) => {
@@ -69,6 +70,9 @@ export default createStore({
     },
     getCommands: (state) => {
       return state.commands;
+    },
+    getBlogs: (state) => {
+      return state.blogs;
     }
   },
   mutations: {
@@ -113,6 +117,9 @@ export default createStore({
     },
     setCommands(state, commands) {
       state.commands = commands;
+    },
+    setBlogs(state, blogs) {
+      state.blogs = blogs;
     }
   },
   actions: {
@@ -527,6 +534,22 @@ export default createStore({
           }
         });
     },
+    getBlogs(context) {
+      const newLocal = "http://localhost/QuakkaProject/blogs/getall";
+      fetch(newLocal)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data[0] === 200) {
+            context.commit("setBlogs", data[1]);
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "You have an error",
+            });
+          }
+        });
+    }
 
   },
 });

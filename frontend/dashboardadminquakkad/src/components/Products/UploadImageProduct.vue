@@ -1,71 +1,56 @@
 <template>
-  <div class="mt-8 w-full ">
+  <div class="mt-8 w-full">
     <div class="flex justify-center items-center">
-      <div
-      v-if="isLoading"
-      >
+      <div v-if="isLoading">
         <div class="lds-dual-ring"></div>
         <div class="text-gray-500">Loading...</div>
-
       </div>
-      <form
-      v-else
-      class="flex flex-col justify-center">
+      <form v-else class="flex flex-col justify-center">
         <label class="inline-block mb-2 text-gray-500"
           >Upload Image(jpg,png,svg,jpeg)</label
         >
         <span
           @click="addInputImage"
-          class="
-            bg-purple-100
-            text-purple-800 text-xs
-            font-semibold
-            mr-2
-            px-2.5
-            py-0.5
-            rounded
-            dark:bg-purple-200 dark:text-purple-900
-            flex
-            items-center
-            cursor-pointer
-          "
+          class="bg-purple-100 text-purple-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-purple-200 dark:text-purple-900 flex items-center cursor-pointer"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path>
-  <line x1="16" y1="5" x2="22" y2="5"></line>
-  <line x1="19" y1="2" x2="19" y2="8"></line>
-  <circle cx="9" cy="9" r="2"></circle>
-  <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
-</svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"
+            ></path>
+            <line x1="16" y1="5" x2="22" y2="5"></line>
+            <line x1="19" y1="2" x2="19" y2="8"></line>
+            <circle cx="9" cy="9" r="2"></circle>
+            <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+          </svg>
         </span>
 
         <div class="m-4 grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-          <!-- input for number images -->
-
           <div
             v-for="(image, index) in images"
             :key="index"
             class="flex items-center justify-center w-full"
           >
-            <div 
-            class="indicator  top-0 right-0 m-2 text-gray-500 cursor-pointer"
-            v-if="imageUploaded "
-            @click="removeInputImage(index)"
+            <div
+              class="indicator top-0 right-0 m-2 text-gray-500 cursor-pointer"
+              v-if="imageUploaded"
+              @click="removeInputImage(index)"
             >
               <span class="indicator-item badge badge-secondary">
-               <TrashIcon
-               
-               className="w-5 h-5 text-red-400" />
+                <TrashIcon className="w-5 h-5 text-red-400" />
               </span>
             </div>
             <label
-              class="
-                flex flex-col
-                w-full
-                h-32
-                border-4 border-dashed
-                hover:bg-gray-100 hover:border-gray-300
-              "
+              class="flex flex-col w-full h-32 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300"
             >
               <div
                 class="flex flex-col items-center justify-center pt-8 w-full"
@@ -83,29 +68,25 @@
                   />
                 </svg>
                 <p
-                  class="
-                    pt-1
-                    text-sm
-                    tracking-wider
-                    text-gray-400
-                    group-hover:text-gray-600
-                  "
+                  class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600"
                 >
                   Select a photo
                 </p>
               </div>
-              <input 
-              @change="onFileChange"
-              type="file" class="opacity-0" ref="file" />
+              <input
+                @change="onFileChange"
+                type="file"
+                class="opacity-0"
+                ref="file"
+              />
             </label>
           </div>
         </div>
         <div class="flex p-2 space-x-4 justify-end">
-         
           <button
             type="submit"
             @click="uploadImages"
-            class="px-4 py-2 text-white  bg-purple-500 rounded "
+            class="px-4 py-2 text-white bg-purple-500 rounded"
           >
             Create
           </button>
@@ -116,11 +97,11 @@
 </template>
 
 <script>
-import store from '@/store';
-import TrashIcon from '../icons/TrashIcon.vue';
+import store from "@/store";
+import TrashIcon from "../icons/TrashIcon.vue";
 export default {
   name: "UploadImageProduct",
-  components: {TrashIcon},
+  components: { TrashIcon },
   data() {
     return {
       images: [1, 2],
@@ -128,37 +109,36 @@ export default {
       product: null,
       imageUploaded: false,
       isLoading: true,
-    
     };
   },
   methods: {
     uploadImages(e) {
       e.preventDefault();
-        const file = this.$refs.file[0].files[0];
-        const formData = new FormData();
-        for (let i = 0; i <this.images.length; i++) {
-          formData.append("images"+i
-          , this.$refs.file[i].files[0]);
-        }
-        let requestOptions = {
-          method: "POST",
-            body: formData
-        };
-        console.log(this.product);
-       fetch(
-         'http://localhost/QuakkaProject/Images/uploadImage/'+this.product.product_id,
-           requestOptions
-           )
-          .then((response) => {   
-             response.json().then((data) => {
-              console.log('this is ',data);
-              this.openProductDone();
-              this.is_done = true;   
-            });
-          })
-          .catch((error) => {
-            console.log(error);
+      const file = this.$refs.file[0].files[0];
+      const formData = new FormData();
+      for (let i = 0; i < this.images.length; i++) {
+        formData.append("images" + i, this.$refs.file[i].files[0]);
+      }
+      let requestOptions = {
+        method: "POST",
+        body: formData,
+      };
+      console.log(this.product);
+      fetch(
+        "http://localhost/QuakkaProject/Images/uploadImage/" +
+          this.product.product_id,
+        requestOptions
+      )
+        .then((response) => {
+          response.json().then((data) => {
+            console.log("this is ", data);
+            this.openProductDone();
+            this.is_done = true;
           });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     addInputImage() {
       this.images.push(this.images.length + 1);
@@ -167,23 +147,19 @@ export default {
       this.images.splice(index, 1);
     },
     openProductDone() {
-     
       this.$emit("openProductDone", this.is_done);
     },
     onFileChange(e) {
       this.imageUploaded = true;
     },
-    
   },
-  
+
   beforeCreate() {
-      setTimeout(() => {
-        this.product = store.state.product
-        console.log(this.product);
-        this.isLoading = false;
-      }, 1000);
+    setTimeout(() => {
+      this.product = store.state.product;
+      console.log(this.product);
+      this.isLoading = false;
+    }, 1000);
   },
-  
-  
 };
 </script>

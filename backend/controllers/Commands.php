@@ -6,13 +6,9 @@ class commands extends Controller
     {
         $this->loadModel('Command');
         $commands = $this->Command->getall();
-        if ($commands) {
-            echo json_encode([http_response_code(200), $commands]);
-        } else {
-            echo json_encode(['success' => 'Commands not found']);
-        }
+        if ($commands) echo json_encode([http_response_code(200), $commands]);
+        else   echo json_encode(['success' => 'Commands not found']);
     }
-
     public function getall()
     {
         header('Content-Type: application/json');
@@ -31,27 +27,18 @@ class commands extends Controller
             });
             return $command;
         }, $commands);
-
-
-        if ($commands) {
-            echo json_encode([true, $commands]);
-        } else {
-            echo json_encode([false, 'Commands not found']);
-        }
+        if ($commands) echo json_encode([true, $commands]);
+        else  echo json_encode([false, 'Commands not found']);
     }
     public function delete($id)
     {
         $this->loadModel('Command');
         $command = $this->Command->delete($id);
-        if ($command) {
-            echo json_encode(['success' => true, 'command' => $command]);
-        } else {
-            echo json_encode(['message' => 'Command not deleted']);
-        }
+        if ($command) echo json_encode(['success' => true, 'command' => $command]);
+        else  echo json_encode(['message' => 'Command not deleted']);
     }
     public function updatestatus()
     {
-
         $data = json_decode(file_get_contents('php://input'), true);
         $id = $data['id'];
         $hall_id = $data['hall_id'];
@@ -60,11 +47,32 @@ class commands extends Controller
         $command = $this->Command->updatestatus($id,$value);
         $this->loadModel('Hall');
         $hall = $this->Hall->updatestatus($hall_id,$value);
-
-        if ($command) {
-            echo json_encode([true, $command]);
-        } else {
-            echo json_encode(['message' => 'Command not updated']);
+        if ($command) echo json_encode([true, $command]);
+         else   echo json_encode(['message' => 'Command not updated']);
+    }
+    public function create()
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $this->loadModel('Command');
+        $command = $this->Command->createCommandHall($data);
+        if ($command) echo json_encode([ true, $command]);
+        else  echo json_encode(['message' => 'Command not created']);
+    }
+    public function getCommands($client_id)
+    {
+        $this->loadModel('Command');
+        $commands = $this->Command->getCommandsByClinet($client_id);
+        if ($commands){
+            $this->loadModel('Hall');
+            $halls = $this->Hall->getall();
+            $commands = array_map(function ($command) use ($halls) {
+                $command['hall'] = array_filter($halls, function ($hall) use ($command) {
+                    return $hall['id'] == $command['hall_id'];
+                });
+                return $command;
+            }, $commands);
         }
+        if ($commands) echo json_encode([true, $commands]);
+        else  echo json_encode([false, 'Commands not found']);
     }
 }

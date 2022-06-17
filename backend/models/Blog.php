@@ -13,22 +13,17 @@ class Blog extends Model
         $stmt = $this->_connexion->prepare($sql);
         $stmt->execute();
         $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if ($blogs) {
-            return $blogs;
-        } else {
-            return false;
-        }
+        return $blogs ? $blogs : false;
     }
-    public function create($data)
+    public function create($data,$imgName)
     {
-        $sql = "INSERT INTO blogs (title, content, created_at) VALUES (:title, :content, NOW())";
+
+        $sql = "INSERT INTO blogs (title, content,image,category, created_at) VALUES (:title, :content, :image, :category, NOW())";
         $stmt = $this->_connexion->prepare($sql);
         $stmt->bindParam(':title', $data['title']);
         $stmt->bindParam(':content', $data['content']);
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
+        $stmt->bindParam(':image', $imgName);
+        $stmt->bindParam(':category', $data['category']);
+        return $stmt->execute() ? true : false;
     }
 }

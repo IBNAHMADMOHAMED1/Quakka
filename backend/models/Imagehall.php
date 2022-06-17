@@ -8,7 +8,6 @@ class Imagehall extends Model
         $this->table = 'HallImags';
         $this->getConnection();
     }
-
     public function upload_images($id, $images)
     {
         $id = (int)$id;
@@ -18,41 +17,23 @@ class Imagehall extends Model
             $stmt = $this->_connexion->prepare($sql);
             $stmt->bindValue(':name', $image);
             $stmt->bindValue(':idHall', $id);
-            if ($stmt->execute()) {
-                array_push($sutupla, true);
-            } else {
-                array_push($sutupla, false);
-            }
+            $stmt->execute() ? array_push($sutupla, true) : array_push($sutupla, false);
         }
-        if (in_array(false, $sutupla)) {
-            return false;
-        } else {
-            return true;
-        }
+        return in_array(false, $sutupla) ? false : true;
     }
     public function get_images_with_products()
     {
         $sql = "SELECT * FROM $this->table LEFT JOIN halls ON $this->table.idHall  = products.product_id";
         $stmt = $this->_connexion->prepare($sql);
-        if ($stmt->execute()) {
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } else {
-            return false;
-        }
+        return $stmt->execute() ? $stmt->fetchAll(PDO::FETCH_ASSOC) : false;
     }
     public function _getImages($idHall) {
         $sql = "SELECT * FROM $this->table WHERE idHall  = $idHall ";
         $stmt = $this->_connexion->prepare($sql);
-        if ($stmt->execute()) {
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } else {
-            return false;
-        }
+        return $stmt->execute() ? $stmt->fetchAll(PDO::FETCH_ASSOC) : false;
     }
-
     public function _delete_images($idHall) 
     {   
-        // check if the image is in the database
         $sql = "SELECT * FROM $this->table WHERE idHall  = $idHall ";
         $stmt = $this->_connexion->prepare($sql);
         if ($stmt->execute()) {
@@ -60,17 +41,8 @@ class Imagehall extends Model
             if (count($images) > 0) {
                 $sql = "DELETE FROM $this->table WHERE idHall  = $idHall ";
                 $stmt = $this->_connexion->prepare($sql);
-                if ($stmt->execute()) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return true;
-            }
-        } else {
-            return false;
-        }
-
+                return $stmt->execute() ? true : false;
+            } else return true;
+        } else return false;
     }
 }

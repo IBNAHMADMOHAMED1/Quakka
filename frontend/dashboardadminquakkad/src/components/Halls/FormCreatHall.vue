@@ -330,12 +330,11 @@ export default {
   methods: {
     createHall(e) {
       e.preventDefault();
-
+      console.log(this.hall);
       store.dispatch("createHall", this.hall);
       if (store.state.hall) {
         this.openUploadImage = "image";
         this.currentStep = 1;
-        // swal on success
         Swal.fire({
           title: "Hall Created",
           text: "Hall created successfully",

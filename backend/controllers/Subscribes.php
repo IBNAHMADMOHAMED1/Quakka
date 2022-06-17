@@ -11,22 +11,17 @@ class Subscribes extends Controller
     public function index()
     {
         $this->loadModel('Subscribe');
-        
     }
     public function createSubscribe()
     {
         $this->loadModel('Subscribe');
-        
         $data = json_decode(file_get_contents('php://input'), true);
-        if (empty($data)) {
+        if (empty($data)) 
             return json_encode(['message' => 'No data']);
-        }
-
         $subscribe = $this->Subscribe->createSubscribe($data);
-        if ($subscribe) {
-            echo json_encode([true, $subscribe]);
-        } else {
-            echo json_encode([false, 'Invalid credentials']);
-        }
+        if ($subscribe) 
+               echo json_encode([true, $subscribe]);
+        else   echo json_encode([false, 'Invalid credentials']);
+        
     }
 }   

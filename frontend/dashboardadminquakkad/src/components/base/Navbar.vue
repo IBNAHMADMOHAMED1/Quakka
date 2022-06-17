@@ -69,7 +69,6 @@
       </div>
     </div>
 
-    <!-- dropdown menu -->
     <div
       class="
         absolute
@@ -134,6 +133,9 @@ export default {
   created() {
     store.dispatch("getUser").then(() => {
       this.user = store.state.user;
+      if (this.user == null) {
+        this.$router.push("/login");
+      }
     });
   },
 };

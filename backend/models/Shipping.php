@@ -18,12 +18,7 @@ class Shipping extends Model
         $stmt->bindValue(':city', $data['city']);
         $stmt->bindValue(':postal_code', $data['postal_code']);
         $stmt->bindValue(':country', $data['country']);
-        if ($stmt->execute()) {
-            return $this->_connexion->lastInsertId();
-        }
-        else {
-            return false;
-        }
+        return $stmt->execute() ?  $this->_connexion->lastInsertId() : false;
     }
 
 }

@@ -5,13 +5,10 @@ class Client extends Model
     public function __construct()
     {
         $this->table = 'clients';
-
         $this->getConnection();
     }
-
     public function create($data)
     {
-        // die(var_dump($data));
         $sql = "INSERT INTO `clients`(`username`, `email`, `phoneNumber`, `mailing_address`, `city`, `password`) VALUES (:username,:email,:phoneNumber,:mailing_address,:city,:password)";
         $stmt = $this->_connexion->prepare($sql);
         $stmt->bindValue(':username', $data['username']);
@@ -20,14 +17,8 @@ class Client extends Model
         $stmt->bindValue(':mailing_address', $data['mailing_address']);
         $stmt->bindValue(':city', $data['city']);
         $stmt->bindValue(':password', $data['password']);
-
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
+        return $stmt->execute() ? true : false;
     }
-
     public function lastInsertId()
     {
         return $this->_connexion->lastInsertId();
@@ -37,11 +28,17 @@ class Client extends Model
         $sql = "SELECT * FROM clients WHERE id = :id";
         $stmt = $this->_connexion->prepare($sql);
         $stmt->bindValue(':id', $id);
+        return $stmt->execute() ? $stmt->fetch(PDO::FETCH_ASSOC) : false;
+    }
+    public function login($data)
+    {
+        $sql = "SELECT * FROM $this->table WHERE email = :email AND password = :password";
+        $stmt = $this->_connexion->prepare($sql);
+        $stmt->bindValue(':email', $data['email']);
+        $stmt->bindValue(':password', password_hash($data['password'], PASSWORD_DEFAULT));
         if ($stmt->execute()) {
-            return $stmt->fetch(PDO::FETCH_ASSOC);
-        } else {
-            return false;
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $user ? $user : false;
         }
     }
-    
 }

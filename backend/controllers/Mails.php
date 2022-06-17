@@ -10,7 +10,6 @@ class mails extends Controller
     {
         $this->loadModel('Mail');
     }
-
     public function sendMail()
     {
         $this->loadModel('Mail');
@@ -20,9 +19,9 @@ class mails extends Controller
         }
         $mail = $this->Mail->sendMail($data);
         if ($mail) {
-            echo json_encode([true, $mail]);
+            echo json_encode(['success' => true, 'mail' => $mail]);
         } else {
-            echo json_encode([false, 'Invalid credentials']);
+            echo json_encode(['success' => false, 'message' => 'Invalid credentials']);
         }
     }
 }

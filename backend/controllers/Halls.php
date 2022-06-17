@@ -1,9 +1,9 @@
 <?php
-header('Access-Control-Allow-Origin: *');
-header('Content-Type: application/json');
-header('Content-Type:multipart/form-data');
-header('Access-Control-Allow-Methods: POST,UPDATE,DELETE,GET');
-header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
+// header('Access-Control-Allow-Origin: *');
+// header('Content-Type: application/json');
+// header('Content-Type:multipart/form-data');
+// header('Access-Control-Allow-Methods: POST,UPDATE,DELETE,GET');
+// header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
 class Halls extends Controller
 {
@@ -11,12 +11,6 @@ class Halls extends Controller
     public function index()
     {
         $this->loadModel('Hall');
-        $halls = $this->Hall->getall();
-        if ($halls) {
-            echo json_encode([http_response_code(200), $halls]);
-        } else {
-            echo json_encode(['success' => 'Halls not found']);
-        }
     }
 
     public function getall()
@@ -34,18 +28,17 @@ class Halls extends Controller
         }, $halls);
         echo json_encode([http_response_code(200), $halls]);
     }
-
     public function create()
     {
         $this->loadModel('Hall');
         $data = json_decode(file_get_contents('php://input'), true);
+        // var_dump($data);
+        // die();
         $hall = $this->Hall->create($data);
-
-        if ($hall) {
+        if ($hall)
             echo json_encode(['success' => true, 'hall' => $hall]);
-        } else {
-            echo json_encode(['message' => 'Hall not created']);
-        }
+        else
+            echo json_encode(['success' => false, 'message' => 'Hall not created']);
     }
 
     public function UploadImage()
@@ -59,12 +52,10 @@ class Halls extends Controller
         $images = $this->Imagehall->_delete_images($id);
         $this->loadModel('Hall');
         $hall = $this->Hall->delete($id);
-
-        if ($hall) {
+        if ($hall)
             echo json_encode(['success' => true, 'hall' => $hall]);
-        } else {
-            echo json_encode(['message' => 'Hall not deleted']);
-        }
+        else
+            echo json_encode(['success' => false, 'message' => 'Hall not deleted']);
     }
     public function getone($id)
     {
@@ -86,11 +77,11 @@ class Halls extends Controller
     public function update($id) {
         $this->loadModel('Hall');
         $data = json_decode(file_get_contents('php://input'), true);
-        if ($this->Hall->update($id, $data)) {
-            echo json_encode(['success' => true, 'hall' => $this->Hall->_oneHall($id)]);
-        } else {
-            echo json_encode(['message' => 'Hall not updated']);
-        }
+        $hall = $this->Hall->update($id, $data);
+        if ($hall)
+            echo json_encode(['success' => true, 'hall' => $hall]);
+        else
+            echo json_encode(['success' => false, 'message' => 'Hall not updated']);
     }
     
 }

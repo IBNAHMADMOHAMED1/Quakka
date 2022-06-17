@@ -200,8 +200,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- End Single Widget -->
-                        <!-- Start Single Widget -->
+                       
                         <div class="widget categories-widget">
                             <h5 class="widget-title">Top Categories</h5>
                             <ul class="custom">
@@ -246,10 +245,15 @@ export default {
     data() {
         return {
             blog: [],
+            loading: true,
         }
     },
     mounted() {
-        this.$store.dispatch('getAll')
+        this.$store.dispatch('getBlogs');
+        setTimeout(() => {
+            this.blog = this.$store.state.blog;
+            this.loading = false;
+        }, 1000);
     }
     
 }

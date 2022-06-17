@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import router from "@/router";
 import vuello from './modules/vuello-store'
 import createPersistedState from 'vuex-persistedstate'
+import Swal from "sweetalert2";
 
 export default new Vuex.Store({
   state: {
@@ -24,7 +25,8 @@ export default new Vuex.Store({
     command: [],
     orders: [],
     listOfProducts: [],
-    list : [],
+    list: [],
+    blogs: [],
   },
   getters: {
     sideBarOpen: (state) => {
@@ -67,6 +69,9 @@ export default new Vuex.Store({
     },
     list: (state) => {
       return state.list;
+    },
+    blogs: (state) => {
+      return state.blogs;
     }
 
 
@@ -111,6 +116,9 @@ export default new Vuex.Store({
     },
     setList(state, list) {
       state.list = list;
+    },
+    setBlogs(state, blogs) {
+      state.blogs = blogs;
     }
 
   },
@@ -197,8 +205,6 @@ export default new Vuex.Store({
         });
     },
     createHall(context, hall) {
-       
-
       fetch("http://localhost/QuakkaProject/halls/create/", {
         method: "POST",
         headers: {
@@ -214,19 +220,17 @@ export default new Vuex.Store({
             context.commit("setHall", data.hall);
           } else {
             context.commit("Created", false);
-            alert("you have an error");
+            // alert("you have an error");
           }
         });
   
 
     },
     delete(context, defineParam) {
-     // convert defineParam to object:
      let  type_table = defineParam.model;
      let  id = defineParam.id;
       fetch(`http://localhost/QuakkaProject/${type_table}/delete/${id}`, {
         method: "POST",
-      
       })
         .then((response) => response.json())
         .then((data) => {
@@ -236,6 +240,15 @@ export default new Vuex.Store({
             }
             if (type_table == "products") {
               context.dispatch("getProducts");
+            }
+            if (type_table == "commands") {
+              context.dispatch("getCommands");
+            }
+            if (type_table == "orders") {
+              context.dispatch("getOrders");
+            }
+            if (type_table == "blogs") {
+
             }
           } 
         });
@@ -327,6 +340,8 @@ export default new Vuex.Store({
           if (defineParam.model == "orders") {
             context.commit("setOrders", data);
           }
+          if (defineParam.model == "blogs") 
+            context.commit("setBlogs", data[1]);
           
         });
     },
@@ -344,7 +359,45 @@ export default new Vuex.Store({
           
           
         });
+    },
+    createBlog(context, data) {
+      const formData = new FormData();
+          formData.append("image", data.image);
+          formData.append("title", data.title);
+          formData.append("category", data.category);
+      formData.append("content", data.content);
+       fetch("http://localhost/QuakkaProject/blogs/create", {
+        method: "POST",
+         body: formData,
+       }).then(response => 
+       response.text()
+       )
+         .then(data => {
+           data = JSON.parse(data);
+           console.log(data);
+          if (data[0] === true) {
+            context.commit("setBlogCreated", true);
+            context.commit("setBlog", data[1]);
+            Swal.fire({
+              title: "Success",
+              text: "Blog created successfully",
+              icon: "success",
+              confirmButtonText: "OK"
+            });
+            this.$router.push("blogs");
+            
+          }
+          else {
+           Swal.fire({
+              title: "Error",
+              text: "Error creating blog",
+              icon: "error",
+              confirmButtonText: "OK"
+            });
+          }
+        });
     }
+
     
   },
   modules: {

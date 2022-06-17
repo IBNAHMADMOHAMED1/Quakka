@@ -112,6 +112,21 @@ const routes = [
     name: 'listOfProducts',
     path: '/list-of-products',
     component: () => import('@/views/Products/ListOfProducts.vue')
+  },
+  {
+    path: '/blogs',
+    name: 'blogs',
+    component: () => import('@/views/Blogs/Blogs.vue')
+  },
+  {
+    path: '/create-blog',
+    name: 'create-blog',
+    component: () => import('@/views/Blogs/CreateBlog.vue')
+  },
+  {
+    path: '/view-blog/:blogId',
+    name: 'view-blog',
+    component: () => import('@/views/Blogs/ViewBlog.vue')
   }
  
 ]

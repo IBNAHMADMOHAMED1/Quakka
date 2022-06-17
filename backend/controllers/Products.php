@@ -8,19 +8,10 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 
 class Products extends Controller
 {
-
     public function index()
     {
         $this->loadModel('Product');
-        $products = $this->Product->getall();
-        if ($products) {
-            echo json_encode([http_response_code(200), $products]);
-        } else {
-            echo json_encode(['success' => 'Products not found']);
-        }
-
     }
-
     public function getall()
     {
         header('Content-Type: application/json');
@@ -28,19 +19,15 @@ class Products extends Controller
         $products = $this->Product->getall();
         $this->loadModel('Image');
         $images = $this->Image->getall();
-
         $products = array_map(function ($product) use ($images) {
             $product['images'] = array_filter($images, function ($image) use ($product) {
                 return $image['product_id'] == $product['product_id'];
             });
             $this->loadModel('Category');
             $product['category'] = $this->Category->_geOne($product['category_id']);
-            
-            
             return $product;
         }, $products);
         echo json_encode([http_response_code(200), $products]);
-
     }
 
     public function create()
@@ -48,24 +35,17 @@ class Products extends Controller
         $this->loadModel('Product');
         $data = json_decode(file_get_contents('php://input'), true);
         $product = $this->Product->create($data);
-       
-        if ($product) {
-            echo json_encode(['success' => true, 'product' => $product]);
-        } else {
-            echo json_encode(['message' => 'Product not created']);
-        }
+        if ($product) 
+               echo json_encode(['success' => true, 'product' => $product]);
+        else   echo json_encode(['message' => 'Product not created']);
     }
     public function update($id)
     {
-        
         $this->loadModel('Product');
         $data = json_decode(file_get_contents('php://input'), true);
-        
-        if ($this->Product->update($id, $data)) {
-            echo json_encode(['success' => true, 'product' => $this->Product->_oneProduct($id)]);
-        } else {
-            echo json_encode(['message' => 'Product not updated']);
-        }
+        if ($this->Product->update($id, $data)) 
+             echo json_encode(['success' => true, 'product' => $this->Product->_oneProduct($id)]);
+        else echo json_encode(['message' => 'Product not updated']);
     }
     public function delete($product_id)
     {
@@ -76,61 +56,42 @@ class Products extends Controller
         {
             $this->loadModel('Product');
             $product = $this->Product->_deleteProduct($product_id);
-            if ($product) {
-                echo json_encode(['success' => true, 'product' => 'Product deleted']);
-            } else {
-                echo json_encode(['message' => 'Product not deleted']);
-            }
+            if ($product) 
+                  echo json_encode(['success' => true, 'product' => 'Product deleted']);
+            else  echo json_encode(['message' => 'Product not deleted']);
         }
-        else
-        {
-            echo json_encode(['message' => 'Product not deleted']);
-        }
-
+        else echo json_encode(['message' => 'Product not deleted']);
     }
-   
     public function search()
     {
         $this->loadModel('Product');
         $data = json_decode(file_get_contents('php://input'), true);
         $products = $this->Product->search($data);
-        if ($products) {
-            echo json_encode(['success' => true, 'products' => $products]);
-        } else {
-            echo json_encode(['success' => 'Products not found']);
-        }
+        if ($products) 
+             echo json_encode(['success' => true, 'products' => $products]);
+        else echo json_encode(['success' => 'Products not found']);
     }
     public function images($id)
     {
         $this->loadModel('Product');
         $images = $this->Product->images($id);
-        if ($images) {
-            echo json_encode(['success' => true, 'images' => $images]);
-        } else {
-            echo json_encode(['success' => 'Images not found']);
-        }
+        if ($images)
+             echo json_encode(['success' => true, 'images' => $images]);
+        else echo json_encode(['success' => 'Images not found']);
     }
     public function upload_images($id)
     {
         $this->loadModel('Image');
         $data = $_FILES;
-        // access to
         $images = $this->validate_images($data);
-        
-        if ($this->Image->upload_images($id, $images)) {
-            echo json_encode(['success' => true, 'message' => 'Images uploaded']);
-        } else {
-            echo json_encode(['success' => 'Images not uploaded']);
-        }
-        
-        
-        
+        if ($this->Image->upload_images($id, $images)) 
+              echo json_encode(['success' => true, 'message' => 'Images uploaded']);
+        else  echo json_encode(['success' => 'Images not uploaded']);
     }
     public function validate_images($imgas)
     {
         $images = $_FILES;
         $image_names = [];
-      
         foreach ($imgas as $key => $image) {
             $fileName = $image['name'];
             $fileTmpName = $image['tmp_name'];
@@ -158,7 +119,6 @@ class Products extends Controller
             }
         }
         return $image_names;
-      
     }
     public function getone($product_id) {
         header('Content-Type: application/json');
@@ -170,15 +130,6 @@ class Products extends Controller
         $product['images'] = $images;
         $product['category'] = $this->Category->_geOne($product['category_id']);
         echo json_encode([http_response_code(200), $product]);
-        
     }
 
-
-    
-  
-
-    
-    
-
-    
 }

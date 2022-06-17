@@ -6,7 +6,6 @@ class ListOfProduct extends Model
     public function __construct()
     {
         $this->table = 'list_of_products';
-
         $this->getConnection();
     }
     public function createListOfProducts($data)
@@ -15,11 +14,7 @@ class ListOfProduct extends Model
         $stmt = $this->_connexion->prepare($sql);
         $stmt->bindValue(':product_id', $data['product_id']);
         $stmt->bindValue(':quantity', $data['quantity']);
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
+        return $stmt->execute() ? true : false;
     }
     public function getListOfProducts($dataIds)
     {
@@ -30,15 +25,12 @@ class ListOfProduct extends Model
         $stmt->execute();
         $listOfProducts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if ($listOfProducts) {
-              // select where create_at = create_at of the lislistOfProducts
             $sql = "SELECT * FROM list_of_products WHERE create_at = :create_at";
             $stmt = $this->_connexion->prepare($sql);
             $stmt->bindValue(':create_at', $listOfProducts[0]['create_at']);
             $stmt->execute();
             $ids = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $ids;
-        } else {
-            return false;
-        }
+        } return false;
     }
 }

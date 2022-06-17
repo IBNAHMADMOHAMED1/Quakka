@@ -6,10 +6,8 @@ abstract class Model
     private $db_name = "quakka";
     private $username = "root";
     private $password = "";
-
     // Propriété qui contiendra l'instance de la connexion
     protected $_connexion;
-
     // Propriétés permettant de personnaliser les requêtes
     public $table;
     public $id;
@@ -23,7 +21,6 @@ abstract class Model
     {
         // On supprime la connexion précédente
         $this->_connexion = null;
-
         // On essaie de se connecter à la base
         try {
             $this->_connexion = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
@@ -45,7 +42,6 @@ abstract class Model
         $query->execute();
         return $query->fetch(PDO::FETCH_ASSOC);
     }
-
     /**
      * Méthode permettant d'obtenir tous les enregistrements de la table choisie
      *
