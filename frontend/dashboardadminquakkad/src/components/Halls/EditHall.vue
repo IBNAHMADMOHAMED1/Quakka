@@ -259,13 +259,6 @@
               </button>
             </div>
           </form>
-          <!-- <div v-if="openUploadImage === 'image'">
-          
-            <UploadImageProduct 
-            
-            @openProductDone="openProductDone" />
-          </div> -->
-          <!-- product done -->
           <div v-if="openUploadImage === 'done'">
             <PageDone
               title="Product Created"

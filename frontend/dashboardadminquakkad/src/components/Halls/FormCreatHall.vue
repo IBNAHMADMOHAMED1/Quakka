@@ -266,13 +266,6 @@ export default {
       is_done: false,
       currentStep: 0,
       openUploadImage: "default",
-      product: {
-        Produproductt_Name: "",
-        Product_Description: "",
-        Product_Price: "",
-        Product_Quantity: "",
-        Product_Category: "",
-      },
       cities: [
         { id: 1, name: "Casablanca" },
         { id: 2, name: "Rabat" },

@@ -27,6 +27,7 @@ export default new Vuex.Store({
     listOfProducts: [],
     list: [],
     blogs: [],
+    blog: [],
   },
   getters: {
     sideBarOpen: (state) => {
@@ -64,15 +65,10 @@ export default new Vuex.Store({
     orders: (state) => {
       return state.orders;
     },
-    listOfProducts: (state) => {
-      return state.listOfProducts;
-    },
-    list: (state) => {
-      return state.list;
-    },
-    blogs: (state) => {
-      return state.blogs;
-    }
+    listOfProducts: (state) => { return state.listOfProducts},
+    list: (state) => { return state.list},
+    blogs: (state) => { return state.blogs },
+    blog: (state) => { return state.blog}
 
 
   },
@@ -119,7 +115,8 @@ export default new Vuex.Store({
     },
     setBlogs(state, blogs) {
       state.blogs = blogs;
-    }
+    },
+    setBlog(state, blog) { state.blog = blog }
 
   },
   actions: {
@@ -220,7 +217,6 @@ export default new Vuex.Store({
             context.commit("setHall", data.hall);
           } else {
             context.commit("Created", false);
-            // alert("you have an error");
           }
         });
   
@@ -255,16 +251,24 @@ export default new Vuex.Store({
 
     },
     _getOne(context,defineParam) {
-   
       fetch(`http://localhost/QuakkaProject/${defineParam.model}/getone/${defineParam.id}`)
         .then((response) => response.json())
         .then((data) => {
           
-           if (defineParam.model == "halls") {
+          if (defineParam.model == "halls") {
             context.commit("setHall", data[1]);
            }
           if (defineParam.model == "products") {
             context.commit("setProduct", data[1]);
+          }
+          if (defineParam.model == "commands") {
+            context.commit("setCommand", data[1]);
+          }
+          if (defineParam.model == "orders") {
+            context.commit("setOrder", data[1]);
+          }
+          if (defineParam.model == "blogs") {
+            context.commit("setBlog", data[1]);
           }
           
         });
@@ -284,6 +288,10 @@ export default new Vuex.Store({
           }
           if (defineParam.model == "products") {
             context.commit("setProduct", data[1]);
+          }
+          if (defineParam.model == "blogs") {
+            context.commit("setBlog", data[1]);
+            this.$router.push("/blogs");
           }
         });
     },
@@ -365,7 +373,7 @@ export default new Vuex.Store({
           formData.append("image", data.image);
           formData.append("title", data.title);
           formData.append("category", data.category);
-      formData.append("content", data.content);
+          formData.append("content", data.content);
        fetch("http://localhost/QuakkaProject/blogs/create", {
         method: "POST",
          body: formData,
@@ -396,6 +404,44 @@ export default new Vuex.Store({
             });
           }
         });
+    },
+    updateBlog(context, data) {
+      console.log(data);
+      const formData = new FormData();
+          formData.append("image", data.image);
+          formData.append("title", data.title);
+          formData.append("category", data.category);
+          formData.append("content", data.content);
+       fetch("http://localhost/QuakkaProject/blogs/update/"+data.id, {
+        method: "POST",
+         body: formData,
+       }).then(response => 
+       response.json()
+       )
+         .then(data => {
+           console.log(data);
+          if (data[0] == true) {
+            context.commit("setBlogCreated", true);
+            context.commit("setBlog", data[1]);
+            // get all blogs
+          
+            Swal.fire({
+              title: "Success",
+              text: "Blog updated successfully",
+              icon: "success",
+              confirmButtonText: "OK"
+            });
+            
+          }
+          else {
+           Swal.fire({
+              title: "Error",
+              text: "Error updating blog",
+              icon: "error",
+              confirmButtonText: "OK"
+            });
+          }
+         });
     }
 
     

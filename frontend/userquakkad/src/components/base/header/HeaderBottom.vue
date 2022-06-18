@@ -91,7 +91,8 @@
                                         aria-label="Toggle navigation">Blog</a>
                                     <ul class="sub-menu collapse" id="submenu-1-4">
                                         <li class="nav-item">
-                                            <router-link to="/blog" class="active" aria-label="Toggle navigation">Blog
+                                            <router-link to="/blog-list" class="active" aria-label="Toggle navigation">
+                                                Blog
                                             </router-link>
                                         </li>
                                         <li class="nav-item">

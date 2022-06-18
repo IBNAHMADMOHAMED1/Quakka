@@ -1,5 +1,6 @@
 <template>
     <section class="blog-section section">
+        
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -10,53 +11,15 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-12">
-                    <!-- Start Single Blog -->
-                    <div class="single-blog">
-                        <div class="blog-img">
-                            <a>
-                                <img src="assets/images/401.webp" alt="#">
-                            </a>
-                        </div>
-                        <div class="blog-content">
-                            <a class="category">eCommerce</a>
-                            <h4>
-                                <a>What information is needed for shipping?</a>
-                            </h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt.</p>
-                            <div class="button">
-                                <a class="btn">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-                    <!-- Start Single Blog -->
-                    <div class="single-blog">
-                        <div class="blog-img">
-                            <a>
-                                <img src="assets/images/03.webp" alt="#">
-                            </a>
-                        </div>
-                        <div class="blog-content">
-                            <a class="category">Widding</a>
-                            <h4>
-                                <a>
-                                    What i need to know about the Wedding Process?
+            <div v-if="isLoading">
+                <Loading />
+            </div>
+            <div v-else class="row">
 
-                                </a>
-                            </h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt.</p>
-                            <div class="button">
-                                <a class="btn">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
+
+                <div 
+                v-for="blog in blogs" :key="blog.id"
+                class="col-lg-4 col-md-6 col-12">
                     <div class="single-blog">
                         <div class="blog-img">
                             <a>
@@ -65,18 +28,19 @@
                         </div>
                         <div class="blog-content">
                             <a class="category">
-                                Accessories
+                                <span>
+                                    {{blog.category}}
+                                </span>
                             </a>
                             <h4>
                                 <a>
-                                    What is the best way to get a gift to my wife?
+                                    {{blog.title}}
                                 </a>
                             </h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt.</p>
-                            <div
-                            @click="$router.push('/blog/blog-details')"
-                            class="button">
+                            <p>
+                                {{blog.content}}
+                            </p>
+                            <div @click="readBlog(blog)" class="button">
                                 <a class="btn">Read More</a>
                             </div>
                         </div>
@@ -88,22 +52,38 @@
 </template>
 
 <script>
+import Loading from './base/Loading.vue';
 export default {
     name: 'BlogArea',
     components: {
-       
-    },
+    Loading
+},
     data() {
         return {
-           blog: [],
-                    
+           blogs: [],
+            isEmpty: false,
+            isLoading: true,
         }
     },
     methods: {
+        readBlog(blog) {
+            this.$router.push({
+                name: 'blog-details',
+                params: {
+                    id: blog.id
+                }
+            })
+        }
        
     },
     mounted() {
-        
-    }
+      this.$store.dispatch("getBlogs");
+        setTimeout(() => {
+            this.blogs =this.$store.getters.getBlogs;
+            this.isLoading = false;
+            this.blogs ? this.Blogs : this.isEmpty = true;
+        }, 1300);
+
+    },
 }
 </script>

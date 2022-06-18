@@ -151,9 +151,11 @@ export default {
         method: "POST",
         body: formData,
       };
-      console.log(this.Hall);
+      console.log(store.state.hall.id);
+      // const Hall = JSON.parse(this.Hall);
+      // console.log(Hall);
       fetch(
-        "http://localhost/QuakkaProject/ImagesHall/uploadImage/" + this.Hall.id,
+        "http://localhost/QuakkaProject/ImagesHall/uploadImage/" + store.state.hall.id,
         requestOptions
       )
         .then((response) => {

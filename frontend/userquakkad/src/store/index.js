@@ -26,6 +26,8 @@ export default createStore({
     ShippingId: 1,
     commands: [],
     blogs: [],
+    blog: [],
+    comments: [],
   },
   getters: {
     sideBarOpen: (state) => {
@@ -73,6 +75,12 @@ export default createStore({
     },
     getBlogs: (state) => {
       return state.blogs;
+    },
+    getBlog: (state) => {
+      return state.blog;
+    },
+    getComments: (state) => {
+      return state.comments;
     }
   },
   mutations: {
@@ -120,6 +128,12 @@ export default createStore({
     },
     setBlogs(state, blogs) {
       state.blogs = blogs;
+    },
+    setBlog(state, blog) {
+      state.blog = blog;
+    },
+    setComments(state, comments) {
+      state.comments = comments;
     }
   },
   actions: {
@@ -199,8 +213,6 @@ export default createStore({
       cart.push(product);
       localStorage.setItem("cart", JSON.stringify(cart));
       context.commit("setCart", cart);
-      // add cart to
-
       window.dispatchEvent(
         new CustomEvent("cart-updated", {
           detail: {
@@ -534,12 +546,46 @@ export default createStore({
           }
         });
     },
-    getBlogs(context) {
+    createComment(context, comment) {
+      const newLocal = "http://localhost/QuakkaProject/comments/createComment";
+      fetch(newLocal, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*", },
+        body: JSON.stringify(comment),
+      })
+        .then((response) => response.text())
+        .then((data) => {
+          data = JSON.parse(data);
+          console.log(data);
+          if (data[0] === true) {
+            // context.commit("setComments", data[1]);
+            this.dispatch("getallComments");
+            Swal.fire({
+              icon: "success",
+              title: "Comment Successful",
+              text: "You have successfully commented",
+            });
+          
+          }
+        });
+    },
+    getallComments(context,id) {
+      const newLocal = "http://localhost/QuakkaProject/comments/getall/"+id;
+      fetch(newLocal)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data[0] === true) {
+            console.log(data);
+            context.commit("setComments", data[1]);
+          }
+        });
+    },
+       getBlogs(context) {
       const newLocal = "http://localhost/QuakkaProject/blogs/getall";
       fetch(newLocal)
         .then((response) => response.json())
         .then((data) => {
-          if (data[0] === 200) {
+          if (data[0]) {
             context.commit("setBlogs", data[1]);
           } else {
             Swal.fire({
@@ -549,7 +595,7 @@ export default createStore({
             });
           }
         });
-    }
-
+    },
+  
   },
 });

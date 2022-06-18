@@ -1,4 +1,5 @@
 <template>
+    <Crumbs title="BlogList" />
     <section class="section blog-section blog-list">
         <div class="container">
             <div class="row">
@@ -72,50 +73,8 @@
                             </div>
                             <!-- End Single Blog -->
                         </div>
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <!-- Start Single Blog -->
-                            <div class="single-blog">
-                                <div class="blog-img">
-                                    <a href="blog-single-sidebar.html">
-                                        <img src="https://via.placeholder.com/370x215" alt="#">
-                                    </a>
-                                </div>
-                                <div class="blog-content">
-                                    <a class="category">eCommerce</a>
-                                    <h4>
-                                        <a href="blog-single-sidebar.html">What information is needed for shipping?</a>
-                                    </h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt.</p>
-                                    <div class="button">
-                                        <a class="btn">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Blog -->
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <!-- Start Single Blog -->
-                            <div class="single-blog">
-                                <div class="blog-img">
-                                    <a href="blog-single-sidebar.html">
-                                        <img src="https://via.placeholder.com/370x215" alt="#">
-                                    </a>
-                                </div>
-                                <div class="blog-content">
-                                    <a class="category">Gaming</a>
-                                    <h4>
-                                        <a href="blog-single-sidebar.html">Interesting fact about gaming consoles</a>
-                                    </h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt.</p>
-                                    <div class="button">
-                                        <a class="btn">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Blog -->
-                        </div>
+                    
+                        
                         <div class="col-lg-6 col-md-6 col-12">
                             <!-- Start Single Blog -->
                             <div class="single-blog">
@@ -165,42 +124,8 @@
                         </div>
                         <!-- End Single Widget -->
                         <!-- Start Single Widget -->
-                        <div class="widget popular-feeds">
-                            <h5 class="widget-title">Featured Posts</h5>
-                            <div class="popular-feed-loop">
-                                <div class="single-popular-feed">
-                                    <div class="feed-desc">
-                                        <a class="feed-img" href="blog-single-sidebar.html">
-                                            <img src="https://via.placeholder.com/200x200" alt="#">
-                                        </a>
-                                        <h6 class="post-title"><a href="blog-single-sidebar.html">What information is
-                                                needed for shipping?</a></h6>
-                                        <span class="time"><i class="lni lni-calendar"></i> 05th Nov 2023</span>
-                                    </div>
-                                </div>
-                                <div class="single-popular-feed">
-                                    <div class="feed-desc">
-                                        <a class="feed-img" href="blog-single-sidebar.html">
-                                            <img src="https://via.placeholder.com/200x200" alt="#">
-                                        </a>
-                                        <h6 class="post-title"><a href="blog-single-sidebar.html">Interesting fact about
-                                                gaming consoles</a></h6>
-                                        <span class="time"><i class="lni lni-calendar"></i> 24th March 2023</span>
-                                    </div>
-                                </div>
-                                <div class="single-popular-feed">
-                                    <div class="feed-desc">
-                                        <a class="feed-img" href="blog-single-sidebar.html">
-                                            <img src="https://via.placeholder.com/200x200" alt="#">
-                                        </a>
-                                        <h6 class="post-title"><a href="blog-single-sidebar.html">Electronics,
-                                                instrumentation & control engineering </a></h6>
-                                        <span class="time"><i class="lni lni-calendar"></i> 30th Jan 2023</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                       
+                        
+
                         <div class="widget categories-widget">
                             <h5 class="widget-title">Top Categories</h5>
                             <ul class="custom">
@@ -221,7 +146,7 @@
                                 </li>
                             </ul>
                         </div>
-                       
+
                         <div class="widget popular-tag-widget">
                             <h5 class="widget-title">Popular Tags</h5>
                             <div class="tags">

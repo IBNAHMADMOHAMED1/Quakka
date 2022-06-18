@@ -53,7 +53,6 @@
           </div>
           <div></div>
         </div>
-
         <div
           v-if="!loading"
           class="overflow-x-auto rounded-lg shadow overflow-y-auto relative"
@@ -246,12 +245,12 @@ export default {
             return "Not available";
         }
 
-},
+    },
     date_for_humans(date) {
       const moment = require("moment");
       return moment(date).format("MMMM Do YYYY, h:mm a");
     },
-   view_hall(hall) {
+    view_hall(hall) {
       hall = JSON.parse(JSON.stringify(hall));
       this.$router.push({
         name: "viewHall",
@@ -321,8 +320,6 @@ export default {
     setTimeout(() => {
       this.halls = store.state.halls;
       this.loading = false;
-
-
     }, 1300);
 
   },

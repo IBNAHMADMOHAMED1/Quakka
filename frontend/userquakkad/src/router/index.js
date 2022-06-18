@@ -68,7 +68,7 @@ const routes = [
     component: () => import('@/views/hall/ReserveHall.vue')
   },
   {
-    path: '/blog/blog-details/',
+    path: '/blog-details/:id',
     name: 'blog-details',
     component: () => import('@/views/blog/BlogDetails.vue')
   },
@@ -87,6 +87,11 @@ const routes = [
     path: '/commands',
     name: 'commands',
     component: () => import('@/views/commands/Commands.vue')
+  },
+  {
+    path: '/hall-list',
+    name: 'hall-list',
+    component: () => import('@/views/hall/HallList.vue')
   }
 ]
 

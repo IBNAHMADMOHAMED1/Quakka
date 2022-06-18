@@ -105,7 +105,7 @@
 
                                             <td :class="` ${default_ClassName}`">
                                                 <div class="text-sm leading-5 text-gray-500">
-                                                    {{ command.client[0].username }}
+                                                    {{ command.client.username }}
                                                 </div>
                                             </td>
 
@@ -113,7 +113,7 @@
                                                 <span
                                                     :class="` inline-flex px-2 text-xs font-semibold leading-5   ${creat_status_class}`">
                                                     <span class="ml-1">
-                                                        {{ command.client[0].phoneNumber }}
+                                                        {{ command.client.phoneNumber }}
                                                     </span>
                                                 </span>
                                             </td>
