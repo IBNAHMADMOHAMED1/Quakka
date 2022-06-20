@@ -1,15 +1,12 @@
 <script>
 export default {
     name: "shipping-info",
-    
 }
 </script>
-
 <template>
     <section class="shipping-info">
         <div class="container">
             <ul>
-                <!-- Free Shipping -->
                 <li>
                     <div class="media-icon">
                         <i class="lni lni-delivery"></i>
@@ -19,7 +16,6 @@ export default {
                         <span>On order over $99</span>
                     </div>
                 </li>
-                <!-- Money Return -->
                 <li>
                     <div class="media-icon">
                         <i class="lni lni-support"></i>
@@ -29,7 +25,6 @@ export default {
                         <span>Live Chat Or Call.</span>
                     </div>
                 </li>
-                <!-- Support 24/7 -->
                 <li>
                     <div class="media-icon">
                         <i class="lni lni-credit-cards"></i>

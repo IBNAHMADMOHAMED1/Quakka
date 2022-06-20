@@ -122,13 +122,18 @@ export default {
     logout() {
       this.$store.dispatch("logout");
     },
-    getImgUrl(pet) {
-      if (pet) {
-        return this.pathImg + pet + ".jpg";
-      } else {
-        return this.pathImg + "default.jpg";
-      }
-    },
+    getImgUrl(Imags) {
+            // const images = JSON.parse(JSON.stringify(Imags))
+            console.log(Imags);
+            if (Imags == null || Imags == undefined) {
+                return "https://via.placeholder.com/150";
+            }
+            // let nameImg = images[0].name;
+            let url = require.context("C:/xampp/htdocs/Quakka/frontend/dashboardadminquakkad/src/assets/img/Admin/", true, /\.(png|jpe?g|svg)$/);
+            let img = url(`./${Imags}`);
+            return img;
+
+        },
   },
   created() {
     store.dispatch("getUser").then(() => {
