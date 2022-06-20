@@ -20,7 +20,6 @@ const props = defineProps({
 })
 
 const emits = defineEmits(['addContainer', 'addCard'])
-
 const store = useStore()
 const state = reactive({
   isDraggable: false,

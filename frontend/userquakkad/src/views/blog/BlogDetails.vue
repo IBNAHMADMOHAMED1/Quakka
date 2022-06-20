@@ -33,10 +33,9 @@
                                             <a><i class="lni lni-timer"></i> 5 min read</a>
                                         </li>
                                     </ul>
-                                    <!-- End Meta Info -->
                                 </div>
                                 <div class="detail-inner">
-                                    <p>
+                                    <p id="zone-search" >
                                         {{blog.content}}
                                         realized by the charms of pleasure of the moment, so blinded by desire, that
                                         they
@@ -100,8 +99,8 @@
                                 </div>
                             </div>
                             <!-- Comments -->
-                            <allComments />
-                             <!-- Comments -->
+                            <allComments :id_blog="blog.id" />
+                            <!-- Comments -->
                             <Comments :id_blog="blog.id" />
 
                         </div>
@@ -109,11 +108,11 @@
                 </div>
                 <aside class="col-lg-4 col-md-12 col-12">
                     <div class="sidebar blog-grid-page">
-                        <!-- Start Single Widget -->
                         <div class="widget search-widget">
                             <h5 class="widget-title">Search This Site</h5>
-                            <form action="#">
-                                <input type="text" placeholder="Search Here...">
+                            <form @submit.prevent="search">
+                                <input @keypress="searchKeyPress" @keyup="searchKeyUp" v-model="searchKey" type="text"
+                                    placeholder="Search Here...">
                                 <button type="submit"><i class="lni lni-search-alt"></i></button>
                             </form>
                         </div>
@@ -143,6 +142,8 @@ export default {
     data() {
         return {
             blog: [],
+            searchKey: '',
+            notFound: false,
         }
     },
     methods: {
@@ -156,7 +157,43 @@ export default {
             const moment = require("moment");
             return moment(date).fromNow();
         },
-       
+      
+        search()
+        {
+            let zone_search = document.getElementById("zone-search");
+            let search_key = this.searchKey;
+            let result = zone_search.innerText.search(search_key);
+            if (result != -1) 
+                zone_search.innerHTML = zone_search.innerHTML.replace(search_key, "<span class='search-key'>" + search_key + "</span>");  
+            {
+                zone_search.innerHTML = zone_search.innerText;
+                this.notFound = true;
+            }
+          
+        },
+        searchKeyUp(event)
+        {
+            let zone_search = document.getElementById("zone-search");
+            if (this.searchKey == '') 
+                 zone_search.innerHTML = zone_search.innerText;
+             else {
+                let zone_search = document.getElementById("zone-search");
+                let search_key = this.searchKey;
+                let result = zone_search.innerText.search(search_key);
+                if (result != -1) 
+                    zone_search.innerHTML = zone_search.innerHTML.replace(search_key, "<span class='search-key'>" + search_key + "</span>");  
+                else
+                {
+                    zone_search.innerHTML = zone_search.innerText; 
+                    this.notFound = true;
+                }
+            }
+            if (event.keyCode ==13)
+                this.search();
+
+        
+        }
+             
     },
     mounted() {
         const id = this.$route.params.id
@@ -166,14 +203,9 @@ export default {
             .then((data) => {
                 if (data[0]) {
                    this.blog = data[1];
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error",
-                        text: "You have an error",
-                    });
                 }
             });
+        this.$store.dispatch('getallComments', id);
     },
     
     watch: {
@@ -199,3 +231,12 @@ export default {
    
 }
 </script>
+
+<style>
+
+
+.search-key {
+    background-color: #ffc107;
+}
+
+</style>

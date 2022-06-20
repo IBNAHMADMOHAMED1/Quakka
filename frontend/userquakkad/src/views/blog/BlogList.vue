@@ -5,102 +5,44 @@
             <div class="row">
                 <div class="col-lg-8 col-md-12 col-12">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <!-- Start Single Blog -->
-                            <div class="single-blog">
-                                <div class="blog-img">
-                                    <a href="blog-single-sidebar.html">
-                                        <img src="https://via.placeholder.com/370x215" alt="#">
-                                    </a>
-                                </div>
-                                <div class="blog-content">
-                                    <a class="category">eCommerce</a>
-                                    <h4>
-                                        <a href="blog-single-sidebar.html">What information is needed for shipping?</a>
-                                    </h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt.</p>
-                                    <div class="button">
-                                        <a class="btn">Read More</a>
-                                    </div>
+                        <div v-if="isLoading" class="col-lg-6 col-md-6 col-12">
+                            <div style="padding:300px;" class="text-center">
+                                <div class="spinner-border" role="status">
+                                    <span class="visually-hidden">Loading...</span>
                                 </div>
                             </div>
-                            <!-- End Single Blog -->
                         </div>
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <!-- Start Single Blog -->
+
+                        <div v-for="blog in blogs" :key="blog.id" class="col-lg-6 col-md-6 col-12">
                             <div class="single-blog">
                                 <div class="blog-img">
-                                    <a href="blog-single-sidebar.html">
-                                        <img src="https://via.placeholder.com/370x215" alt="#">
+                                    <a>
+                                        <img style="max-height: 256px; height: max-content" :src="getImgUrl(blog.image)"
+                                            alt="#" />
                                     </a>
                                 </div>
                                 <div class="blog-content">
-                                    <a class="category">Gaming</a>
-                                    <h4>
-                                        <a href="blog-single-sidebar.html">Interesting fact about gaming consoles</a>
-                                    </h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt.</p>
-                                    <div class="button">
-                                        <a class="btn">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Blog -->
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <!-- Start Single Blog -->
-                            <div class="single-blog">
-                                <div class="blog-img">
-                                    <a href="blog-single-sidebar.html">
-                                        <img src="https://via.placeholder.com/370x215" alt="#">
+                                    <a class="category">
+                                        <span>
+                                            {{ blog.category }}
+                                        </span>
                                     </a>
-                                </div>
-                                <div class="blog-content">
-                                    <a class="category">Electronic</a>
                                     <h4>
-                                        <a href="blog-single-sidebar.html">Electronics, instrumentation & control
-                                            engineering
+                                        <a>
+                                            {{ blog.title }}
                                         </a>
                                     </h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt.</p>
-                                    <div class="button">
+                                    <p style="max-height: 94px; height: 103px">
+                                        {{ blog.content }}
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                    </p>
+                                    <div @click="readBlog(blog)" class="button">
                                         <a class="btn">Read More</a>
                                     </div>
                                 </div>
                             </div>
-                            <!-- End Single Blog -->
-                        </div>
-                    
-                        
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <!-- Start Single Blog -->
-                            <div class="single-blog">
-                                <div class="blog-img">
-                                    <a href="blog-single-sidebar.html">
-                                        <img src="https://via.placeholder.com/370x215" alt="#">
-                                    </a>
-                                </div>
-                                <div class="blog-content">
-                                    <a class="category">Electronic</a>
-                                    <h4>
-                                        <a href="blog-single-sidebar.html">Electronics, instrumentation & control
-                                            engineering
-                                        </a>
-                                    </h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt.</p>
-                                    <div class="button">
-                                        <a class="btn">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Blog -->
                         </div>
                     </div>
-                    <!-- Pagination -->
                     <div class="pagination left blog-grid-page">
                         <ul class="pagination-list">
                             <li><a>Prev</a></li>
@@ -110,53 +52,30 @@
                             <li><a>Next</a></li>
                         </ul>
                     </div>
-                    <!--/ End Pagination -->
                 </div>
                 <aside class="col-lg-4 col-md-12 col-12">
                     <div class="sidebar blog-grid-page">
-                        <!-- Start Single Widget -->
-                        <div class="widget search-widget">
-                            <h5 class="widget-title">Search This Site</h5>
-                            <form action="#">
-                                <input type="text" placeholder="Search Here...">
-                                <button type="submit"><i class="lni lni-search-alt"></i></button>
-                            </form>
-                        </div>
-                        <!-- End Single Widget -->
-                        <!-- Start Single Widget -->
-                        
-
+                      
                         <div class="widget categories-widget">
                             <h5 class="widget-title">Top Categories</h5>
                             <ul class="custom">
-                                <li>
-                                    <a>Editor's Choice</a><span>(24)</span>
+                                <li style="cursor: pointer">
+                                    <a @click="getBlogsByCategory('all')">All</a>
                                 </li>
-                                <li>
-                                    <a>Electronics</a><span>(12)</span>
+                                <li style="cursor: pointer" v-for="category in categories" :key="category.id">
+                                    <a @click="getBlogsByCategory(category)">{{category}}</a>
                                 </li>
-                                <li>
-                                    <a>Industrial Design</a><span>(5)</span>
-                                </li>
-                                <li>
-                                    <a>Secure Payments Online</a><span>(15)</span>
-                                </li>
-                                <li>
-                                    <a>Online Shopping</a><span>(7)</span>
-                                </li>
+
                             </ul>
                         </div>
 
                         <div class="widget popular-tag-widget">
                             <h5 class="widget-title">Popular Tags</h5>
-                            <div class="tags">
-                                <a>#electronics</a>
-                                <a>#cpu</a>
-                                <a>#gadgets</a>
-                                <a>#wearables</a>
-                                <a>#smartphones</a>
+                            <div style="cursor: pointer" class="tags" v-for="category in categories" :key="category.id">
+                                <a @click="getBlogsByCategory(category)">{{category}}</a>
+
                             </div>
-                        </div>>
+                        </div>
                     </div>
                 </aside>
             </div>
@@ -165,21 +84,71 @@
 </template>
 
 <script>
+import Crumbs from '@/components/base/Crumbs.vue';
 export default {
-    name: 'Blog-List',
-    data() {
-        return {
-            blog: [],
-            loading: true,
-        }
-    },
-    mounted() {
-        this.$store.dispatch('getBlogs');
-        setTimeout(() => {
-            this.blog = this.$store.state.blog;
-            this.loading = false;
-        }, 1000);
-    }
-    
-}
+  name: "BlogArea",
+    components: { Crumbs },
+  data() {
+    return {
+      blogs: [],
+      isEmpty: false,
+        isLoading: true,
+      categories: [],
+    };
+  },
+  methods: {
+    readBlog(blog) {
+      this.$router.push({
+        name: "blog-details",
+        params: {
+          id: blog.id,
+        },
+      });
+      },
+      getImgUrl(img) {
+          if (img == null)
+              return "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1049&q=80";
+          let url = require.context("C:/xampp/htdocs/Quakka/frontend/dashboardadminquakkad/public/assets/img/blog/", true, /\.(png|jpe?g|svg)$/);
+          return url('./' + img);
+      },
+      getBlogs()
+      {
+          this.isLoading = true;
+          this.blogs = [];
+          setTimeout(() => {
+              this.blogs = this.$store.getters.getBlogs;
+              this.isLoading = false;
+              this.blogs ? this.Blogs : (this.isEmpty = true);
+            
+          }, 900);
+        },
+      getBlogsByCategory(category) {
+          if (category == 'all') {
+              this.getBlogs();
+          }
+          else {
+              this.blogs = [];
+
+              this.isLoading = true;
+              setTimeout(() => {
+                    this.blogs = this.$store.getters.getBlogs.filter((blog) => {
+                        return blog.category == category;
+                    });
+                    this.isLoading = false;
+              }, 900);
+          }
+      },
+  },
+  mounted() {
+    this.$store.dispatch("getBlogs");
+    setTimeout(() => {
+      this.blogs = this.$store.getters.getBlogs;
+      this.isLoading = false;
+        this.blogs ? this.Blogs : (this.isEmpty = true);
+        this.blogs.forEach((blog) => {
+            this.categories.push(blog.category);
+        });
+    }, 1300);
+  },
+};
 </script>

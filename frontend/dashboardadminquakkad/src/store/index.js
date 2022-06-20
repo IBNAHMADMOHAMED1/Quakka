@@ -395,14 +395,7 @@ export default new Vuex.Store({
             this.$router.push("blogs");
             
           }
-          else {
-           Swal.fire({
-              title: "Error",
-              text: "Error creating blog",
-              icon: "error",
-              confirmButtonText: "OK"
-            });
-          }
+       
         });
     },
     updateBlog(context, data) {
@@ -423,8 +416,7 @@ export default new Vuex.Store({
           if (data[0] == true) {
             context.commit("setBlogCreated", true);
             context.commit("setBlog", data[1]);
-            // get all blogs
-          
+        
             Swal.fire({
               title: "Success",
               text: "Blog updated successfully",
@@ -433,14 +425,7 @@ export default new Vuex.Store({
             });
             
           }
-          else {
-           Swal.fire({
-              title: "Error",
-              text: "Error updating blog",
-              icon: "error",
-              confirmButtonText: "OK"
-            });
-          }
+        
          });
     }
 

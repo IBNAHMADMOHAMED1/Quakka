@@ -92,7 +92,8 @@ const routes = [
     path: '/hall-list',
     name: 'hall-list',
     component: () => import('@/views/hall/HallList.vue')
-  }
+  },
+  
 ]
 
 const router = createRouter({

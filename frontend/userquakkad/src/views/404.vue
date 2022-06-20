@@ -10,7 +10,7 @@
               <p>The page you are looking for does not exist. It might have been moved or deleted.</p>
               <div class="button">
                 <button
-                @click="$router.push('/')"
+                @click="$router.back()"
                  class="btn">Back to Home</button>
               </div>
             </div>

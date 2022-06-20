@@ -84,7 +84,9 @@
                                         {{ getSatusCommand(item.status)}}
                                     </p>
                                 </div>
-                                <div @click="removeItem(item.id)" class="col-lg-1 col-md-2 col-12">
+                                <div 
+                                
+                                @click="removeItem(item.id)" class="col-lg-1 col-md-2 col-12">
                                     <div class="remove-item"><i class="lni lni-close"></i></div>
                                 </div>
                             </div>
@@ -101,17 +103,26 @@
                         <div class="row">
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="right">
-                                    <PricingTable></PricingTable>
+                                    <div v-for="(item, index) in Commands" :key="index">
+                                        <div v-if="item.status">
+                                            {{ item.hall[0].name }} is <span>Accepeted</span>
+
+                                        </div>
+                                        <div v-else >
+                                            check your email
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-    {{ Commands }}
+
 </template>
 
 

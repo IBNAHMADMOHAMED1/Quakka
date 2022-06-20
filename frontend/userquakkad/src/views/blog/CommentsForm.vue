@@ -30,6 +30,7 @@
 </template>
 <script>
 import Swal from 'sweetalert2';
+import { mapGetters } from 'vuex'
 export default {
     name: 'CommentForm',
     props: {
@@ -49,6 +50,7 @@ export default {
     mounted() {
         if (localStorage.getItem('client') || this.$store.getters.isLoggedIn)
             this.isLoggedIn = true;
+        this.$store.dispatch('getallComments', this.id_blog);
     },
     methods: {
         createComment() {
@@ -67,9 +69,19 @@ export default {
                 })
             else 
                 this.$store.dispatch('createComment', data)
+            this.comment.comment = '';
             
         }
-    }
+    },
+   
+    computed: {
+       ...mapGetters(['getCommentReply']),
+    },
+    watch: {
+        getCommentReply() {
+            this.comment.comment = this.getCommentReply
+        }
+    },
 }
 
 </script>

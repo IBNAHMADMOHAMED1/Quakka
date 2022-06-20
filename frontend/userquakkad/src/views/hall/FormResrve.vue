@@ -31,7 +31,9 @@
 
                 <div class="col-12">
                     <div class="button">
-                        <button @click.prevent="createReserve" type="submit" class="btn">Post Comment</button>
+                        <button @click.prevent="createReserve" type="submit" class="btn">
+                        Send Demand
+                        </button>
                     </div>
                 </div>
             </div>

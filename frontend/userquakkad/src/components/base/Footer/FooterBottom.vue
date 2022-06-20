@@ -19,13 +19,7 @@
                     </div>
                     <div class="col-lg-4 col-12">
                         <ul class="socila">
-                            <li>
-                                <span>Follow Us On:</span>
-                            </li>
-                            <li><a><i class="lni lni-facebook-filled"></i></a></li>
-                            <li><a><i class="lni lni-twitter-original"></i></a></li>
-                            <li><a><i class="lni lni-instagram"></i></a></li>
-                            <li><a><i class="lni lni-google"></i></a></li>
+                          <Social />
                         </ul>
                     </div>
                 </div>
@@ -33,3 +27,13 @@
         </div>
     </div>
 </template>
+<script>
+import Social from '@/components/base/Social.vue'
+export default {
+    name: "FooterBottom",
+    components: {
+        Social
+    }
+
+}
+</script>

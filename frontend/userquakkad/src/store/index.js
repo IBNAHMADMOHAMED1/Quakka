@@ -28,6 +28,8 @@ export default createStore({
     blogs: [],
     blog: [],
     comments: [],
+    commentReply: '',
+    
   },
   getters: {
     sideBarOpen: (state) => {
@@ -81,6 +83,9 @@ export default createStore({
     },
     getComments: (state) => {
       return state.comments;
+    },
+    getCommentReply: (state) => {
+      return state.commentReply;
     }
   },
   mutations: {
@@ -134,6 +139,9 @@ export default createStore({
     },
     setComments(state, comments) {
       state.comments = comments;
+    },
+    setCommentReply(state, commentReply) {
+      state.commentReply = commentReply;
     }
   },
   actions: {
@@ -259,12 +267,6 @@ export default createStore({
               title: "Subscribed",
               text: "You have been subscribed to our newsletter",
             });
-          } else {
-            Swal.fire({
-              icon: "error",
-              title: "Error",
-              text: "You have an error",
-            });
           }
         });
     },
@@ -307,7 +309,7 @@ export default createStore({
               title: "Login Successful",
               text: "You have successfully logged in",
             });
-            router.push("/");
+            router.back();
           } else {
             Swal.fire({
               icon: "error",
@@ -336,7 +338,7 @@ export default createStore({
               title: "Registration Successful",
               text: "You have successfully registered",
             });
-            router.push("/login");
+            router.back();
           } else {
             Swal.fire({
               icon: "error",
@@ -349,7 +351,7 @@ export default createStore({
     logout(context) {
       context.commit("setIsLoggedIn", false);
       localStorage.removeItem("client");
-      router.push("/");
+      router.push('/')
     },
     createOrder(context, cart) {
       let client = JSON.parse(localStorage.getItem("client"));
@@ -475,13 +477,7 @@ export default createStore({
         .then((data) => {
           if (data[0] === 200) {
             context.commit("setHalls", data[1]);
-          } else {
-            Swal.fire({
-              icon: "error",
-              title: "Error",
-              text: "You have an error",
-            });
-          }
+          } 
         }
         );
     },
@@ -558,14 +554,16 @@ export default createStore({
           data = JSON.parse(data);
           console.log(data);
           if (data[0] === true) {
-            // context.commit("setComments", data[1]);
-            this.dispatch("getallComments");
-            Swal.fire({
-              icon: "success",
-              title: "Comment Successful",
-              text: "You have successfully commented",
-            });
-          
+             const newLocal = "http://localhost/QuakkaProject/comments/getall/"+comment.blog_id;
+      fetch(newLocal)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data[0] === true) {
+            console.log(data);
+            context.commit("setComments", data[1]);
+          }
+        });
+
           }
         });
     },
@@ -578,24 +576,37 @@ export default createStore({
             console.log(data);
             context.commit("setComments", data[1]);
           }
+          else
+          {
+            context.commit("setComments", []);
+            }
         });
     },
-       getBlogs(context) {
+    getBlogs(context) {
       const newLocal = "http://localhost/QuakkaProject/blogs/getall";
       fetch(newLocal)
         .then((response) => response.json())
         .then((data) => {
           if (data[0]) {
             context.commit("setBlogs", data[1]);
-          } else {
-            Swal.fire({
-              icon: "error",
-              title: "Error",
-              text: "You have an error",
-            });
           }
+          
         });
     },
+    setCommentReply(context, reply) {
+      context.commit("setCommentReply", reply);
+    },
+    delete(context, param) {
+      const newLocal = "http://localhost/QuakkaProject/" + param.model + "/delete/" + param.id;
+      fetch(newLocal, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*", },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+        
+        });
+    }
   
   },
 });

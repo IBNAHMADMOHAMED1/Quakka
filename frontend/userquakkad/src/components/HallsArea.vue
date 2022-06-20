@@ -118,10 +118,7 @@ export default {
             if (images[0] == null) {
                 return "https://via.placeholder.com/150";
             }
-            
-
             let nameImg = images[0].name;
-
             let url = require.context("C:/xampp/htdocs/Quakka/frontend/dashboardadminquakkad/src/assets/img/halls/", true, /\.(png|jpe?g|svg)$/);
             let img = url(`./${nameImg}`);
             return img;

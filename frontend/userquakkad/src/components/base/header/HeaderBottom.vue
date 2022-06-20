@@ -47,7 +47,8 @@
                                         aria-label="Toggle navigation">Pages</a>
                                     <ul class="sub-menu collapse" id="submenu-1-2">
                                         <li class="nav-item">
-                                            <router-link to="/about" class="active" aria-label="Toggle navigation">About
+                                            <router-link to="/commands" class="active" aria-label="Toggle navigation">
+                                                commands
                                             </router-link>
                                         </li>
 
@@ -102,7 +103,7 @@
                                     </ul>
                                 </li>
                                 <li class="nav-item">
-                                    <router-link to="/contact" class="active" aria-label="Toggle navigation">Contact
+                                    <router-link to="/hall-list" class="active" aria-label="Toggle navigation">Halls
                                     </router-link>
                                 </li>
                             </ul>
@@ -112,23 +113,9 @@
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-12">
-                <!-- Start Nav Social -->
                 <div class="nav-social">
                     <h5 class="title">Follow Us:</h5>
-                    <ul>
-                        <li>
-                            <a><i class="lni lni-facebook-filled"></i></a>
-                        </li>
-                        <li>
-                            <a><i class="lni lni-twitter-original"></i></a>
-                        </li>
-                        <li>
-                            <a><i class="lni lni-instagram"></i></a>
-                        </li>
-                        <li>
-                            <a><i class="lni lni-skype"></i></a>
-                        </li>
-                    </ul>
+                  <Social /> 
                 </div>
 
             </div>
@@ -138,7 +125,11 @@
 </template>
 
 <script>
+import Social from '@/components/base/Social.vue'
 export default{
     name: "headerBottom",
+    components: {
+        Social
+    },
 }
 </script>

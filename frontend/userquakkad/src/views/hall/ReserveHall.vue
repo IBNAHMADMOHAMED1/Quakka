@@ -2,16 +2,17 @@
 import { mapGetters } from "vuex";
 import FormResrve from "./FormResrve.vue";
 import Comments from "@/components/comments/Comments.vue";
+import PostSocialShare from '@/views/blog/PostSocialShare.vue';
 export default {
   name: "ReserveHall",
-    components: { FormResrve, Comments },
+    components: { FormResrve, Comments, PostSocialShare },
   data() {
     return {
       isLoggedIn: false,
       isLoading: true,
       hall: {},
       images: [],
-        fristImag: '',
+      fristImag: '',
       id: 0,
     };
   },
@@ -69,7 +70,12 @@ export default {
         <section class="section blog-single">
             <div class="container">
                 <div class="row">
+
                     <div class="col-lg-10 offset-lg-1 col-md-12 col-12">
+                        <div @click="$router.back()" style=" margin-top: 5%">
+                            <i style="font-size: 2.5rem; color: #A020F0; cursor: pointer;"
+                                class="lni lni-arrow-left"></i>
+                        </div>
                         <div class="single-inner">
                             <div class="post-details">
                                 <div class="main-content-head">
@@ -204,50 +210,12 @@ export default {
                                                     <li><a>#{{ hall.address}}</a></li>
                                                 </ul>
                                             </div>
-                                            <!-- End Post Tag -->
-                                            <!-- Post Social Share -->
-                                            <div class="post-social-media">
-                                                <h5 class="share-title">Share post :</h5>
-                                                <ul>
-                                                    <li>
-                                                        <a>
-                                                            <i class="lni lni-facebook-filled"></i>
-                                                            <span>facebook</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a>
-                                                            <i class="lni lni-twitter-original"></i>
-                                                            <span>twitter</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a>
-                                                            <i class="lni lni-google"></i>
-                                                            <span>google+</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a>
-                                                            <i class="lni lni-linkedin-original"></i>
-                                                            <span>linkedin</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a>
-                                                            <i class="lni lni-pinterest"></i>
-                                                            <span>pinterest</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                           
+                                            <PostSocialShare />
                                         </div>
                                     </div>
                                 </div>
-                                <FormResrve 
-                                    
-                                    :id="hall.id"                                
-                                />
+                                <FormResrve :id="hall.id" />
                             </div>
                         </div>
                     </div>

@@ -132,6 +132,11 @@ const routes = [
     path: '/edit-blog/:blogId',
     name: 'edit-blog',
     component: () => import('@/views/Blogs/EditBlog.vue')
+  },
+  {
+    path: '/subscribers',
+    name: 'subscribers',
+    component: () => import('@/views/Subscribers/Subscribers.vue')
   }
  
 ]
