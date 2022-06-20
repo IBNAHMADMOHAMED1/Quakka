@@ -28,6 +28,8 @@ export default new Vuex.Store({
     list: [],
     blogs: [],
     blog: [],
+    subscribers: [],
+    messages: [],
   },
   getters: {
     sideBarOpen: (state) => {
@@ -68,9 +70,9 @@ export default new Vuex.Store({
     listOfProducts: (state) => { return state.listOfProducts},
     list: (state) => { return state.list},
     blogs: (state) => { return state.blogs },
-    blog: (state) => { return state.blog}
-
-
+    blog: (state) => { return state.blog },
+    subscribers: (state) => { return state.subscribers },
+    messages: (state) => { return state.messages },
   },
   mutations: {
     toggleSidebar(state) {
@@ -116,7 +118,13 @@ export default new Vuex.Store({
     setBlogs(state, blogs) {
       state.blogs = blogs;
     },
-    setBlog(state, blog) { state.blog = blog }
+    setBlog(state, blog) { state.blog = blog },
+    setSubscribers(state, subscribers) {
+      state.subscribers = subscribers;
+    },
+    setMessages(state, messages) {
+      state.messages = messages;
+    }
 
   },
   actions: {
@@ -244,7 +252,6 @@ export default new Vuex.Store({
               context.dispatch("getOrders");
             }
             if (type_table == "blogs") {
-
             }
           } 
         });
@@ -336,20 +343,20 @@ export default new Vuex.Store({
       })
         .then((response) => response.json())
         .then((data) => {
-          if (defineParam.model == "halls") {
+          if (defineParam.model == "halls") 
              context.commit("setHalls", data[1]);
-          }
-          if (defineParam.model == "products") {
+          if (defineParam.model == "products") 
             context.commit("setProducts", data[1]);
-          }
-          if (defineParam.model == "commands") {
+          if (defineParam.model == "commands") 
             context.commit("setCommands", data[1]);
-          }
-          if (defineParam.model == "orders") {
+          if (defineParam.model == "orders") 
             context.commit("setOrders", data);
-          }
           if (defineParam.model == "blogs") 
             context.commit("setBlogs", data[1]);
+          if (defineParam.model == "subscribes")
+            context.commit("setSubscribers", data);
+          if (defineParam.model == "messages")
+            context.commit("setMessages", data);
           
         });
     },

@@ -10,12 +10,12 @@
                                     class="font-bold text-gray-500 mb-2 text-[50px] sm:text-[80px] md:text-[100px] leading-none">
                                     404
                                 </h2>
-                                <div
+                                <!-- <div
                                     style="cursor: pointer;"
-                                    @click="back"
+                                    @click="$router.go(-1)"
                                     class="text-base font-semibold text-gray-600 inline-block text-center border border-purple-700 rounded-lg px-8 py-3 hover:bg-purple-700 hover:text-white transition">
                                     Go To Back
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div
@@ -86,7 +86,7 @@ export default {
     methods: {
         back() {
             console.log('back');
-            this.$router.push('/');
+            this.$router.back();
         }
     }
     

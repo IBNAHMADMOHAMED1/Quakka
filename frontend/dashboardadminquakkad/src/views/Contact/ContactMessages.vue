@@ -1,10 +1,9 @@
 <template>
     <div>
         <Main>
-
-            <BreadCrumb :items="['Dashboard', 'subscribers']" />
+            <BreadCrumb :items="['Dashboard', 'Halls']" />
             <div class="container mx-auto py-6 px-4" x-data="datatables()" x-cloak>
-                <h1 class="text-3xl py-4 border-b mb-10">subscribers List</h1>
+                <h1 class="text-3xl py-4 border-b mb-10">halls List</h1>
                 <div v-if="loading">
                     <Loading />
                 </div>
@@ -39,7 +38,7 @@
                                                 {{ header.name }}
                                             </th>
                                         </tr>
-                                    <tbody v-if="subscribers.length == 0 && !searchIsLoading"
+                                    <tbody v-if="messages.length == 0 && !searchIsLoading"
                                         class="text-center p-5 w-1/2">
                                         <div class="text-gray-600">
                                             No data
@@ -50,19 +49,29 @@
                                     </tbody>
                                     </thead>
                                     <tbody class="bg-white">
-                                        <tr v-for="(hall, index) in subscribers" :key="index">
+                                        <tr v-for="message in messages" :key="message.id">
                                             <td :class="`cursor-pointer ${default_ClassName}`">
                                                 <div class="text-sm leading-5 text-gray-900">
-                                                    {{ hall.id }}
+                                                    {{ message.id }}
                                                 </div>
                                             </td>
                                             <td :class="` ${default_ClassName}`">
                                                 <div class="text-sm leading-5 text-gray-500">
-                                                    {{ hall.email }}$
+                                                    {{ message.object }}$
+                                                </div>
+                                            </td>
+                                               <td :class="` ${default_ClassName}`">
+                                                <div class="text-sm leading-5 text-gray-500">
+                                                    {{ message.message }}
+                                                </div>
+                                            </td>
+                                               <td :class="` ${default_ClassName}`">
+                                                <div class="text-sm leading-5 text-gray-500">
+                                                    {{ message.phone }}
                                                 </div>
                                             </td>
 
-                                            <td @click="sendMail(hall.email)"
+                                            <td @click="sendMail(message.email)"
                                                 :class="`cursor-pointer ${default_ClassName}`">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                     fill="currentColor" class="bi bi-envelope text-purple-700"
@@ -71,7 +80,7 @@
                                                         d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
                                                 </svg>
                                             </td>
-                                            <td @click="deleteSub(hall.id)"
+                                            <td @click="deleteSub(message.id)"
                                                 :class="`cursor-pointer ${default_ClassName} text-red-400`">
                                                 <TrashIcon />
                                             </td>
@@ -107,11 +116,13 @@
                 sourceImages: "../../assets/img/product/",
                 th_table: [
                     { name: "id" },
+                    { name: "Obejct" },
                     { name: "Email" },
+                    { name: "Phone" },
                     { name: "Send Mail" },
                     { name: "Delete" },
                 ],
-                subscribers: [],
+                messages: [],
                 creat_status_class: "",
                 images: [],
                 search: "",
@@ -136,10 +147,10 @@
                         let isDelete = false;
                         let params = {
                             id: id,
-                            model: "subscribes",
+                            model: "messages",
                         };
                         this.$store.dispatch("delete", params);
-                        this.subscribers = this.subscribers.filter((hall) => hall.id !== id);
+                        this.messages = this.messages.filter((hall) => hall.id !== id);
                         Swal.fire("Deleted!", "Your file has been deleted.", "success");
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                         Swal.fire("Cancelled", "Your hall is safe :)", "error");
@@ -147,19 +158,19 @@
                 });
             },
             get_halls() {
-                this.subscribers = this.$store.state.subscribers;
+                this.messages = this.$store.state.messages;
             },
             searchKeyPress() {
                 console.log(this.search);
                 if (this.search.length > 0) {
-                    this.subscribers = this.subscribers.filter((hall) => {
+                    this.messages = this.messages.filter((hall) => {
                         return hall.email.toLowerCase().includes(this.search.toLowerCase());
                     });
                 } else {
                     this.get_halls();
                 }
                 if (this.search.length > 0 && event.keyCode == 8) {
-                    this.halsubscribersls = this.subscribers.filter((hall) => {
+                    this.messages = this.messages.filter((hall) => {
                         return hall.email.toLowerCase().includes(this.search.toLowerCase());
                     });
                 }
@@ -176,10 +187,10 @@
             },
         },
         mounted() {
-            const params = { model: "subscribes" };
+            const params = { model: "messages" };
             store.dispatch("getAll", params);
             setTimeout(() => {
-                this.subscribers = store.getters.subscribers;
+                this.messages = store.getters.messages;
                 this.loading = false;
             }, 1300);
         },

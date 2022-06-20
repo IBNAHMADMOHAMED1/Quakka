@@ -137,6 +137,11 @@ const routes = [
     path: '/subscribers',
     name: 'subscribers',
     component: () => import('@/views/Subscribers/Subscribers.vue')
+  },
+  {
+    path: '/contact-messages',
+    name: 'contact-messages',
+    component: () => import('@/views/Contact/ContactMessages.vue')
   }
  
 ]

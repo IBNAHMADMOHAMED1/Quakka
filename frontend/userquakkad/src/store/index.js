@@ -515,7 +515,6 @@ export default createStore({
               title: "Message Successful",
               text: "You have successfully sent a message",
             });
-            router.push("/commands");
           }
         });
     },
