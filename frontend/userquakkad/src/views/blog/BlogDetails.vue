@@ -1,7 +1,6 @@
 <template>
 
     <Crumbs title="Singleblog" />
-
     <section class="section blog-single">
         <div class="container">
             <div class="row">
@@ -19,15 +18,11 @@
                                         </a>
                                     </h2>
                                     <ul class="meta-info">
-
                                         <li>
-                                            <a><i class="lni lni-calendar"></i> {{ date_for_humans(blog.created_at) }}
-                                            </a>
+                                            <a><i class="lni lni-calendar"></i> {{ date_for_humans(blog.created_at) }} </a>
                                         </li>
                                         <li>
-                                            <a><i class="lni lni-tag"></i>
-                                                {{blog.category}}</a>
-
+                                            <a><i class="lni lni-tag"></i> {{blog.category}}</a>
                                         </li>
                                         <li>
                                             <a><i class="lni lni-timer"></i> 5 min read</a>
@@ -60,7 +55,6 @@
                                         dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
                                         pariatur.
                                         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia. </p>
-                                    <!-- post quote -->
 
                                     <h3>Setting the mood with incense</h3>
                                     <p>Remove aversion, then, from all things that are not in our control, and transfer
@@ -84,25 +78,17 @@
                                         irure
                                         dolor in reprehenderit. </p>
                                     <div class="post-bottom-area">
-                                        <!-- Start Post Tag -->
                                         <div class="post-tag">
                                             <ul>
                                                 <li><a>#{{blog.category}}</a></li>
-
                                             </ul>
                                         </div>
-                                        <!-- End Post Tag -->
                                         <PostSocialShare />
-
-
                                     </div>
                                 </div>
                             </div>
-                            <!-- Comments -->
                             <allComments :id_blog="blog.id" />
-                            <!-- Comments -->
                             <Comments :id_blog="blog.id" />
-
                         </div>
                     </div>
                 </div>
@@ -190,10 +176,7 @@ export default {
             }
             if (event.keyCode ==13)
                 this.search();
-
-        
         }
-             
     },
     mounted() {
         const id = this.$route.params.id
@@ -207,7 +190,6 @@ export default {
             });
         this.$store.dispatch('getallComments', id);
     },
-    
     watch: {
         $route: function () {
             const id = this.$route.params.id
@@ -215,15 +197,8 @@ export default {
             fetch(newLocal)
                 .then((response) => response.json())
                 .then((data) => {
-                    if (data[0]) {
+                    if (data[0]) 
                         this.blog = data[1];
-                    } else {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Error",
-                            text: "You have an error",
-                        });
-                    }
                 });
         }
     }
@@ -233,10 +208,7 @@ export default {
 </script>
 
 <style>
-
-
 .search-key {
     background-color: #ffc107;
 }
-
 </style>

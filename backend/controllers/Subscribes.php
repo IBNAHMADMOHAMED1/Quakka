@@ -22,6 +22,21 @@ class Subscribes extends Controller
         if ($subscribe) 
                echo json_encode([true, $subscribe]);
         else   echo json_encode([false, 'Invalid credentials']);
-        
+    }
+    public function getall()
+    {
+        header('Content-Type: application/json');
+        $this->loadModel('Subscribe');
+        $subscribes = $this->Subscribe->getall();
+        echo json_encode($subscribes);
+    }
+    public function delete($id)
+    {
+        $this->loadModel('Subscribe');
+        $subscribe = $this->Subscribe->delete($id);
+        if ($subscribe)
+            echo json_encode(['success' => true, 'subscribe' => $subscribe]);
+        else
+            echo json_encode(['success' => false, 'message' => 'Subscribe not deleted']);
     }
 }   

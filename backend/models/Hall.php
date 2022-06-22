@@ -9,9 +9,10 @@ class Hall extends Model
     }
     public function create($data)
     {
-       echo   json_encode($data);
-        die();
-        if (empty($data['status'])) $data['status'] = true;
+      
+        if (empty($data['status'])) $data['status'] = 0;
+        // echo json_encode($data);
+        // die();
         $sql = "INSERT INTO $this->table (name,address,Nbr_place,description,price,status,created_at) VALUES (:name, :address, :Nbr_place, :description, :price, :status, NOW())";
         $stmt = $this->_connexion->prepare($sql);
         $stmt->bindValue(':name', $data['name']);
@@ -20,7 +21,8 @@ class Hall extends Model
         $stmt->bindValue(':description', $data['description']);
         $stmt->bindValue(':price', $data['price']);
         $stmt->bindValue(':status', $data['status']);
-        $this->_oneHall($this->_connexion->lastInsertId());
+        return $stmt->execute() ?  $this->_oneHall($this->_connexion->lastInsertId()) : false;
+       
     }
     public function _oneHall($id)
     {

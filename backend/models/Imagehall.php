@@ -10,13 +10,10 @@ class Imagehall extends Model
     }
     public function upload_images($id, $images)
     {
-        $id = (int)$id;
         $sutupla = [];
         foreach ($images as $image) {
-            $sql = "INSERT INTO $this->table  (name, idHall) VALUES (:name, :idHall)";
+            $sql = "INSERT INTO $this->table ( name ,idHall) VALUES ('$image',$id)";
             $stmt = $this->_connexion->prepare($sql);
-            $stmt->bindValue(':name', $image);
-            $stmt->bindValue(':idHall', $id);
             $stmt->execute() ? array_push($sutupla, true) : array_push($sutupla, false);
         }
         return in_array(false, $sutupla) ? false : true;

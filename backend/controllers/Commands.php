@@ -22,9 +22,11 @@ class commands extends Controller
             $command['hall'] = array_filter($halls, function ($hall) use ($command) {
                 return $hall['id'] == $command['hall_id'];
             });
+
             $command['client'] = array_filter($clients, function ($client) use ($command) {
                 return $client['id'] == $command['client_id'];
             });
+             $command['client'] = array_values($command['client'])[0];
             return $command;
         }, $commands);
         if ($commands) echo json_encode([true, $commands]);

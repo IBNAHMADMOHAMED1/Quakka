@@ -94,7 +94,7 @@ class admins extends Controller
             $valid_extensions = array('jpeg', 'jpg', 'png', 'gif');
             if (in_array($fileExt, $valid_extensions)) {
                 if (!file_exists($upload_path . $fileName)) {
-                    if ($fileSize < 5000000) {
+                    if ($fileSize < 500000000) {
                         move_uploaded_file($tempPath, $upload_path . $fileName); // move file from system temporary path to our upload folder path 
                     } else {
                         $errorMSG = json_encode(array("message" => "Sorry, your file is too large, please upload 5 MB size", "status" => false));

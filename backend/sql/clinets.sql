@@ -145,6 +145,18 @@ create table if not exists messages(
     created_at datetime not null,
     primary key(id)
 )
+
+create table if not exists comments(
+    id int not null auto_increment,
+    comment varchar(255) not null,
+    client_id int not null,
+    blog_id int not null,
+    created_at datetime not null,
+    primary key(id),
+    foreign key(client_id) references clients(id),
+    foreign key(blog_id) references blogs(id)
+)
+
     
    
 

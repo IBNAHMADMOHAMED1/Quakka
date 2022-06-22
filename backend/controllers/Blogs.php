@@ -32,7 +32,7 @@ class blogs extends controller
     public function uploadImage($image)
     {
         $imgName = time() . '_' . basename($image['name']);
-        $imgPath = 'C:\xampp\htdocs\Quakka\frontend\dashboardadminquakkad\src\assets\img\blog/' . $imgName;
+        $imgPath = 'C:/xampp/htdocs/Quakka/frontend/dashboardadminquakkad/public/assets/img/blog/' . $imgName;
         $fileTmpName = $image['tmp_name'];
         move_uploaded_file($fileTmpName, $imgPath);
         return $imgName;
@@ -40,9 +40,38 @@ class blogs extends controller
     public function delete($id)
     {
         $this->loadModel('Blog');
+        // $oldImg = $this->Blog->getone($id);
+        // unlink('C:/xampp/htdocs/Quakka/frontend/dashboardadminquakkad/public/assets/img/blog/' . $oldImg['image']);
         $blog = $this->Blog->delete($id);
         if ($blog) echo json_encode([true, 'blog' => $blog]);
         else  echo json_encode(['message' => 'Blog not deleted']);
+    }
+    public function getone($id)
+    {
+        $this->loadModel('Blog');
+        $blog = $this->Blog->_oneBlog($id);
+        if ($blog) echo json_encode([true,$blog]);
+        else  echo json_encode(['message' => 'Blog not found']);
+    }
+    public function update($id)
+    {
+        $this->loadModel('Blog');
+        $data = $_POST;
+        $image = $_FILES['image'];
+        // $oldImg = $this->Blog->getone($id);
+        // unlink('C:\xampp\htdocs\Quakka\frontend\dashboardadminquakkad\src\assets\img\blog/' . $oldImg['image']);
+        $imgName = $this->uploadImage($image);
+        $blog = $this->Blog->_update($id,$data,$imgName);
+        
+        if ($blog) echo json_encode([true,$blog]);
+        else  echo json_encode(['message' => 'Blog not updated']);
+    }
+    public function _oneBlog($id)
+    {
+        $this->loadModel('Blog');
+        $blog = $this->Blog->_oneBlog($id);
+        if ($blog) echo json_encode([true,$blog]);
+        else  echo json_encode(['message' => 'Blog not found']);
     }
    
 }

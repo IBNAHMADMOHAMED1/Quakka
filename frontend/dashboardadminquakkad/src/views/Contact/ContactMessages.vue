@@ -1,9 +1,9 @@
 <template>
     <div>
         <Main>
-            <BreadCrumb :items="['Dashboard', 'Halls']" />
+            <BreadCrumb :items="['Dashboard', 'Contact-messages']" />
             <div class="container mx-auto py-6 px-4" x-data="datatables()" x-cloak>
-                <h1 class="text-3xl py-4 border-b mb-10">halls List</h1>
+                <h1 class="text-3xl py-4 border-b mb-10">Messages List</h1>
                 <div v-if="loading">
                     <Loading />
                 </div>
