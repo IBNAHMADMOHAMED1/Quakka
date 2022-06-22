@@ -6,9 +6,8 @@ Quakka is a ecommerce platform for online shopping.
 The project is in progress...
 ## Demo 
 
+Viwe user :
 
-
-![ezgif com-gif-maker](https://user-images.githubusercontent.com/93975913/175109901-d137a888-c0d6-4556-a1cf-eeab590b06c5.gif)
 
 
 
@@ -16,3 +15,4 @@ The project is in progress...
 
 s
 
+![screen-recorder-wed-jun-22-2022-19-10-38](https://user-images.githubusercontent.com/93975913/175110756-d40fa6c4-ee17-472e-8212-be911f349105.gif)
